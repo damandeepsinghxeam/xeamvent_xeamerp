@@ -114,7 +114,9 @@ class VendorController extends Controller
             'mobile'                        => 'required',
             'name_of_contact_person'        => 'required',
             'designation_of_contact_person' => 'required',
-            'description_of_company'        => 'required',      
+            'description_of_company'        => 'required',  
+            
+            
             'items_for_service'             => 'required',      
         ]);
 
