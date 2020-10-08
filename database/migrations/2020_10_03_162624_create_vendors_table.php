@@ -15,12 +15,13 @@ class CreateVendorsTable extends Migration
     {
         Schema::create('vendors', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('user_id');
             $table->string('name_of_firm');
             $table->string('type_of_firm');
-            $table->string('type_of_firm_others');
+            $table->string('type_of_firm_others')->nullable();
             $table->string('status_of_company');
-            $table->string('type_of_service_provide');
-            $table->string('manpower_provided');
+            $table->string('type_of_service_provide')->nullable();
+            $table->string('manpower_provided')->nullable();
             $table->string('address');
             $table->bigInteger('country_id');
             $table->bigInteger('state_id');
@@ -28,7 +29,7 @@ class CreateVendorsTable extends Migration
             $table->string('pin');
             $table->string('std_code_with_phn_no');
             $table->string('email');
-            $table->string('website');
+            $table->string('website')->nullable();
             $table->bigInteger('mobile');
             $table->string('name_of_contact_person');
             $table->string('designation_of_contact_person');
