@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Vendor;
+use App\VendorApprovals;
 use Illuminate\Http\Request;
 
 use App\Project;
@@ -114,10 +115,8 @@ class VendorController extends Controller
             'mobile'                        => 'required',
             'name_of_contact_person'        => 'required',
             'designation_of_contact_person' => 'required',
-            'description_of_company'        => 'required',  
-            
-            
-            'items_for_service'             => 'required',      
+            'description_of_company'        => 'required',      
+            'items_for_service'             => 'required',     
         ]);
 
         if ($validator->fails()) {
