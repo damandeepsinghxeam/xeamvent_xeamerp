@@ -289,7 +289,7 @@
 	                             <label for="mobile" class="apply-leave-label">Mobile<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="mobile" id="mobile" placeholder="Please enter mobile">
+							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="mobile" id="mobile" maxlength="10" placeholder="Please enter mobile">
 	                          </div>
 	                       </div>
 	                    </div>
@@ -367,8 +367,7 @@
     $("#vendorRequisitionForm").validate({
       rules: {
         "name_of_firm" : {
-			required : true,
-			lettersonly : true
+			required : true
         },
         
          "type_of_firm" : {
@@ -378,9 +377,11 @@
         "type_of_firm_others" :{
           required: true
         },
+
         "status_of_company" : {
           required: true
         },
+		
         "type_of_service_provide" : {
           required: true
         },
@@ -415,6 +416,10 @@
 		  email : true
         },
 
+		"website" : {
+			url : true
+        },
+
         "mobile" : {
 			required : true,
             digits : true,
@@ -422,13 +427,11 @@
         },
       
         "name_of_contact_person" : {
-			required : true,
-			lettersonly : true
+			required : true
         },
 
         "designation_of_contact_person" : {
-			required : true,
-			lettersonly : true
+			required : true
         },
         "description_of_company" : {
           required: true
@@ -488,10 +491,15 @@
           "email" : {
             required: 'Please Enter Email'
           },
+
+		  "website" : {
+           url : 'Please enter full website url with http:// or https://.'
+           },
         
           "mobile" : {
             required: 'Enter Mobile'
           },
+
           "name_of_contact_person" : {
             required: 'Enter Name Of Contact Person'
 

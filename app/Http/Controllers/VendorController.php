@@ -112,7 +112,7 @@ class VendorController extends Controller
             'pin'                           => 'required',
             'std_code_with_phn_no'          => 'required',
             'email'                         => 'required',
-            'mobile'                        => 'required',
+            'mobile'                        => ['required','min:10','max:10'],
             'name_of_contact_person'        => 'required',
             'designation_of_contact_person' => 'required',
             'description_of_company'        => 'required',      
@@ -148,7 +148,22 @@ class VendorController extends Controller
         
         ];
 
-        Vendor::create($data);
+        $user      = User::where(['id' => Auth::id()])->with('employee')->first();
+        $saved_vendor = $user->vendor()->create($data);     
+        // Vendor::create($data);
+
+        $vendor_approval = [
+            'user_id'       => $request->user_id,
+            'vendor_id'        => $saved_vendor->id,
+            'supervisor_id' => 13,
+            // 'priority'      => '2', 
+            'vendor_status'    => '0', //inprogress
+        ];
+
+        //dd($jrf_approval);
+        
+        $saved_vendor = $user->vendorapprovals()->create($vendor_approval);
+
         return redirect()->back()->with('success', "Vendor created successfully.");
     }
 

@@ -235,6 +235,16 @@ class User extends Authenticatable
 
         return $this->hasOne('App\JrfLevelOneScreening');
     }
+
+    function vendor(){
+
+        return $this->hasOne('App\Vendor');
+    }
+
+    function VendorApprovals(){
+
+        return $this->hasMany('App\VendorApprovals');
+    }
     
     // END JRF //
     
