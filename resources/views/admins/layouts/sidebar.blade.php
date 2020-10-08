@@ -56,6 +56,7 @@ if(!empty($usser)) {
                     @can('replace-authority')
                         <li class=""><a href="{{ url('employees/replace-authority') }}"><i class="fa fa-circle-o text-yellow"></i>Replace Authority</a></li>
                     @endcan
+
                 </ul>
             </li>
 

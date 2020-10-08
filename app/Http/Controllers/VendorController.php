@@ -149,23 +149,102 @@ class VendorController extends Controller
         ];
 
         $user      = User::where(['id' => Auth::id()])->with('employee')->first();
-        $saved_vendor = $user->vendor()->create($data);     
-        // Vendor::create($data);
 
+        // $saved_vendor = $user->vendor()->create($data);     
+
+        // $userId = User::permission('vendor-approval')->pluck('id');
+         $userId = User::where('employee_code', '01')->first()->id;
         $vendor_approval = [
             'user_id'       => $request->user_id,
             'vendor_id'        => $saved_vendor->id,
-            'supervisor_id' => 13,
+            'supervisor_id' => $userId,
             // 'priority'      => '2', 
             'vendor_status'    => '0', //inprogress
         ];
 
-        //dd($jrf_approval);
+        //dd($vendor_approval);
         
         $saved_vendor = $user->vendorapprovals()->create($vendor_approval);
 
         return redirect()->back()->with('success', "Vendor created successfully.");
     }
+
+    // List view of Jrf
+
+    // public function listVendor(Request $request)
+    // {
+
+    //     if (Auth::guest()) {
+    //         return redirect('/');
+    //     }
+        
+    //     $condition = array();
+    //     $user = User::where(['id' => Auth::id()])->first();
+
+    //     $condition[] = array('vendor.user_id', '=', $user->id);
+
+    //     if(!empty($request->project_id)){
+    //         $condition[] = array('vendor.vendor_id', '=', $request->vendor_id);
+    //     }
+
+    //     // if(!empty($request->designation_id)){
+    //     //     $condition[] = array('jrf.designation_id', '=', $request->designation_id);
+    //     // }
+
+    //     $jrfs = DB::table('vendors as vendor')
+    //         ->join('designations as des', 'vendor.designation_id', 'des.id')
+    //         ->join('departments as dep','vendor.department_id','=','dep.id')
+    //         ->join('roles as r', 'vendor.role_id', 'r.id')
+    //         ->join('projects as prj','vendor.project_id','prj.id')
+    //         ->where($condition)            
+    //         ->select('vendor.*', 'des.name as designation', 'r.name as role','prj.name','dep.name as department')
+    //         ->orderBy('vendor.id', 'DESC')
+    //         ->get();
+
+
+    //     $detail['recruitment_detail'] = DB::table('jrf_recruitment_tasks as jrt')
+    //                                     ->join('vendors as vendor','jrt.jrf_id','=','vendor.id')
+    //                                     ->where('jrt.user_id',$user->id)    
+    //                                     ->select('jrt.last_date','jrt.jrf_id')    
+    //                                     ->get();
+
+    //     $projects = Project::where(['isactive'=>1])->get();
+    //     $designations = Designation::where(['isactive'=>1])->select('id','name')->get();
+
+    //     if (!$vendors->isEmpty()) {
+    //         foreach ($vendors as $key => $value) {
+
+
+    //             $vendor_approval_status = DB::table('vendor_approvals as va')
+    //                 ->leftjoin('jrf_recruitment_tasks as jrt','va.vendor_id','=','jrt.jrf_id')    
+    //                 ->where(['va.vendor_id' => $value->id])->get();
+                
+    //             $can_cancel_vendor = 0;
+    //             if (count($vendor_approval_status) == 1 && $vendor_approval_status[0]->jrf_status == 0) {
+    //                 $can_cancel_vendor = 1;
+    //             }
+
+    //             $value->vendor_approval_status = $vendor_approval_status;
+    //             $value->can_cancel_vendor   = $can_cancel_vendor;
+
+    //             if ($value->final_status == '0') {
+    //                 $check_rejected = DB::table('jrf_approvals as va')
+    //                     ->where(['va.vendor_id' => $value->id, 'va.jrf_status' => '2'])
+    //                     ->first();
+    //                 if (!empty($check_rejected)) {
+    //                     $value->secondary_final_status = 'Rejected';
+    //                 } else {
+    //                     $value->secondary_final_status = 'In-Progress';
+    //                 }
+    //             } else {
+    //                     $value->secondary_final_status = 'Closed';
+    //             }
+
+    //         }
+    //     }
+    //     return view('vendor.list_vendor')->with(['vendors' => $vendors,'designations'=>$designations,'projects'=>$projects,'req'=>$request]);
+
+    // }
 
     /**
      * Display the specified resource.
