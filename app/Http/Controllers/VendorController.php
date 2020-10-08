@@ -150,7 +150,7 @@ class VendorController extends Controller
 
         $user      = User::where(['id' => Auth::id()])->with('employee')->first();
 
-        // $saved_vendor = $user->vendor()->create($data);     
+         $saved_vendor = $user->vendor()->create($data);     
 
         // $userId = User::permission('vendor-approval')->pluck('id');
          $userId = User::where('employee_code', '01')->first()->id;
