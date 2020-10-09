@@ -184,32 +184,46 @@ class VendorController extends Controller
         //                     ->orderBy('created_at','DESC')
         //                     ->get(); 
 
-        // $projectsdraft_sent = Vendor::where(['status'=>'1'])
-        //                     ->orderBy('created_at','DESC')
-        //                     ->get();
-
             $vendor_app =  DB::table('vendors as vend')
                            ->join('vendor_approvals as vap','vend.id','=','vap.vendor_id')
                            ->where('vap.vendor_status','0')
-                           ->select('vend.*','vap.vendor_status')
+                           ->select('vend.*','vap.vendor_status','vap.supervisor_id')
                            ->get();
 
-            dd($vendor_app);
+            // dd($vendor_app);
+
+            // if($projectsdraft_sent AND !$projectsdraft_sent->isEmpty() AND $canapprove==1){   
+            //     foreach($projectsdraft_sent as $projectsdraft){         
+            //         $project_approval_data_array = unserialize($projectsdraft->project_approval);
+            //         $project_approval_data_array['status'] = $projectsdraft->status;
+            //         $project_approval_data_array['id'] = $projectsdraft->id;
+            //         $project_approval_data_array['creator_id'] = $projectsdraft->creator_id;
+            //         $data[] = $project_approval_data_array;
+            //     }
+            // }else{
+            //     $data=[];
+            // } 
 
     
-            if($projectsdraft_sent AND !$projectsdraft_sent->isEmpty() AND $canapprove==1){   
-                foreach($projectsdraft_sent as $projectsdraft){         
-                    $project_approval_data_array = unserialize($projectsdraft->project_approval);
-                    $project_approval_data_array['status'] = $projectsdraft->status;
-                    $project_approval_data_array['id'] = $projectsdraft->id;
-                    $project_approval_data_array['creator_id'] = $projectsdraft->creator_id;
+            if($vendor_app AND !$vendor_app->isEmpty() AND $canapprove==1){   
+                foreach($vendor_app as $vendorData){         
+                    // $project_approval_data_array = unserialize($vendorData->project_approval);
+                    $project_approval_data_array['id'] = $vendorData->id;
+                    $project_approval_data_array['name_of_firm'] = $vendorData->name_of_firm;
+                    $project_approval_data_array['type_of_firm'] = $vendorData->type_of_firm;
+                    $project_approval_data_array['status_of_company'] = $vendorData->status_of_company;
+                    $project_approval_data_array['email'] = $vendorData->email;
+                    $project_approval_data_array['vendor_status'] = $vendorData->vendor_status;
+                    $project_approval_data_array['supervisor_id'] = $vendorData->supervisor_id;
                     $data[] = $project_approval_data_array;
+                    
                 }
             }else{
                 $data=[];
             }   
+            // dd($data);
          
-            return view('vendors.list_vendors')->with(['projects'=>$data, 'approval'=>'1']);
+            return view('vendor.list_vendors')->with(['vendors'=>$data, 'approval'=>'1']);
     
         }
 

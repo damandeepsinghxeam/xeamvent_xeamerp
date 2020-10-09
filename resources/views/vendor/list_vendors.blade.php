@@ -61,10 +61,10 @@
                     <select class="form-control input-sm basic-detail-input-style" name="project_status" id="project_status">
                         
                         <option value="all" selected>All</option>
-                        <option value="0">Draft</option>
-                        <option value="1">Sent for Approval</option>
-                        <option value="2">Approved</option>
-                        <option value="3">Sent back</option>                                 
+                        <option value="0">Pending</option>
+                        <option value="1">Approved</option>
+                        <option value="2">Rejected</option>
+                        <option value="3">Sent Back</option>                                 
 
                     </select>
 
@@ -110,7 +110,7 @@
                   
                   <th>Status</th>                  
 
-                  @if(auth()->user()->can('edit-project') || auth()->user()->can('approve-project'))
+                  @if(auth()->user()->can('edit-project') || auth()->user()->can('vendor-approval'))
 
                   <th>Actions</th>
 
@@ -124,60 +124,64 @@
 
                 <?php $counter = 0; 
         
-      /*  echo"<PRE>";
-        print_r($projects);
-        exit; */
+      /* echo"<PRE>";
+        print_r($vendors);
+        exit;*/
               
         
         ?>  
-        @if(isset($projects) AND ($projects!=""))
+        @if(isset($vendors) AND ($vendors!=""))
 
-                @foreach($projects as $key =>$value)  
+                @foreach($vendors as $key =>$value)  
       
                 <tr>
 
         <td>{{@$loop->iteration}}</td>
 
-        <td>{{@$value['projectName']}}</td>
+        <td>{{@$value['name_of_firm']}}</td>
 
-        <td>{{@$value['gst_registration_number']}}</td>
+        <td>{{@$value['type_of_firm']}}</td>
 
-        <td>{{@$value['head_office_location']}}</td>
+        <td>{{@$value['status_of_company']}}</td>
 
-        <td>{{@$value['project_owner_name']}}</td>          
+        <td>{{@$value['email']}}</td>          
 
-        <td>@if($value['status'] == '1')
+        <td>@if($value['vendor_status'] == '0')
 
-        <span class="label label-danger">Not Approved</span>
+        <span class="label label-danger">Pending</span>
 
-        @elseif($value['status'] == '2')
+        @elseif($value['vendor_status'] == '1')
 
         <span class="label label-success">Approved</span>
 
-        @elseif($value['status'] == '0')
+        @elseif($value['vendor_status'] == '2')
 
-        <span class="label label-primary">Draft</span>
+        <span class="label label-primary">Rejected</span>
+
+        @elseif($value['vendor_status'] == '3')
+
+        <span class="label label-primary">Sent Back</span>
 
         @endif
 
         </td>                 
 
-        @if(auth()->user()->can('edit-project') || auth()->user()->can('approve-project'))
+        @if(auth()->user()->can('edit-project') || auth()->user()->can('vendor-approval'))
 
         <td>
 
-        @if((auth()->user()->can('edit-project'))  AND ($value['status'] == '0') AND (auth()->user()->id==$value['creator_id']))
+        @if((auth()->user()->can('edit-project'))  AND ($value['vendor_status'] == '0') AND (auth()->user()->id==$value['supervisor_id']))
 
             <a class="btn btn-xs bg-purple" href='{{ url("mastertables/projects/edit/")."/".$value['id']}}' title="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
-                @elseif((auth()->user()->can('edit-project'))  AND ($value['status'] == '1') AND (auth()->user()->id!=$value['creator_id']))
+                @elseif((auth()->user()->can('edit-project'))  AND ($value['vendor_status'] == '0') AND (auth()->user()->id!=$value['supervisor_id']))
         
                     <a class="btn btn-xs bg-purple" href='{{ url("mastertables/projects/edit/")."/".$value['id']}}' title="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
 
         @endif
 
-        @if(auth()->user()->can('approve-project') && $value)
-          @if($value['status'] == '1')
+        @if(auth()->user()->can('vendor-approval') && $value)
+          @if($value['vendor_status'] == '0')
           <a class="btn btn-xs bg-blue approveBtn" href='{{ url("mastertables/projects/approve/")."/".$value['id']}}' title="approve"><i class="fa fa-check" aria-hidden="true"></i></a>
           <a class="btn btn-xs bg-red rejectBtn" href='#' title="Send Back" data-toggle="modal" data-target="#project_InfoModal"><i class="fa fa-reply" aria-hidden="true"></i></a>
           <a class="btn btn-xs bg-orange" href='{{ url("mastertables/projects/show_projectDraft/".$value['id'])}}' title="show"><i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -210,15 +214,11 @@
           
           <td>Status</td>
 
-                   @if(auth()->user()->can('edit-project') || auth()->user()->can('approve-project'))
+                   @if(auth()->user()->can('edit-project') || auth()->user()->can('vendor-approval'))
 
                   <th>Actions</th>
 
                   @endif
-
-
-
-                 
 
                 </tr>
 
