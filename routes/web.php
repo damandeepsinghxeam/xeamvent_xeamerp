@@ -19,7 +19,7 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'App\Http\Middleware\Restric
 Route::get('create', 'VendorController@create');
 Route::post('save-vendor', 'VendorController@saveVendor');
 Route::get('approval-vendors','VendorController@listApprovalVendors');
-// Route::get('list-vendor', 'VendorController@listVendor');
+Route::get('{action}/{vendor_id?}', 'VendorController@vendorAction');
 });
 /**************JRF****************/
 

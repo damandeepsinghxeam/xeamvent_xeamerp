@@ -171,17 +171,17 @@
 
         @if((auth()->user()->can('edit-vendor'))  AND ($value['vendor_status'] == '0') AND (auth()->user()->id==$value['supervisor_id']))
 
-            <a class="btn btn-xs bg-purple" href='{{ url("mastertables/projects/edit/")."/".$value['id']}}' title="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+            <a class="btn btn-xs bg-purple" href='{{ url("vendor/edit/")."/".$value['id']}}' title="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
                 @elseif((auth()->user()->can('edit-vendor'))  AND ($value['vendor_status'] == '0') AND (auth()->user()->id!=$value['supervisor_id']))
         
-                    <a class="btn btn-xs bg-purple" href='{{ url("mastertables/projects/edit/")."/".$value['id']}}' title="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
+                    <a class="btn btn-xs bg-purple" href='{{ url("vendor/edit/")."/".$value['id']}}' title="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
 
         @endif
 
         @if(auth()->user()->can('vendor-approval') && $value)
           @if($value['vendor_status'] == '0')
-          <a class="btn btn-xs bg-blue approveBtn" href='{{ url("mastertables/projects/approve/")."/".$value['id']}}' title="approve"><i class="fa fa-check" aria-hidden="true"></i></a>
+          <a class="btn btn-xs bg-blue approveBtn" href='{{ url("vendor/approve/")."/".$value['id']}}' title="approve"><i class="fa fa-check" aria-hidden="true"></i></a>
           <!-- <a class="btn btn-xs bg-red rejectBtn" href='#' title="Send Back" data-toggle="modal" data-target="#project_InfoModal"><i class="fa fa-reply" aria-hidden="true"></i></a> -->
           <a class="btn btn-xs bg-orange" href='{{ url("mastertables/projects/show_projectDraft/".$value['id'])}}' title="show"><i class="fa fa-eye" aria-hidden="true"></i></a>
           @endif
