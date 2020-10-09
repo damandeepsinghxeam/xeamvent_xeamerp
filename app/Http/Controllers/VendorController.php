@@ -171,82 +171,34 @@ class VendorController extends Controller
         return redirect()->back()->with('success', "Vendor created successfully.");
     }
 
-    // List view of Jrf
 
-    // public function listVendor(Request $request)
-    // {
-
-    //     if (Auth::guest()) {
-    //         return redirect('/');
-    //     }
+        // code for vendor listing of approval
         
-    //     $condition = array();
-    //     $user = User::where(['id' => Auth::id()])->first();
+        function listApprovalVendors(){   
 
-    //     $condition[] = array('vendor.user_id', '=', $user->id);
-
-    //     if(!empty($request->project_id)){
-    //         $condition[] = array('vendor.vendor_id', '=', $request->vendor_id);
-    //     }
-
-    //     // if(!empty($request->designation_id)){
-    //     //     $condition[] = array('jrf.designation_id', '=', $request->designation_id);
-    //     // }
-
-    //     $jrfs = DB::table('vendors as vendor')
-    //         ->join('designations as des', 'vendor.designation_id', 'des.id')
-    //         ->join('departments as dep','vendor.department_id','=','dep.id')
-    //         ->join('roles as r', 'vendor.role_id', 'r.id')
-    //         ->join('projects as prj','vendor.project_id','prj.id')
-    //         ->where($condition)            
-    //         ->select('vendor.*', 'des.name as designation', 'r.name as role','prj.name','dep.name as department')
-    //         ->orderBy('vendor.id', 'DESC')
-    //         ->get();
-
-
-    //     $detail['recruitment_detail'] = DB::table('jrf_recruitment_tasks as jrt')
-    //                                     ->join('vendors as vendor','jrt.jrf_id','=','vendor.id')
-    //                                     ->where('jrt.user_id',$user->id)    
-    //                                     ->select('jrt.last_date','jrt.jrf_id')    
-    //                                     ->get();
-
-    //     $projects = Project::where(['isactive'=>1])->get();
-    //     $designations = Designation::where(['isactive'=>1])->select('id','name')->get();
-
-    //     if (!$vendors->isEmpty()) {
-    //         foreach ($vendors as $key => $value) {
-
-
-    //             $vendor_approval_status = DB::table('vendor_approvals as va')
-    //                 ->leftjoin('jrf_recruitment_tasks as jrt','va.vendor_id','=','jrt.jrf_id')    
-    //                 ->where(['va.vendor_id' => $value->id])->get();
-                
-    //             $can_cancel_vendor = 0;
-    //             if (count($vendor_approval_status) == 1 && $vendor_approval_status[0]->jrf_status == 0) {
-    //                 $can_cancel_vendor = 1;
-    //             }
-
-    //             $value->vendor_approval_status = $vendor_approval_status;
-    //             $value->can_cancel_vendor   = $can_cancel_vendor;
-
-    //             if ($value->final_status == '0') {
-    //                 $check_rejected = DB::table('jrf_approvals as va')
-    //                     ->where(['va.vendor_id' => $value->id, 'va.jrf_status' => '2'])
-    //                     ->first();
-    //                 if (!empty($check_rejected)) {
-    //                     $value->secondary_final_status = 'Rejected';
-    //                 } else {
-    //                     $value->secondary_final_status = 'In-Progress';
-    //                 }
-    //             } else {
-    //                     $value->secondary_final_status = 'Closed';
-    //             }
-
-    //         }
-    //     }
-    //     return view('vendor.list_vendor')->with(['vendors' => $vendors,'designations'=>$designations,'projects'=>$projects,'req'=>$request]);
-
-    // }
+           $user = Auth::user();
+    
+           $canapprove = auth()->user()->can('approve-project'); 
+    
+           $projectsdraft_sent = ProjectDraft::where(['status'=>'1'])
+                            ->orderBy('created_at','DESC')
+                            ->get(); 
+    
+            if($projectsdraft_sent AND !$projectsdraft_sent->isEmpty() AND $canapprove==1){   
+                foreach($projectsdraft_sent as $projectsdraft){         
+                    $project_approval_data_array = unserialize($projectsdraft->project_approval);
+                    $project_approval_data_array['status'] = $projectsdraft->status;
+                    $project_approval_data_array['id'] = $projectsdraft->id;
+                    $project_approval_data_array['creator_id'] = $projectsdraft->creator_id;
+                    $data[] = $project_approval_data_array;
+                }
+            }else{
+                $data=[];
+            }   
+         
+            return view('vendors.list_vendors')->with(['projects'=>$data, 'approval'=>'1']);
+    
+        }
 
     /**
      * Display the specified resource.
