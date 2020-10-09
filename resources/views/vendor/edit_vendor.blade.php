@@ -50,7 +50,7 @@
               @endif
 
 	        <!-- form start -->
-	        <form id="vendorRequisitionForm" action="{{ url('vendor/save-vendor') }}" method="POST" enctype="multipart/form-data">
+	        <form id="vendorRequisitionForm" action="{{ url('vendor/edit-vendor') }}" method="POST" enctype="multipart/form-data">
 	        {{ csrf_field() }}
 	           <div class="box-body jrf-form-body">
 	              <div class="row">
@@ -160,8 +160,8 @@
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
 										<select name="manpower_provided" class="form-control input-sm basic-detail-input-style" id="manpower_provided">
 											<option value="">Please Specify Manpower Provided</option>
-											<option value="Yes">Yes</option> 
-											<option value="No">No</option> 
+											<option value="Yes" {{ $data['manpower_provided'] == "Yes" ? 'selected="selected"' : '' }}>Yes</option> 
+											<option value="No" {{ $data['manpower_provided'] == "No" ? 'selected="selected"' : '' }}>No</option> 
 										</select>
 	                              </div>
 	                           </div>
@@ -174,7 +174,7 @@
 	                             <label for="address" class="apply-leave-label">Address<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <textarea rows="4" cols="50" class="form-control input-sm basic-detail-input-style" id="address" name="address" placeholder="Address"></textarea>
+	                             <textarea rows="4" cols="50" class="form-control input-sm basic-detail-input-style" id="address" name="address" placeholder="Address">{{ $data['address'] }}</textarea>
 	                          </div>
 	                       </div>
 	                    </div>
@@ -231,14 +231,14 @@
 							   <label for="pin" class="apply-leave-label">Pincode<sup class="ast">*</sup></label>
 	                              	</div>
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-									  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="pin" id="pin" placeholder="Please Enter Numeric  Value In Pin Code.">
+									  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="pin" id="pin" value="{{ $data['pin'] }}" placeholder="Please Enter Numeric  Value In Pin Code.">
 	                              </div>
 	                           </div>
 	                        </div>
 					
 	                      @php $user_id = Auth::id(); @endphp
 	                        <input type="hidden" name="user_id" value="{{@$user_id}}">
-	                        <input type="hidden" name="department_id" value="{{@$data['user_dept']->department_id}}">
+							<input type="hidden" name="id" value="{{ $data['id'] }}">
 
 	                    </div>
 
@@ -253,7 +253,7 @@
 	                          </div>
 	                          
 							  <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="std_code_with_phn_no" id="std_code_with_phn_no" placeholder="Please Enter STD Code with Phone No.">	
+							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="std_code_with_phn_no" id="std_code_with_phn_no" value="{{ $data['std_code_with_phn_no'] }}" placeholder="Please Enter STD Code with Phone No.">	
                                 </div>
 								             
 	                       </div>
@@ -268,7 +268,7 @@
 	                             <label for="email" class="apply-leave-label">Email<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="email" id="email" placeholder="Please Enter Valid Company Email Id.">
+							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="email" id="email" value="{{ $data['email'] }}" placeholder="Please Enter Valid Company Email Id.">
 	                          </div>
 	                       </div>
 	                    </div>
@@ -278,7 +278,7 @@
 	                             <label for="website" class="apply-leave-label">Website</label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="website" id="website" placeholder="Please enter full website url with http or https.">
+							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="website" id="website" value="{{ $data['website'] }}" placeholder="Please enter full website url with http or https.">
 	                          </div>
 	                       </div>
 	                    </div>
@@ -289,7 +289,7 @@
 	                             <label for="mobile" class="apply-leave-label">Mobile<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="mobile" id="mobile" maxlength="10" placeholder="Please enter mobile">
+							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="mobile" id="mobile" value="{{ $data['mobile'] }}" maxlength="10" placeholder="Please enter mobile">
 	                          </div>
 	                       </div>
 	                    </div>
@@ -301,7 +301,7 @@
 	                             <label for="name_of_contact_person" class="apply-leave-label">Name of Contact Person<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <input type="text" class="form-control input-sm basic-detail-input-style" name="name_of_contact_person" id="name_of_contact_person" placeholder="Enter Name Of Contact Person">
+	                             <input type="text" class="form-control input-sm basic-detail-input-style" name="name_of_contact_person" id="name_of_contact_person" value="{{ $data['name_of_contact_person'] }}" placeholder="Enter Name Of Contact Person">
 	                          </div>
 	                       </div>
 	                    </div>
@@ -312,7 +312,7 @@
 	                             <label for="designation_of_contact_person" class="apply-leave-label">Designation Of Contact Person<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <input type="text" class="form-control input-sm basic-detail-input-style" name="designation_of_contact_person" id="designation_of_contact_person" placeholder="Enter Name Of Contact Person">
+	                             <input type="text" class="form-control input-sm basic-detail-input-style" name="designation_of_contact_person" id="designation_of_contact_person" value="{{ $data['designation_of_contact_person'] }}" placeholder="Enter Name Of Contact Person">
 	                          </div>
 	                       </div>
 	                    </div>
@@ -325,7 +325,7 @@
 	                             <label for="description_of_company" class="apply-leave-label">Brief Description of Business of your Company<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <textarea rows="4" cols="50" class="form-control input-sm basic-detail-input-style" id="description_of_company" name="description_of_company" placeholder="Brief Description of Business of your Company"></textarea>
+	                             <textarea rows="4" cols="50" class="form-control input-sm basic-detail-input-style" id="description_of_company" name="description_of_company"  placeholder="Brief Description of Business of your Company">{{ $data['description_of_company'] }}</textarea>
 	                          </div>
 	                       </div>
 	                    </div>

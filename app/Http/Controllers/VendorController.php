@@ -214,6 +214,94 @@ class VendorController extends Controller
         }
 
 
+        public function editVendor(Request $request)
+        {   
+    
+          $data = $request->all();
+          $vendor_id = $request->id;
+    
+            if (Auth::guest()) {
+                return redirect('/');
+            }
+    
+            $validator = Validator::make($request->all(), [
+                'name_of_firm'                  => 'required',
+                'type_of_firm'                  => 'required',
+                'status_of_company'             => 'required',
+                'address'                       => 'required',
+                'country_id'                    => 'required',
+                'state_id'                      => 'required',
+                'city_id'                       => 'required',
+                'pin'                           => 'required',
+                'std_code_with_phn_no'          => 'required',
+                'email'                         => 'required',
+                'mobile'                        => ['required','min:10','max:10'],
+                'name_of_contact_person'        => 'required',
+                'designation_of_contact_person' => 'required',
+                'description_of_company'        => 'required',      
+                'items_for_service'             => 'required',     
+            ]);
+    
+            if ($validator->fails()) {
+                return redirect("vendor/create")
+                    ->withErrors($validator, 'basic')
+                    ->withInput();
+            }
+    
+            $data = [
+                'name_of_firm'                   => $request->name_of_firm,
+                'type_of_firm'                   => $request->type_of_firm,
+                'type_of_firm_others'            => $request->type_of_firm_others,
+                'status_of_company'              => $request->status_of_company,
+                'type_of_service_provide'        => $request->type_of_service_provide,
+                'manpower_provided'              => $request->manpower_provided,
+                'address'                        => $request->address,
+                'country_id'                     => $request->country_id,
+                'state_id'                       => $request->state_id,
+                'city_id'                        => $request->city_id,
+                'pin'                            => $request->pin,
+                'std_code_with_phn_no'           => $request->std_code_with_phn_no,
+                'email'                          => $request->email,
+                'website'                        => $request->website,
+                'mobile'                         => $request->mobile,
+                'name_of_contact_person'         => $request->name_of_contact_person,
+                'designation_of_contact_person'  => $request->designation_of_contact_person,
+                'description_of_company'         => $request->description_of_company,
+                'items_for_service'              => implode(',', $request->items_for_service)
+            
+            ];
+    
+            $user      = User::where(['id' => Auth::id()])->with('employee')->first();
+    
+             //$saved_vendor = $user->vendor()->create($data);     
+    
+             $saved_vendor = Vendor::where('id', $vendor_id)
+                                ->update([
+                                    'name_of_firm'                   => $request->name_of_firm,
+                                    'type_of_firm'                   => $request->type_of_firm,
+                                    'type_of_firm_others'            => $request->type_of_firm_others,
+                                    'status_of_company'              => $request->status_of_company,
+                                    'type_of_service_provide'        => $request->type_of_service_provide,
+                                    'manpower_provided'              => $request->manpower_provided,
+                                    'address'                        => $request->address,
+                                    'country_id'                     => $request->country_id,
+                                    'state_id'                       => $request->state_id,
+                                    'city_id'                        => $request->city_id,
+                                    'pin'                            => $request->pin,
+                                    'std_code_with_phn_no'           => $request->std_code_with_phn_no,
+                                    'email'                          => $request->email,
+                                    'website'                        => $request->website,
+                                    'mobile'                         => $request->mobile,
+                                    'name_of_contact_person'         => $request->name_of_contact_person,
+                                    'designation_of_contact_person'  => $request->designation_of_contact_person,
+                                    'description_of_company'         => $request->description_of_company,
+                                    'items_for_service'              => implode(',', $request->items_for_service)
+                                        ]);
+        
+            return redirect()->back()->with('success', "Vendor updated successfully.");
+        }
+
+
     function vendorAction(Request $request, $action, $vendor_id = null)
     {
  
@@ -272,7 +360,7 @@ class VendorController extends Controller
             //     array_push($location_val,$location->id);
             // }
             // $data['location_val'] = $location_val;
-
+            $data['id'] = $vendor->id;
             $data['name_of_firm'] = $vendor->name_of_firm;
             $data['type_of_firm'] = $vendor->type_of_firm;
             $data['type_of_firm_others'] = $vendor->type_of_firm_others;         
@@ -846,6 +934,8 @@ class VendorController extends Controller
             
         }
     }//end of function    
+
+
 
     /**
      * Display the specified resource.

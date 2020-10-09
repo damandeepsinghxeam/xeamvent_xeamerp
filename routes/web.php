@@ -20,6 +20,7 @@ Route::get('create', 'VendorController@create');
 Route::post('save-vendor', 'VendorController@saveVendor');
 Route::get('approval-vendors','VendorController@listApprovalVendors');
 Route::get('{action}/{vendor_id?}', 'VendorController@vendorAction');
+Route::post('edit-vendor', 'VendorController@editVendor');
 });
 /**************JRF****************/
 
