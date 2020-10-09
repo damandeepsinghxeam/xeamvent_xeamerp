@@ -250,7 +250,7 @@ class VendorController extends Controller
 
             $vendor = Vendor::where(['id'=>$vendor_id])->first();
 
-             dd($vendor);
+            //  dd($vendor);
             
             // if($vendor){                
             //     $data['project_draft_values'] = unserialize($vendor->project_approval);
@@ -275,8 +275,8 @@ class VendorController extends Controller
 
             $data['name_of_firm'] = $vendor->name_of_firm;
             $data['type_of_firm'] = $vendor->type_of_firm;
-            $data['type_of_firm_others'] = $vendor->type_of_firm_others;
-            $data['status_of_company'] = $vendor->$status_of_company;
+            $data['type_of_firm_others'] = $vendor->type_of_firm_others;         
+            $data['status_of_company'] = $vendor->status_of_company;
             $data['type_of_service_provide'] = $vendor->type_of_service_provide;
             $data['manpower_provided'] = $vendor->manpower_provided;
             $data['address'] = $vendor->address;
@@ -293,10 +293,10 @@ class VendorController extends Controller
             $data['description_of_company'] = $vendor->description_of_company;
             $data['items_for_service'] = $vendor->items_for_service;
 
-            
+            // echo"<pre>";
             // print_r(($data));exit;
 
-            return view('vendor.create_vendor')->with(['data'=>$data, 'link'=>'edit']);
+            return view('vendor.edit_vendor')->with(['data'=>$data, 'link'=>'edit']);
 
         }elseif($action == 'approve'){
             
