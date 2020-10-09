@@ -831,6 +831,24 @@ if(!empty($usser)) {
                     @endcan
                 </ul>
             </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-sitemap"></i> <span>Vendor</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class=""><a href="{{ url('vendor/create') }}"><i class="fa fa-circle-o text-red"></i>Create Vendor</a></li>
+                </ul>
+                @can('vendor-approval')
+                <ul class="treeview-menu">
+                    <li class=""><a href="{{ url('vendor/approval-vendors') }}"><i class="fa fa-circle-o text-red"></i>Approve Vendor</a></li>
+                </ul>
+                @endcan
+            </li>
+
         </ul>
     </section>
     <!-- /.sidebar -->

@@ -152,13 +152,15 @@ class VendorController extends Controller
 
          $saved_vendor = $user->vendor()->create($data);     
 
-        // $userId = User::permission('vendor-approval')->pluck('id');
-        $userId = User::where('employee_code', '01')->first()->id;
+         
+        $userId = User::permission('vendor-approval')->pluck('id');
+        $supervisorUserId = $userId[0];
+    
+       // $userId = User::where('employee_code', '01')->first()->id;
         $vendor_approval = [
             'user_id'       => $request->user_id,
             'vendor_id'        => $saved_vendor->id,
-            'supervisor_id' => $userId,
-            // 'priority'      => '2', 
+            'supervisor_id' => $supervisorUserId,
             'vendor_status'    => '0', //inprogress
         ];
 
