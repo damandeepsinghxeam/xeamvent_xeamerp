@@ -178,11 +178,24 @@ class VendorController extends Controller
 
            $user = Auth::user();
     
-           $canapprove = auth()->user()->can('approve-project'); 
+           $canapprove = auth()->user()->can('vendor-approval'); 
     
-           $projectsdraft_sent = ProjectDraft::where(['status'=>'1'])
-                            ->orderBy('created_at','DESC')
-                            ->get(); 
+        //    $projectsdraft_sent = Vendor::where(['status'=>'1'])
+        //                     ->orderBy('created_at','DESC')
+        //                     ->get(); 
+
+        // $projectsdraft_sent = Vendor::where(['status'=>'1'])
+        //                     ->orderBy('created_at','DESC')
+        //                     ->get();
+
+            $vendor_app =  DB::table('vendors as vend')
+                           ->join('vendor_approvals as vap','vend.id','=','vap.vendor_id')
+                           ->where('vap.vendor_status','0')
+                           ->select('vend.*','vap.vendor_status')
+                           ->get();
+
+            dd($vendor_app);
+
     
             if($projectsdraft_sent AND !$projectsdraft_sent->isEmpty() AND $canapprove==1){   
                 foreach($projectsdraft_sent as $projectsdraft){         
