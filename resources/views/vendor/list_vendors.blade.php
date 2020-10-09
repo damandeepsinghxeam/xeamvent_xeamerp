@@ -14,13 +14,12 @@
 
     @if(@$approval!=1)
      <h1>
-         Projects List
-      
+         Vendor List
       </h1>
 
     @else
      <h1>
-        Approval Projects List
+        Approval Vendor List
        
       </h1>
 
@@ -100,13 +99,13 @@
 
                   <th>S.No.</th>
           
-                  <th>Project Name</th>
+                  <th>Name Of Firm</th>
 
-                  <th>GST No.</th>
+                  <th>Type Of Firm</th>
 
-                  <th>Head Office Location</th>
+                  <th>Status Of Company</th>
           
-                  <th>Project Owner</th>
+                  <th>Email</th>
                   
                   <th>Status</th>                  
 
@@ -204,13 +203,13 @@
 
                   <th>S.No.</th>
           
-          <th>Project Name</th>
+          <th>Name Of Firm</th>
 
-                  <th>GST No.</th>
+                  <th>Type Of Firm</th>
 
-                  <th>Head Office Location</th>
+                  <th>Status Of Company</th>
           
-          <th>Project Owner</th>
+          <th>Email</th>
           
           <td>Status</td>
 
