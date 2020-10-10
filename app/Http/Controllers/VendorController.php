@@ -395,57 +395,15 @@ class VendorController extends Controller
             return redirect("vendor/approval-vendors")->with('success', "Vendor has been approved."); 
 
         }elseif($action == 'reject'){
+
+            $vendor = Vendor::where(['id'=>$vendor_id])->first();
+
+            $vendor_id = $vendor->id;
+
+            $saved_vendor = vendorapprovals::where('vendor_id', $vendor_id)
+                                ->update(['vendor_status' => '2']);
             
-
-        
-            $project_drafts = ProjectDraft::where(['id'=>$project_id,'status'=>'1'])->first();
-
-            $project_draft_creator = $project_drafts->creator_id;
-
-            $project_approval_values = unserialize($project_drafts->project_approval);
-            
-
-            if(isset($project_approval_values['send_back_reason'])  AND is_array($project_approval_values['send_back_reason'])){
-
-                array_push($project_approval_values['send_back_reason'], $request->reason);
-
-            }else{
-
-                $project_approval_values['send_back_reason'] = array($request->reason);
-            }  
-            
-            //$project->Approval->create(['approver_id'=>$user->id]);
-            
-            $project_data = [   
-                                'project_approval' => serialize($project_approval_values),          
-                                'status' => '0',
-                                'sent_back' => 1                            
-                            ];
-            ProjectDraft::updateOrCreate(['id' => $project_id, 'status' => '1'], $project_data);
-
-
-            ///////////////////notify/////////////////////////
-
-            $notification_data = [
-                             'sender_id' => $user->id,
-                             'receiver_id' => $project_draft_creator,
-                             'label' => 'Project sent back',
-                             'read_status' => '0'
-                         ]; 
-            $notification_data['message'] = $project_approval_values['projectName']." has not been approved. It is sent back"; 
-            
-            pushNotification($notification_data['receiver_id'], $notification_data['label'], $notification_data['message']);
-
-            $mail_data = array();
-            $project_creator = Employee::where(['user_id'=>$project_draft_creator])
-                            ->with('user')->first();
-            $mail_data['to_email'] = $project_creator->user->email;
-            $mail_data['subject'] = "Project not Approved";
-            $mail_data['message'] = $project_approval_values['projectName']." has not been approved. It is sent back. Please correct it."; 
-            $mail_data['fullname'] = $project_creator->fullname;
-            //$this->sendGeneralMail($mail_data);
-
-            return redirect("mastertables/approval-projects"); 
+            return redirect("vendor/approval-vendors"); 
 
         }elseif($action == 'activate'){
 

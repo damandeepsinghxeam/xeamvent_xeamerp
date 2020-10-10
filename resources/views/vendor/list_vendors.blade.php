@@ -182,7 +182,9 @@
         @if(auth()->user()->can('vendor-approval') && $value)
           @if($value['vendor_status'] == '0')
           <a class="btn btn-xs bg-blue approveBtn" href='{{ url("vendor/approve/")."/".$value['id']}}' title="approve"><i class="fa fa-check" aria-hidden="true"></i></a>
+          <a class="btn btn-xs bg-red rejectBtn" href='{{ url("vendor/reject/")."/".$value['id']}}' title="reject"><i class="fa fa-close" style="color:black" aria-hidden="true"></i></a>
           <!-- <a class="btn btn-xs bg-red rejectBtn" href='#' title="Send Back" data-toggle="modal" data-target="#project_InfoModal"><i class="fa fa-reply" aria-hidden="true"></i></a> -->
+
           <a class="btn btn-xs bg-orange" href='{{ url("mastertables/projects/show_projectDraft/".$value['id'])}}' title="show"><i class="fa fa-eye" aria-hidden="true"></i></a>
           @endif
         @endif
@@ -316,11 +318,11 @@
         }
       });
 
-      //  $(".rejectBtn").on('click',function(){
-      //   if (!confirm("Are you sure you want to send back this vendor?")) {
-      //       return false; 
-      //   }
-      // });
+       $(".rejectBtn").on('click',function(){
+        if (!confirm("Are you sure you want to reject this vendor?")) {
+            return false; 
+        }
+      });
 
     /*  $(".additionalProjectInfo").on('click',function(){
         var projectId = $(this).data('projectid');
