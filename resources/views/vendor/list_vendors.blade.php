@@ -309,7 +309,7 @@
   <script type="text/javascript">
 
       $(".approveBtn").on('click',function(){
-        if (!confirm("Are you sure you want to approve this project?")) {
+        if (!confirm("Are you sure you want to approve this vendor?")) {
             return false; 
         }else{
 
