@@ -432,40 +432,21 @@ class VendorController extends Controller
             
             return redirect("vendor/approval-vendors"); 
 
-        }elseif($action == 'activate'){
-
-            $project->isactive = 1;
+        }elseif($action == 'show_vendor_detail'){
             
-            $project->save();
-
-            //return redirect("mastertables/approval-projects");      
-
-            return redirect()->back();
-
-        }elseif($action == 'show'){
-            
-            $data['project_approval'] = Project::where(['id'=>$project_id, 'approval_status'=>'1'])
+            $data['vendor_approval'] = Vendor::where(['id'=>$vendor_id])
                                                 ->first(); 
-            $dep_id = $data['project_approval']->project_owner_dep_id;
-            $state_id = $projects['project_approval']->project_location_state;
-            $city_id = $projects['project_approval']->project_location_city;
+            $name_of_firm = $data['vendor_approval']->name_of_firm;
+            $type_of_firm = $data['vendor_approval']->type_of_firm;
+            $status_of_company = $data['vendor_approval']->status_of_company;
+            $state_id = $data['vendor_approval']->state_id;
+            $city_id = $data['vendor_approval']->city_id;
 
-            $data['project_approval']->state = State::where(['id'=>$state_id])->select('id','name')->get();
-            $data['project_approval']->city = Location::where(['id'=>$city_id])->get();
-            $data['project_approval']->department = Department::where(['id'=>$dep_id])->select('id','name')->first();
-             
-                                                
-            $data['bg_data']= BgApproval::where(['project_id'=>$project_id])
-                                                ->first(); 
-            $data['it_data']= ItRequirement::where(['project_id'=>$project_id])                                               
-                                                ->first(); 
-            $data['ins_data']= insuranceApproval::where(['project_id'=>$project_id])
-                                                ->first(); 
-            $data['files']= DB::table('document_project')->where('project_id', $project_id)->get();                                   
-
-            //return $data['it_data'];
-
-            return view('mastertables.show_project_detail')->with(['projects'=>$data]);
+            // $data['vendor_approval']->state = State::where(['id'=>$state_id])->select('id','name')->get();
+            // $data['vendor_approval']->city = Location::where(['id'=>$city_id])->get();
+            // $data['vendor_approval']->department = Department::where(['id'=>$dep_id])->select('id','name')->first();
+                                          
+            return view('vendor.show_vendor_detail')->with(['vendor_data'=>$data]);
 
         }elseif($action == 'show_projectDraft'){
             

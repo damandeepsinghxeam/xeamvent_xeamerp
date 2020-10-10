@@ -180,7 +180,7 @@
           <a class="btn btn-xs bg-red rejectBtn" href='{{ url("vendor/reject/")."/".$value['id']}}' title="reject"><i class="fa fa-close" style="color:black" aria-hidden="true"></i></a>
           <!-- <a class="btn btn-xs bg-red rejectBtn" href='#' title="Send Back" data-toggle="modal" data-target="#project_InfoModal"><i class="fa fa-reply" aria-hidden="true"></i></a> -->
 
-          <a class="btn btn-xs bg-orange" href='{{ url("mastertables/projects/show_projectDraft/".$value['id'])}}' title="show"><i class="fa fa-eye" aria-hidden="true"></i></a>
+          <a class="btn btn-xs bg-orange" href='{{ url("vendor/show_vendor_detail/".$value['id'])}}' title="show"><i class="fa fa-eye" aria-hidden="true"></i></a>
           @endif
         @endif
         

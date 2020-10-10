@@ -163,7 +163,7 @@
         <td>
   
           @if($value['vendor_status'] == '1')
-                   <a class="btn btn-xs bg-orange" href='{{ url("mastertables/projects/show_projectDraft/".$value['id'])}}' title="show"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                   <a class="btn btn-xs bg-orange" href='{{ url("vendor/show_vendor_detail/".$value['id'])}}' title="show"><i class="fa fa-eye" aria-hidden="true"></i></a>
           @endif
         
         </td>                 
