@@ -126,6 +126,7 @@
 											<td>{{$email}}</td>
 										</tr>
 										<tr>
+										
 											<td>Website</td>
 											<td>@if($manpower_provided){{$website}} @else - @endif</td>
 										</tr>
