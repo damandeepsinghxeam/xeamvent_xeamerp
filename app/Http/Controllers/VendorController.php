@@ -298,7 +298,8 @@ class VendorController extends Controller
                                     'items_for_service'              => implode(',', $request->items_for_service)
                                         ]);
         
-            return redirect()->back()->with('success', "Vendor updated successfully.");
+            // return redirect()->back()->with('success', "Vendor updated successfully.");
+            return redirect("vendor/approval-vendors")->with('success', "Vendor updated successfully.");; 
         }
 
 
