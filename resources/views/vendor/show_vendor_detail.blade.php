@@ -148,7 +148,9 @@
 										</tr>
 										<tr>
 											<td>Items for Service</td>
-											<td>{{$items_for_service}}</td>
+											@foreach($items as $item)
+											<td>{{$item}}</td>
+											@endforeach
 										</tr>
 										
 									</tbody>

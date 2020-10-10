@@ -461,14 +461,25 @@ class VendorController extends Controller
             $mobile = $data['vendor_approval']->mobile;
             $name_of_contact_person = $data['vendor_approval']->name_of_contact_person;
             $designation_of_contact_person = $data['vendor_approval']->designation_of_contact_person;
-            $description_of_company = $data['vendor_approval']->description_of_company;
+            $description_of_company = $data['vendor_approval']->description_of_company; 
             $items_for_service = $data['vendor_approval']->items_for_service;
+
+            $item_id = explode (",", $items_for_service);
+            // dd($item_id);die;
+            
+            foreach( $item_id as $key => $id_of_item) {
+               $items = Vendoritem::whereIn('id', [$id_of_item])->pluck('name')->toArray();
+            }
+
+
+
+            // State::whereIn('id', [$state_id])->pluck('name')->toArray();
 
             // $data['vendor_approval']->state = State::where(['id'=>$state_id])->select('id','name')->get();
             // $data['vendor_approval']->city = Location::where(['id'=>$city_id])->get();
             // $data['vendor_approval']->department = Department::where(['id'=>$dep_id])->select('id','name')->first();
                                           
-            return view('vendor.show_vendor_detail')->with(['vendor_data'=>$data]);
+            return view('vendor.show_vendor_detail')->with(['vendor_data'=>$data,'items'=>$items]);
 
         }
     }//end of function    
