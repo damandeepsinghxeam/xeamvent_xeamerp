@@ -171,28 +171,16 @@ class VendorController extends Controller
         return redirect()->back()->with('success', "Vendor created successfully.");
     }
 
+    // code for approved vendors
+    public function listApprovedVendors(){       
 
-        // code for vendor listing of approval
-        
-        function listApprovalVendors(){   
-
-           $user = Auth::user();
+        $vendor_app =  DB::table('vendors as vend')
+                    ->join('vendor_approvals as vap','vend.id','=','vap.vendor_id')
+                    ->where('vap.vendor_status','1')
+                    ->select('vend.*','vap.vendor_status','vap.supervisor_id')
+                    ->get();
     
-           $canapprove = auth()->user()->can('vendor-approval'); 
-    
-        //    $projectsdraft_sent = Vendor::where(['status'=>'1'])
-        //                     ->orderBy('created_at','DESC')
-        //                     ->get(); 
-
-            $vendor_app =  DB::table('vendors as vend')
-                           ->join('vendor_approvals as vap','vend.id','=','vap.vendor_id')
-                           ->where('vap.vendor_status','0')
-                           ->select('vend.*','vap.vendor_status','vap.supervisor_id')
-                           ->get();
-
-            // dd($vendor_app);
-    
-            if($vendor_app AND !$vendor_app->isEmpty() AND $canapprove==1){   
+            if($vendor_app AND !$vendor_app->isEmpty()){   
                 foreach($vendor_app as $vendorData){         
                     $vendor_approval_data_array['id'] = $vendorData->id;
                     $vendor_approval_data_array['name_of_firm'] = $vendorData->name_of_firm;
@@ -208,104 +196,143 @@ class VendorController extends Controller
                 $data=[];
             }   
             // dd($data);
-         
-            return view('vendor.list_vendors')->with(['vendors'=>$data, 'approval'=>'1']);
-    
-        }
-
-
-        public function editVendor(Request $request)
-        {   
-    
-          $data = $request->all();
-          $vendor_id = $request->id;
-    
-            if (Auth::guest()) {
-                return redirect('/');
-            }
-    
-            $validator = Validator::make($request->all(), [
-                'name_of_firm'                  => 'required',
-                'type_of_firm'                  => 'required',
-                'status_of_company'             => 'required',
-                'address'                       => 'required',
-                'country_id'                    => 'required',
-                'state_id'                      => 'required',
-                'city_id'                       => 'required',
-                'pin'                           => 'required',
-                'std_code_with_phn_no'          => 'required',
-                'email'                         => 'required',
-                'mobile'                        => ['required','min:10','max:10'],
-                'name_of_contact_person'        => 'required',
-                'designation_of_contact_person' => 'required',
-                'description_of_company'        => 'required',      
-                'items_for_service'             => 'required',     
-            ]);
-    
-            if ($validator->fails()) {
-                return redirect("vendor/create")
-                    ->withErrors($validator, 'basic')
-                    ->withInput();
-            }
-    
-            $data = [
-                'name_of_firm'                   => $request->name_of_firm,
-                'type_of_firm'                   => $request->type_of_firm,
-                'type_of_firm_others'            => $request->type_of_firm_others,
-                'status_of_company'              => $request->status_of_company,
-                'type_of_service_provide'        => $request->type_of_service_provide,
-                'manpower_provided'              => $request->manpower_provided,
-                'address'                        => $request->address,
-                'country_id'                     => $request->country_id,
-                'state_id'                       => $request->state_id,
-                'city_id'                        => $request->city_id,
-                'pin'                            => $request->pin,
-                'std_code_with_phn_no'           => $request->std_code_with_phn_no,
-                'email'                          => $request->email,
-                'website'                        => $request->website,
-                'mobile'                         => $request->mobile,
-                'name_of_contact_person'         => $request->name_of_contact_person,
-                'designation_of_contact_person'  => $request->designation_of_contact_person,
-                'description_of_company'         => $request->description_of_company,
-                'items_for_service'              => implode(',', $request->items_for_service)
-            
-            ];
-    
-            $user      = User::where(['id' => Auth::id()])->with('employee')->first();
-    
-             //$saved_vendor = $user->vendor()->create($data);     
-    
-             $saved_vendor = Vendor::where('id', $vendor_id)
-                                ->update([
-                                    'name_of_firm'                   => $request->name_of_firm,
-                                    'type_of_firm'                   => $request->type_of_firm,
-                                    'type_of_firm_others'            => $request->type_of_firm_others,
-                                    'status_of_company'              => $request->status_of_company,
-                                    'type_of_service_provide'        => $request->type_of_service_provide,
-                                    'manpower_provided'              => $request->manpower_provided,
-                                    'address'                        => $request->address,
-                                    'country_id'                     => $request->country_id,
-                                    'state_id'                       => $request->state_id,
-                                    'city_id'                        => $request->city_id,
-                                    'pin'                            => $request->pin,
-                                    'std_code_with_phn_no'           => $request->std_code_with_phn_no,
-                                    'email'                          => $request->email,
-                                    'website'                        => $request->website,
-                                    'mobile'                         => $request->mobile,
-                                    'name_of_contact_person'         => $request->name_of_contact_person,
-                                    'designation_of_contact_person'  => $request->designation_of_contact_person,
-                                    'description_of_company'         => $request->description_of_company,
-                                    'items_for_service'              => implode(',', $request->items_for_service)
-                                        ]);
         
-            // return redirect()->back()->with('success', "Vendor updated successfully.");
-            return redirect("vendor/approval-vendors")->with('success', "Vendor updated successfully.");
+            return view('vendor.list_approved_vendors')->with(['vendors'=>$data, 'approval'=>'1']);
+    
+    }
+
+    // code for vendor listing of approval
+    function listApprovalVendors(){   
+
+        $user = Auth::user();
+
+        $canapprove = auth()->user()->can('vendor-approval'); 
+
+    //    $projectsdraft_sent = Vendor::where(['status'=>'1'])
+    //                     ->orderBy('created_at','DESC')
+    //                     ->get(); 
+
+        $vendor_app =  DB::table('vendors as vend')
+                        ->join('vendor_approvals as vap','vend.id','=','vap.vendor_id')
+                        ->where('vap.vendor_status','0')
+                        ->select('vend.*','vap.vendor_status','vap.supervisor_id')
+                        ->get();
+
+        // dd($vendor_app);
+
+        if($vendor_app AND !$vendor_app->isEmpty() AND $canapprove==1){   
+            foreach($vendor_app as $vendorData){         
+                $vendor_approval_data_array['id'] = $vendorData->id;
+                $vendor_approval_data_array['name_of_firm'] = $vendorData->name_of_firm;
+                $vendor_approval_data_array['type_of_firm'] = $vendorData->type_of_firm;
+                $vendor_approval_data_array['status_of_company'] = $vendorData->status_of_company;
+                $vendor_approval_data_array['email'] = $vendorData->email;
+                $vendor_approval_data_array['vendor_status'] = $vendorData->vendor_status;
+                $vendor_approval_data_array['supervisor_id'] = $vendorData->supervisor_id;
+                $data[] = $vendor_approval_data_array;
+                
+            }
+        }else{
+            $data=[];
+        }   
+        // dd($data);
+        
+        return view('vendor.list_vendors')->with(['vendors'=>$data, 'approval'=>'1']);
+
+    }
+
+
+    public function editVendor(Request $request)
+    {   
+
+        $data = $request->all();
+        $vendor_id = $request->id;
+
+        if (Auth::guest()) {
+            return redirect('/');
         }
+
+        $validator = Validator::make($request->all(), [
+            'name_of_firm'                  => 'required',
+            'type_of_firm'                  => 'required',
+            'status_of_company'             => 'required',
+            'address'                       => 'required',
+            'country_id'                    => 'required',
+            'state_id'                      => 'required',
+            'city_id'                       => 'required',
+            'pin'                           => 'required',
+            'std_code_with_phn_no'          => 'required',
+            'email'                         => 'required',
+            'mobile'                        => ['required','min:10','max:10'],
+            'name_of_contact_person'        => 'required',
+            'designation_of_contact_person' => 'required',
+            'description_of_company'        => 'required',      
+            'items_for_service'             => 'required',     
+        ]);
+
+        if ($validator->fails()) {
+            return redirect("vendor/create")
+                ->withErrors($validator, 'basic')
+                ->withInput();
+        }
+
+        $data = [
+            'name_of_firm'                   => $request->name_of_firm,
+            'type_of_firm'                   => $request->type_of_firm,
+            'type_of_firm_others'            => $request->type_of_firm_others,
+            'status_of_company'              => $request->status_of_company,
+            'type_of_service_provide'        => $request->type_of_service_provide,
+            'manpower_provided'              => $request->manpower_provided,
+            'address'                        => $request->address,
+            'country_id'                     => $request->country_id,
+            'state_id'                       => $request->state_id,
+            'city_id'                        => $request->city_id,
+            'pin'                            => $request->pin,
+            'std_code_with_phn_no'           => $request->std_code_with_phn_no,
+            'email'                          => $request->email,
+            'website'                        => $request->website,
+            'mobile'                         => $request->mobile,
+            'name_of_contact_person'         => $request->name_of_contact_person,
+            'designation_of_contact_person'  => $request->designation_of_contact_person,
+            'description_of_company'         => $request->description_of_company,
+            'items_for_service'              => implode(',', $request->items_for_service)
+        
+        ];
+
+        $user      = User::where(['id' => Auth::id()])->with('employee')->first();
+
+            //$saved_vendor = $user->vendor()->create($data);     
+
+            $saved_vendor = Vendor::where('id', $vendor_id)
+                            ->update([
+                                'name_of_firm'                   => $request->name_of_firm,
+                                'type_of_firm'                   => $request->type_of_firm,
+                                'type_of_firm_others'            => $request->type_of_firm_others,
+                                'status_of_company'              => $request->status_of_company,
+                                'type_of_service_provide'        => $request->type_of_service_provide,
+                                'manpower_provided'              => $request->manpower_provided,
+                                'address'                        => $request->address,
+                                'country_id'                     => $request->country_id,
+                                'state_id'                       => $request->state_id,
+                                'city_id'                        => $request->city_id,
+                                'pin'                            => $request->pin,
+                                'std_code_with_phn_no'           => $request->std_code_with_phn_no,
+                                'email'                          => $request->email,
+                                'website'                        => $request->website,
+                                'mobile'                         => $request->mobile,
+                                'name_of_contact_person'         => $request->name_of_contact_person,
+                                'designation_of_contact_person'  => $request->designation_of_contact_person,
+                                'description_of_company'         => $request->description_of_company,
+                                'items_for_service'              => implode(',', $request->items_for_service)
+                                    ]);
+    
+        // return redirect()->back()->with('success', "Vendor updated successfully.");
+        return redirect("vendor/approval-vendors")->with('success', "Vendor updated successfully.");
+    }
 
 
     function vendorAction(Request $request, $action, $vendor_id = null)
     {
- 
         if(!empty($vendor_id)){
             $vendor = Vendor::find($vendor_id);
         }
@@ -392,7 +419,7 @@ class VendorController extends Controller
             // $project_drafts = ProjectDraft::where(['id'=>$project_id,'status'=>'2'])->first();
             
             
-            return redirect("vendor/approval-vendors")->with('success', "Vendor has been approved."); 
+            return redirect("vendor/approved-vendors")->with('success', "Vendor has been approved."); 
 
         }elseif($action == 'reject'){
 
@@ -491,7 +518,6 @@ class VendorController extends Controller
             
         }
     }//end of function    
-
 
 
     /**

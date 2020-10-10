@@ -14,15 +14,16 @@ Route::group(['prefix' => 'payroll'], function () {
 Route::get('add-leave', 'UserController@addLeave');
 
 
-/**************JRF****************/
+/**************vendor****************/
 Route::group(['prefix' => 'vendor', 'middleware' => 'App\Http\Middleware\RestrictEmployee'], function () {
-Route::get('create', 'VendorController@create');
-Route::post('save-vendor', 'VendorController@saveVendor');
-Route::get('approval-vendors','VendorController@listApprovalVendors');
-Route::get('{action}/{vendor_id?}', 'VendorController@vendorAction');
-Route::post('edit-vendor', 'VendorController@editVendor');
+    Route::get('create', 'VendorController@create');
+    Route::post('save-vendor', 'VendorController@saveVendor');
+    Route::get('approval-vendors','VendorController@listApprovalVendors');
+    Route::get('approved-vendors','VendorController@listApprovedVendors');
+    Route::post('edit-vendor', 'VendorController@editVendor');
+    Route::get('{action}/{vendor_id?}', 'VendorController@vendorAction');
 });
-/**************JRF****************/
+/**************vendor****************/
 
 
 Route::group(['prefix' => 'jrf', 'middleware' => 'App\Http\Middleware\RestrictEmployee'], function () {
