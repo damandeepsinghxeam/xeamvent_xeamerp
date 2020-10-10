@@ -436,11 +436,33 @@ class VendorController extends Controller
             
             $data['vendor_approval'] = Vendor::where(['id'=>$vendor_id])
                                                 ->first(); 
+            // $name_of_firm = $data['vendor_approval']->name_of_firm;
+            // $type_of_firm = $data['vendor_approval']->type_of_firm;
+            // $status_of_company = $data['vendor_approval']->status_of_company;
+            // $state_id = $data['vendor_approval']->state_id;
+            // $state_id = $data['vendor_approval']->state_id;
+            // $city_id = $data['vendor_approval']->city_id;
+
+
             $name_of_firm = $data['vendor_approval']->name_of_firm;
             $type_of_firm = $data['vendor_approval']->type_of_firm;
+            $type_of_firm_others = $data['vendor_approval']->type_of_firm_others;         
             $status_of_company = $data['vendor_approval']->status_of_company;
+            $type_of_service_provide = $data['vendor_approval']->type_of_service_provide;
+            $manpower_provided = $data['vendor_approval']->manpower_provided;
+            $address = $data['vendor_approval']->address;
+            $country_id = $data['vendor_approval']->country_id;
             $state_id = $data['vendor_approval']->state_id;
             $city_id = $data['vendor_approval']->city_id;
+            $pin = $data['vendor_approval']->pin;
+            $std_code_with_phn_no = $data['vendor_approval']->std_code_with_phn_no;
+            $email = $data['vendor_approval']->email;
+            $website = $data['vendor_approval']->website;
+            $mobile = $data['vendor_approval']->mobile;
+            $name_of_contact_person = $data['vendor_approval']->name_of_contact_person;
+            $designation_of_contact_person = $data['vendor_approval']->designation_of_contact_person;
+            $description_of_company = $data['vendor_approval']->description_of_company;
+            $items_for_service = $data['vendor_approval']->items_for_service;
 
             // $data['vendor_approval']->state = State::where(['id'=>$state_id])->select('id','name')->get();
             // $data['vendor_approval']->city = Location::where(['id'=>$city_id])->get();
@@ -448,55 +470,6 @@ class VendorController extends Controller
                                           
             return view('vendor.show_vendor_detail')->with(['vendor_data'=>$data]);
 
-        }elseif($action == 'show_projectDraft'){
-            
-            $data['locations'] = Location::where(['isactive'=>1])->get();
-            
-            $canapprove = auth()->user()->can('approve-project');
-
-            if($canapprove==1){
-
-                 $project_drafts = ProjectDraft::where(['id'=>$project_id, 'status'=>'1'])->first();
-
-            }else{
-
-                 $project_drafts = ProjectDraft::where(['id'=>$project_id, 'status'=>'0'])->first();
-
-            }
-            
-            
-            
-            if($project_drafts){                
-                $data['project_approval'] = unserialize($project_drafts->project_approval);
-
-                $dep_id = $data['project_approval']['project_owner_department'];
-                $data['project_approval']['departments'] = Department::where(['id'=>$dep_id])->select('id','name')->first();
-
-                $project_location_state = $data['project_approval']['location_state'];
-                $project_location_city = $data['project_approval']['location_city'];
-                $data['project_approval']['states'] = State::whereIn('id', $project_location_state)->select('id','name')->get();
-                $data['project_approval']['cities'] = Location::whereIn('id', $project_location_city)->select('id','name')->get();
-
-                $data['bg_data'] = unserialize($project_drafts->bg_data);
-                $data['it_data'] = unserialize($project_drafts->it_req_data);
-                $data['ins_data'] = unserialize($project_drafts->insurance_data);
-
-
-               /* $owner_name = $data['project_draft_values']['project_owner_name'];
-                $data['project_draft_values'] = Emloyee::where(['isactive'=>1])->get();
-                */
-            }else{
-                $data['project_draft_values'] = "";
-            }            
-//return $data;
-            return view('mastertables.show_project_draft_detail')->with(['projects'=>$data]);
-
-        }elseif($action == 'deactivate'){
-            $project->isactive = 0;
-            $project->save();
-
-            return redirect()->back();
-            
         }
     }//end of function    
 
