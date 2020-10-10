@@ -93,7 +93,7 @@
 										</tr>
 										<tr>
 											<td>Manpower Provided</td>
-											<td>{{$manpower_provided}}</td>
+											<td>@if($manpower_provided){{$manpower_provided}} @else - @endif</td>
 										</tr>
 										
 										<tr>
@@ -127,7 +127,7 @@
 										</tr>
 										<tr>
 											<td>Website</td>
-											<td>{{$website}}</td>
+											<td>@if($manpower_provided){{$website}} @else - @endif</td>
 										</tr>
 										<tr>
 											<td>Mobile</td>
