@@ -55,15 +55,14 @@
         
                   <div class="col-md-2 attendance-column4">
                     
-                    <label>Project Status</label>
+                    <label>Vendor Status</label>
 
                     <select class="form-control input-sm basic-detail-input-style" name="project_status" id="project_status">
                         
                         <option value="all" selected>All</option>
                         <option value="0">Pending</option>
                         <option value="1">Approved</option>
-                        <option value="2">Rejected</option>
-                        <option value="3">Sent Back</option>                                 
+                        <option value="2">Rejected</option>                              
 
                     </select>
 
@@ -156,10 +155,6 @@
         @elseif($value['vendor_status'] == '2')
 
         <span class="label label-primary">Rejected</span>
-
-        @elseif($value['vendor_status'] == '3')
-
-        <span class="label label-primary">Sent Back</span>
 
         @endif
 
@@ -274,7 +269,7 @@
 
           </div>
 
-          <div class="modal-body projectInfoModalBody">
+          <!-- <div class="modal-body projectInfoModalBody">
             <form action="{{ url('mastertables/projects/reject/')."/".@$value['id'] }}" type="post" name="send_back">
               {{ csrf_field() }}
               <div class="row">
@@ -288,7 +283,7 @@
                 <input type="submit" class="btn btn-primary" id="reson_id" value="Send" name="reaon_submit">
               </div>
             </form>
-          </div>
+          </div> -->
 
         </div>
         <!-- /.modal-content -->
@@ -340,8 +335,8 @@
 
       $(document).ready(function() {
           $('#listProjects').DataTable({
-            //scrollX: true,
-            //responsive: true
+            scrollX: true,
+            responsive: true
           });
       });
 
