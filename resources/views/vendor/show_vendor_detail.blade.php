@@ -102,16 +102,16 @@
 										</tr>
 										<tr>
 											<td>Country</td>
-											<td>{{$country_id}}</td>
+											<td>{{@$vendor_data['vendor_approval']->country->name}}</td>
 										</tr>
 										<tr>
 											<td>State</td>
-											<td>{{$state_id}}
+											<td>{{@$vendor_data['vendor_approval']->state->name}}
 											</td>
 										</tr>
 										<tr>
 											<td>City</td>
-											<td>{{$city_id}}</td>
+											<td>{{@$vendor_data['vendor_approval']->city->name}}</td>
 										</tr>
 										<tr>
 											<td>Pincode</td>
@@ -148,9 +148,13 @@
 										</tr>
 										<tr>
 											<td>Items for Service</td>
-											@foreach($items as $item)
-											<td>{{$item}}</td>
-											@endforeach
+											@if(count($items) > 0)
+												@foreach($items as $item)
+												<td>{{$item}}</td>
+												@endforeach
+											@else
+												<td>-</td>
+											@endif
 										</tr>
 										
 									</tbody>

@@ -63,7 +63,7 @@
 	                             <label for="jrf_industry_type" class="apply-leave-label">Name of Firm / Company<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <input type="text" class="form-control input-sm basic-detail-input-style" name="name_of_firm" id="name_of_firm" value="{{ $data['name_of_firm'] }}" placeholder="Enter Name Of Firm">
+	                             <input type="text" class="form-control input-sm basic-detail-input-style" name="name_of_firm" id="name_of_firm" value="{{ $data['vendor']->name_of_firm }}" placeholder="Enter Name Of Firm">
 	                          </div>
 	                       </div>
 	                    </div>
@@ -76,11 +76,11 @@
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
 										<select name="type_of_firm" class="form-control input-sm basic-detail-input-style" id="type_of_firm">
 											<option value="">Please select Firm Type</option>
-											<option value="Public Limited Co" {{ $data['type_of_firm'] == "Public Limited Co" ? 'selected="selected"' : '' }}>Public Limited Co</option> 
-											<option value="Partenership Co" {{ $data['type_of_firm'] == "Partenership Co" ? 'selected="selected"' : '' }}>Partenership Co</option> 
-											<option value="Proprietorship" {{ $data['type_of_firm'] == "Proprietorship" ? 'selected="selected"' : '' }}>Proprietorship</option>
-											<option value="Govt Sector" {{ $data['type_of_firm'] == "Govt Sector" ? 'selected="selected"' : '' }}>Govt Sector</option>  
-											<option value="Others" {{ $data['type_of_firm'] == "Others" ? 'selected="selected"' : '' }}>Others</option>
+											<option value="Public Limited Co" {{ $data['vendor']->type_of_firm == "Public Limited Co" ? 'selected' : '' }}>Public Limited Co</option> 
+											<option value="Partenership Co" {{ $data['vendor']->type_of_firm == "Partenership Co" ? 'selected' : '' }}>Partenership Co</option> 
+											<option value="Proprietorship" {{ $data['vendor']->type_of_firm == "Proprietorship" ? 'selected' : '' }}>Proprietorship</option>
+											<option value="Govt Sector" {{ $data['vendor']->type_of_firm == "Govt Sector" ? 'selected' : '' }}>Govt Sector</option>  
+											<option value="Others" {{ $data['vendor']->type_of_firm == "Others" ? 'selected' : '' }}>Others</option>
 										</select>
 	                              </div>
 	                           </div>
@@ -188,7 +188,7 @@
 									    <select class="form-control input-sm basic-detail-input-style country_id" name="country_id" id ='country_id'>
 											@if(!$data['countries']->isEmpty())
 												@foreach($data['countries'] as $country)
-													<option value="{{$country->id}}" @if(@$country->phone_code == '91'){{'selected'}}@endif>(+{{@$country->phone_code}}) {{@$country->iso3}}
+													<option value="{{$country->id}}" @if(@$country->id == $data['vendor']->country_id){{'selected'}}@endif>(+{{@$country->phone_code}}) {{@$country->iso3}}
 													</option>
 												@endforeach
 											@endif
@@ -206,7 +206,7 @@
 									  <select class="form-control state_id input-sm basic-detail-input-style" name="state_id" id="state_id">
 										@if(!$data['states']->isEmpty())
 											@foreach($data['states'] as $state)
-												<option value="{{$state->id}}" @if($state->name == "Punjab"){{"selected"}}@endif>{{$state->name}}</option>
+												<option value="{{$state->id}}" @if($state->id == $data['vendor']->state_id){{"selected"}}@endif>{{$state->name}}</option>
 											@endforeach
 										@endif
                                       </select>
@@ -220,7 +220,8 @@
 	                                	<label for="type" class="apply-leave-label">City<sup class="ast">*</sup></label>
 	                              	</div>
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-									  <select class="form-control city_id input-sm basic-detail-input-style" name="city_id" id="city_id"></select>
+									  <select class="form-control city_id input-sm basic-detail-input-style" name="city_id" id="city_id">
+									  </select>
 	                              </div>
 	                           </div>
 	                        </div> 
@@ -338,9 +339,18 @@
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
 	                             <select class="form-control select2 input-sm basic-detail-input-style" name="items_for_service[]" multiple="multiple" style="width: 100%;" id="items_for_service" data-placeholder="Items For Service ">
 	                                @if(!$data['vendoritems']->isEmpty())
-	                                @foreach($data['vendoritems'] as $Vendoritem)  
-	                                <option value="{{$Vendoritem->id}}">{{$Vendoritem->name}}</option>
-	                                @endforeach
+										@php
+											$item_id = explode (",", $data['vendor']->items_for_service);
+										@endphp
+										@foreach($data['vendoritems'] as $Vendoritem)
+											@php
+												$selectedItem = null;
+												if(!empty($item_id) && in_array($Vendoritem->id, $item_id)) {
+													$selectedItem = 'selected';
+												}
+											@endphp
+											<option value="{{$Vendoritem->id}}" {{$selectedItem}}>{{$Vendoritem->name}}</option>
+										@endforeach
 	                                @endif  
 	                             </select>
 	                          </div>
@@ -364,6 +374,9 @@
 <!-- /.row -->
 
 <script>
+$(document).ready(function () {
+
+	
     $("#vendorRequisitionForm").validate({
       rules: {
         "name_of_firm" : {
@@ -563,9 +576,45 @@
        }
     });
 
+	$('#state_id').on('change', function() {
 
+		var stateId = $(this).val();
 
-		$('#state_id').on('change', function(){
+		var stateIds = [];
+
+		stateIds.push(stateId);
+
+		$('#city_id').empty();
+
+		var displayString = "";
+
+		$.ajax({
+
+			type: 'POST',
+
+			url: "{{ url('employees/states-wise-cities') }} ",
+
+			data: {stateIds: stateIds},
+
+			success: function(result){
+
+				if(result.length != 0){
+					var city_id = '{{$data['vendor']->city_id}}';
+					result.forEach(function(city){
+						var selectedCity = (city_id == city.id)? 'selected' : null;
+						displayString += '<option value="'+city.id+'" '+selectedCity+'>'+city.name+'</option>';
+					});
+				}else{
+					displayString += '<option value="" selected disabled>None</option>';
+				}
+				$('#city_id').append(displayString);
+			}
+
+		});
+
+	}).change();
+
+	$('#preStateId').on('change', function(){
 
 			var stateId = $(this).val();
 
@@ -573,7 +622,7 @@
 
 			stateIds.push(stateId);
 
-			$('#city_id').empty();
+			$('#preCityId').empty();
 
 			var displayString = "";
 
@@ -601,58 +650,13 @@
 
 					}
 
-					$('#city_id').append(displayString);
+					$('#preCityId').append(displayString);
+
 				}
 
 			});
 
-     }).change();
-
-
-
-		$('#preStateId').on('change', function(){
-
-				var stateId = $(this).val();
-
-				var stateIds = [];
-
-				stateIds.push(stateId);
-
-				$('#preCityId').empty();
-
-				var displayString = "";
-
-				$.ajax({
-
-					type: 'POST',
-
-					url: "{{ url('employees/states-wise-cities') }} ",
-
-					data: {stateIds: stateIds},
-
-					success: function(result){
-
-						if(result.length != 0){
-
-							result.forEach(function(city){
-
-								displayString += '<option value="'+city.id+'">'+city.name+'</option>';
-
-							});
-
-						}else{
-
-							displayString += '<option value="" selected disabled>None</option>';
-
-						}
-
-						$('#preCityId').append(displayString);
-
-					}
-
-				});
-
-		}).change();
-
+	}).change();
+});
 </script>
 @endsection

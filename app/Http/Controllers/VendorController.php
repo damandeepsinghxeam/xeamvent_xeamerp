@@ -347,8 +347,8 @@ class VendorController extends Controller
 
             $data['countries'] = Country::where(['isactive'=>1])->get();
             $data['states'] = State::where(['isactive'=>1])->get();    
-            $data['cities']         = City::where(['isactive' => 1])->orderBy('name')->get();
-            $data['vendoritems']         = Vendoritem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
+            $data['cities']  = City::where(['isactive' => 1])->orderBy('name')->get();
+            $data['vendoritems'] = Vendoritem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
 
             $vendor = Vendor::where(['id'=>$vendor_id])->first();
 
@@ -374,6 +374,7 @@ class VendorController extends Controller
             //     array_push($location_val,$location->id);
             // }
             // $data['location_val'] = $location_val;
+            $data['vendor'] = $vendor;
             $data['id'] = $vendor->id;
             $data['name_of_firm'] = $vendor->name_of_firm;
             $data['type_of_firm'] = $vendor->type_of_firm;
@@ -436,51 +437,13 @@ class VendorController extends Controller
             
             $data['vendor_approval'] = Vendor::where(['id'=>$vendor_id])
                                                 ->first(); 
-            // $name_of_firm = $data['vendor_approval']->name_of_firm;
-            // $type_of_firm = $data['vendor_approval']->type_of_firm;
-            // $status_of_company = $data['vendor_approval']->status_of_company;
-            // $state_id = $data['vendor_approval']->state_id;
-            // $state_id = $data['vendor_approval']->state_id;
-            // $city_id = $data['vendor_approval']->city_id;
-
-
-            $name_of_firm = $data['vendor_approval']->name_of_firm;
-            $type_of_firm = $data['vendor_approval']->type_of_firm;
-            $type_of_firm_others = $data['vendor_approval']->type_of_firm_others;         
-            $status_of_company = $data['vendor_approval']->status_of_company;
-            $type_of_service_provide = $data['vendor_approval']->type_of_service_provide;
-            $manpower_provided = $data['vendor_approval']->manpower_provided;
-            $address = $data['vendor_approval']->address;
-            $country_id = $data['vendor_approval']->country_id;
-            $state_id = $data['vendor_approval']->state_id;
-            $city_id = $data['vendor_approval']->city_id;
-            $pin = $data['vendor_approval']->pin;
-            $std_code_with_phn_no = $data['vendor_approval']->std_code_with_phn_no;
-            $email = $data['vendor_approval']->email;
-            $website = $data['vendor_approval']->website;
-            $mobile = $data['vendor_approval']->mobile;
-            $name_of_contact_person = $data['vendor_approval']->name_of_contact_person;
-            $designation_of_contact_person = $data['vendor_approval']->designation_of_contact_person;
-            $description_of_company = $data['vendor_approval']->description_of_company; 
-            $items_for_service = $data['vendor_approval']->items_for_service;
-
-            $item_id = explode (",", $items_for_service);
-            // dd($item_id);die;
-            
-            foreach( $item_id as $key => $id_of_item) {
-               $items = Vendoritem::whereIn('id', [$id_of_item])->pluck('name')->toArray();
-            }
-
-
-
-            // State::whereIn('id', [$state_id])->pluck('name')->toArray();
-
-            // $data['vendor_approval']->state = State::where(['id'=>$state_id])->select('id','name')->get();
-            // $data['vendor_approval']->city = Location::where(['id'=>$city_id])->get();
-            // $data['vendor_approval']->department = Department::where(['id'=>$dep_id])->select('id','name')->first();
-                                          
+        
+            $items = [];
+            if(!empty($data['vendor_approval']->items_for_service)) {
+                $item_id = explode (",", $data['vendor_approval']->items_for_service);
+                $items = Vendoritem::whereIn('id', $item_id)->pluck('name')->toArray();
+            }                     
             return view('vendor.show_vendor_detail')->with(['vendor_data'=>$data,'items'=>$items]);
-
         }
     }//end of function    
 
