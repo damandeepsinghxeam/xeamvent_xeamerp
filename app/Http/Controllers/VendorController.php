@@ -122,7 +122,7 @@ class VendorController extends Controller
         if ($validator->fails()) {
             return redirect("vendor/create")
                 ->withErrors($validator, 'basic')
-                ->withInput();
+                ->withInput($request->all());
         }
 
         $data = [
@@ -271,9 +271,9 @@ class VendorController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect("vendor/create")
+            return redirect()->back()
                 ->withErrors($validator, 'basic')
-                ->withInput();
+                ->withInput($request->all());
         }
 
         $data = [
@@ -340,10 +340,7 @@ class VendorController extends Controller
 
         $user = Auth::user();
 
-        if($action == 'add') {
-            
-        
-        }elseif($action == 'edit'){
+        if($action == 'edit'){
 
             $data['countries'] = Country::where(['isactive'=>1])->get();
             $data['states'] = State::where(['isactive'=>1])->get();    
@@ -352,28 +349,7 @@ class VendorController extends Controller
 
             $vendor = Vendor::where(['id'=>$vendor_id])->first();
 
-            //  dd($vendor);
-            
-            // if($vendor){                
-            //     $data['project_draft_values'] = unserialize($vendor->project_approval);
-            // }else{
-            //     $data['project_draft_values'] = "";
-            // }
             $data['action'] = $action;
-
-            // $state_val = [];
-            // $location_val = [];
-            // foreach($data['states'] as $state){
-                
-            //     array_push($state_val,$state->id);
-            // }
-            // $data['state_val'] = $state_val;
-            
-            // foreach($data['locations'] as $location){
-                
-            //     array_push($location_val,$location->id);
-            // }
-            // $data['location_val'] = $location_val;
             $data['vendor'] = $vendor;
             $data['id'] = $vendor->id;
             $data['name_of_firm'] = $vendor->name_of_firm;
@@ -409,15 +385,6 @@ class VendorController extends Controller
 
             $saved_vendor = vendorapprovals::where('vendor_id', $vendor_id)
                                 ->update(['vendor_status' => '1']);
-
-            
-            //$project->Approval->create(['approver_id'=>$user->id]);
-            
-            // $project_data = [                   
-            //                     'status' => '2'                             
-            //                 ];
-            // $status_update = ProjectDraft::updateOrCreate(['id' => $project_id, 'status' => '1'], $project_data);
-            // $project_drafts = ProjectDraft::where(['id'=>$project_id,'status'=>'2'])->first();
             
             
             return redirect("vendor/approved-vendors")->with('success', "Vendor has been approved."); 

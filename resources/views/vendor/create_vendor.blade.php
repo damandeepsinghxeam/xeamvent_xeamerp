@@ -422,8 +422,7 @@
 
         "mobile" : {
 			required : true,
-            digits : true,
-            exactlengthdigits : 10
+            digits : true
         },
       
         "name_of_contact_person" : {
