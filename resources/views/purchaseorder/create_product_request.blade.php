@@ -79,14 +79,14 @@
 	                           </div>
 	                      	</div>
 
-	                      <div class="others_product" style="display: none;">
+	                      <div class="others_product_name" style="display: none;">
 	                        <div class="form-group">
 	                           <div class="row">
 	                              <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                                 <label for="others_product" class="apply-leave-label">Please Specify Others<sup class="ast">*</sup></label>
+	                                 <label for="others_product_name" class="apply-leave-label">Please Specify Others<sup class="ast">*</sup></label>
 	                              </div>
 	                              <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                                  <input type="text" name="others_product" class="form-control input-sm basic-detail-input-style" id="others_product" placeholder="Please Specify Others"> 
+	                                  <input type="text" name="others_product_name" class="form-control input-sm basic-detail-input-style" id="others_product_name" placeholder="Please Specify Others"> 
 	                              </div>
 	                           </div>
 	                        </div>
@@ -113,6 +113,17 @@
 	                       </div>
 	                    </div>
 
+						<div class="form-group">
+	                       <div class="row">
+	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+							  <label for="product_description" class="apply-leave-label">Enter Description<sup class="ast">*</sup></label>
+	                          </div>
+	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
+							  <textarea rows="4" cols="50" class="form-control input-sm basic-detail-input-style" id="product_description" name="product_description" placeholder="Brief Description"></textarea>
+	                          </div>
+	                       </div>
+	                    </div>
+
 	                  </div>
 	                </div>
 	              <div class="text-center">
@@ -135,13 +146,16 @@
         "product_name" : {
 			required : true
         },
-		"others_product" : {
+		"others_product_name" : {
           required: true
         },
         "no_of_items_requested" : {
           required: true,
 		  digits : true 
-        }
+        },		
+		"product_description" : {
+          required: true
+        },
 	
       },
       errorPlacement: function(error, element) {
@@ -155,11 +169,14 @@
           "product_name" : {
             required: 'Select Product Item'
           },
-          "others_product" : {
+          "others_product_name" : {
             required: 'Select Specify Others'
           },
           "no_of_items_requested" : {
             required: 'Please Specify Number Of Requested Items'
+          },
+		  "product_description" : {
+            required: 'Please Specify Description'
           }
         }
     });
@@ -187,9 +204,9 @@
     $(document).on('change', "#product_name", function () {
        var type = $(this).val();
        if(type == 'Others'){
-        $(".others_product").show();
+        $(".others_product_name").show();
        } else {
-        $(".others_product").hide();
+        $(".others_product_name").hide();
        }
     });
 
