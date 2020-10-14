@@ -245,6 +245,12 @@ class User extends Authenticatable
 
         return $this->hasMany('App\VendorApprovals');
     }
+
+    function RequestedProductItems()
+    {
+
+        return $this->hasMany('App\RequestedProductItems');
+    }
     
     // END JRF //
     

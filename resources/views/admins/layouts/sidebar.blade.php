@@ -848,6 +848,18 @@ if(!empty($usser)) {
                 </ul>
             </li>
 
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-sitemap"></i> <span>Purchase Order</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class=""><a href="{{ url('purchaseorder/product_request') }}"><i class="fa fa-circle-o text-red"></i>Create Product Request</a></li>
+                </ul>
+            </li>
+
         </ul>
     </section>
     <!-- /.sidebar -->
