@@ -41,6 +41,9 @@ class VendorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+     // get data for create vendor form
+
     public function create()
     {
         if (Auth::guest()) {
@@ -61,6 +64,8 @@ class VendorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    // for save vendor form
     public function saveVendor(Request $request)
     {   
 
@@ -140,7 +145,7 @@ class VendorController extends Controller
         return redirect()->back()->with('success', "Vendor created successfully.");
     }
 
-    // code for approved vendors
+    // Display list for approved vendors
     public function listApprovedVendors(){       
 
         $vendor_app =  DB::table('vendors as vend')
@@ -170,7 +175,7 @@ class VendorController extends Controller
     
     }
 
-    // code for vendor listing of approval
+    // List Of Vendors for approval
     function listApprovalVendors(){   
 
         $user = Auth::user();
@@ -210,7 +215,7 @@ class VendorController extends Controller
 
     }
 
-
+    // For Save the edit Vendor data
     public function editVendor(Request $request)
     {   
 
@@ -299,6 +304,7 @@ class VendorController extends Controller
         return redirect("vendor/approval-vendors")->with('success', "Vendor updated successfully.");
     }
 
+   // For Vendor Actions
 
     function vendorAction(Request $request, $action, $vendor_id = null)
     {
@@ -383,49 +389,4 @@ class VendorController extends Controller
         }
     }//end of function    
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Vendor  $vendor
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Vendor $vendor)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Vendor  $vendor
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Vendor $vendor)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Vendor  $vendor
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Vendor $vendor)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Vendor  $vendor
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Vendor $vendor)
-    {
-        //
-    }
 }
