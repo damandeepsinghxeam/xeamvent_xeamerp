@@ -25,6 +25,12 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'App\Http\Middleware\Restric
 });
 /**************vendor****************/
 
+/**************purchase_order****************/
+Route::group(['prefix' => 'purchaseorder', 'middleware' => 'App\Http\Middleware\RestrictEmployee'], function () {
+    Route::get('product_request', 'PurchaseorderController@create_product_request');
+});
+/**************purchase_order****************/
+
 
 Route::group(['prefix' => 'jrf', 'middleware' => 'App\Http\Middleware\RestrictEmployee'], function () {
     //  Route::group(['middleware' => ['permission:create-jrf']], function () {
