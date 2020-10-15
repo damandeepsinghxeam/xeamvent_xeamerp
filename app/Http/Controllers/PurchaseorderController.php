@@ -124,7 +124,7 @@ class PurchaseorderController extends Controller
 
     }
     
-       // For Vendor Actions
+       // For Product Request Actions
 
     function productRequestAction(Request $request, $action, $product_request_id = null)
        {
@@ -160,4 +160,41 @@ class PurchaseorderController extends Controller
    
            }
        }//end of function  
+
+        // List Of Product Items for approval
+        function ProductRequestsStatus(){   
+
+            $user = Auth::user();
+            $user_id = $user->id;
+    
+        //    $projectsdraft_sent = Vendor::where(['status'=>'1'])
+        //                     ->orderBy('created_at','DESC')
+        //                     ->get(); 
+    
+            $product_request_app =  DB::table('requested_product_items')
+                            ->where('user_id', $user_id)
+                            ->get();
+
+            // dd($product_request_app);
+    
+            if($product_request_app AND !$product_request_app->isEmpty()){   
+                foreach($product_request_app as $productRequestData){         
+                    $product_request_data_array['id'] = $productRequestData->id;
+                    $product_request_data_array['product_name'] = $productRequestData->product_name;
+                    $product_request_data_array['others_product_name'] = $productRequestData->others_product_name;
+                    $product_request_data_array['no_of_items_requested'] = $productRequestData->no_of_items_requested;
+                    $product_request_data_array['product_description'] = $productRequestData->product_description;
+                    $product_request_data_array['product_requested_status'] = $productRequestData->product_requested_status;
+                    $product_request_data_array['supervisor_id'] = $productRequestData->supervisor_id;
+                    $data[] = $product_request_data_array;
+                    
+                }
+            }else{
+                $data=[];
+            }   
+            // dd($data);
+            
+            return view('purchaseorder.list_product_requests_status')->with(['requested_product_items'=>$data, 'approval'=>'1']);
+    
+        }   
 }
