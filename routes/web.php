@@ -29,6 +29,7 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'App\Http\Middleware\Restric
 Route::group(['prefix' => 'purchaseorder', 'middleware' => 'App\Http\Middleware\RestrictEmployee'], function () {
     Route::get('product_request', 'PurchaseorderController@create_product_request');
     Route::post('save-product-request', 'PurchaseorderController@saveProductRequest');
+    Route::get('approval-product-requests','PurchaseorderController@listProductRequests');
 });
 /**************purchase_order****************/
 

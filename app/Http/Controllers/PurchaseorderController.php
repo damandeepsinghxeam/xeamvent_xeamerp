@@ -83,20 +83,44 @@ class PurchaseorderController extends Controller
 
             $saved_vendor = $user->RequestedProductItems()->create($data);   
     
-           
-        
-           // $userId = User::where('employee_code', '01')->first()->id;
-            // $vendor_approval = [
-            //     'user_id'       => $request->user_id,
-            //     'vendor_id'        => $saved_vendor->id,
-            //     'supervisor_id' => $supervisorUserId,
-            //     'vendor_status'    => '0', //inprogress
-            // ];
-    
-            //dd($vendor_approval);
-            
-            // $saved_vendor = $user->vendorapprovals()->create($vendor_approval);
-    
             return redirect()->back()->with('success', "Product Request created successfully.");
         }
+
+    // List Of Product Items for approval
+       function listProductRequests(){   
+
+        $user = Auth::user();
+
+        $canapprove = auth()->user()->can('product-request-approval'); 
+
+    //    $projectsdraft_sent = Vendor::where(['status'=>'1'])
+    //                     ->orderBy('created_at','DESC')
+    //                     ->get(); 
+
+        $product_request_app =  DB::table('requested_product_items')
+                        ->where('product_requested_status','0')
+                        ->get();
+
+        // dd($product_request_app);
+
+        if($product_request_app AND !$product_request_app->isEmpty() AND $canapprove==1){   
+            foreach($product_request_app as $productRequestData){         
+                $product_request_data_array['id'] = $productRequestData->id;
+                $product_request_data_array['product_name'] = $productRequestData->product_name;
+                $product_request_data_array['others_product_name'] = $productRequestData->others_product_name;
+                $product_request_data_array['no_of_items_requested'] = $productRequestData->no_of_items_requested;
+                $product_request_data_array['product_description'] = $productRequestData->product_description;
+                $product_request_data_array['product_requested_status'] = $productRequestData->product_requested_status;
+                $product_request_data_array['supervisor_id'] = $productRequestData->supervisor_id;
+                $data[] = $product_request_data_array;
+                
+            }
+        }else{
+            $data=[];
+        }   
+        // dd($data);
+        
+        return view('purchaseorder.list_product_requests')->with(['requested_product_items'=>$data, 'approval'=>'1']);
+
+    } 
 }
