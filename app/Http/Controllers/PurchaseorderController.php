@@ -122,5 +122,42 @@ class PurchaseorderController extends Controller
         
         return view('purchaseorder.list_product_requests')->with(['requested_product_items'=>$data, 'approval'=>'1']);
 
-    } 
+    }
+    
+       // For Vendor Actions
+
+    function productRequestAction(Request $request, $action, $product_request_id = null)
+       {
+           if(!empty($product_request_id)){
+               $requested_Product_items = RequestedProductItems::find($product_request_id);
+           }
+            // dd($requested_Product_items);
+   
+           $user = Auth::user();
+   
+        if($action == 'approve'){
+   
+               $requested_Product_items = RequestedProductItems::where(['id'=>$product_request_id])->first();
+   
+               $product_request_id = $requested_Product_items->id;
+   
+               $saved_requested_Product_items = RequestedProductItems::where('id', $product_request_id)
+                                   ->update(['product_requested_status' => '1']);
+               
+               
+               return redirect("purchaseorder/approval-product-requests")->with('success', "Vendor has been approved."); 
+   
+           }elseif($action == 'reject'){
+   
+               $requested_Product_items = RequestedProductItems::where(['id'=>$product_request_id])->first();
+   
+               $product_request_id = $requested_Product_items->id;
+   
+               $saved_requested_Product_items = RequestedProductItems::where('id', $product_request_id)
+                                   ->update(['product_requested_status' => '2']);
+               
+               return redirect("purchaseorder/approval-product-requests"); 
+   
+           }
+       }//end of function  
 }
