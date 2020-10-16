@@ -31,6 +31,7 @@ Route::group(['prefix' => 'purchaseorder', 'middleware' => 'App\Http\Middleware\
     Route::post('save-product-request', 'PurchaseorderController@saveProductRequest');
     Route::get('approval-product-requests','PurchaseorderController@listProductRequests');
     Route::get('product-requests-status','PurchaseorderController@ProductRequestsStatus');
+    Route::get('request-quote', 'PurchaseorderController@request_quote');
     Route::get('{action}/{product_request_id?}', 'PurchaseorderController@productRequestAction');
 });
 /**************purchase_order****************/

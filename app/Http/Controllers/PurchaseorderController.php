@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Purchaseorder;
 use App\RequestedProductItems;
+use App\Vendor;
+use App\VendorApprovals;
 use Illuminate\Http\Request;
 
 use App\Country;
@@ -14,6 +16,7 @@ use App\EmployeeProfile;
 use App\Http\Controllers\Controller;
 use App\Mail\GeneralMail;
 use App\Productitem;
+use App\Vendoritem;
 use App\User;
 use Auth;
 use DateTime;
@@ -196,5 +199,33 @@ class PurchaseorderController extends Controller
             
             return view('purchaseorder.list_product_requests_status')->with(['requested_product_items'=>$data, 'approval'=>'1']);
     
-        }   
+        }
+        
+        public function request_quote()
+        {
+            if (Auth::guest()) {
+                return redirect('/');
+            }
+    
+            $data['vendoritems']         = Vendoritem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
+            
+            $vendor_detail =  DB::table('vendors as vend')
+            ->join('vendor_approvals as vap','vend.id','=','vap.vendor_id')
+            ->where('vap.vendor_status','1')
+            ->select('vend.*')
+            ->get();
+
+            if($vendor_detail AND !$vendor_detail->isEmpty()){   
+                foreach($vendor_detail as $vendorData){         
+                    $vendor_data_array['id'] = $vendorData->id;
+                    $vendor_data_array['name_of_firm'] = $vendorData->name_of_firm;
+                    $data[] = $vendor_data_array;
+                    
+                }
+            }else{
+                $data=[];
+            }   
+
+            return view('purchaseorder.request_quote')->with(['data' => $data]);
+        }
 }
