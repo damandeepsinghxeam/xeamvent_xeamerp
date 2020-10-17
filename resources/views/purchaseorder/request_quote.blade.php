@@ -23,31 +23,7 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="box box-primary success">
-             @if ($errors->basic->any())
-              <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                  <ul>
-                    @foreach ($errors->basic->all() as $error)
-                      <li>{{ $error }}</li>
-                    @endforeach
-                  </ul>
-              </div>
-              @endif
-
-              <div class="alert-dismissible">
-                @if(session()->has('success'))
-                  <div class="alert {{(session()->get('error')) ? 'alert-danger' : 'alert-success'}}">
-                    {{ session()->get('success') }}
-                  </div>
-                @endif
-              </div>
-
-              @if(session()->has('jrfError'))
-                <div class="alert alert-danger alert-dismissible">
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                  {{ session()->get('jrfError') }}
-                </div>
-              @endif
+          @include('admins.validation_errors')
 
 	        <!-- form start -->
 	        <form id="productRequisitionForm" action="{{ url('purchaseorder/save-request-quote') }}" method="POST" enctype="multipart/form-data">

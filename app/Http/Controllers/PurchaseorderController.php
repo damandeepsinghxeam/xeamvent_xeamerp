@@ -14,6 +14,7 @@ use App\City;
 use App\Employee;
 use App\EmployeeProfile;
 use App\Http\Controllers\Controller;
+use Mail;
 use App\Mail\GeneralMail;
 use App\Productitem;
 use App\Vendoritem;
@@ -21,7 +22,7 @@ use App\User;
 use Auth;
 use DateTime;
 use DB;
-use Illuminate\Support\Facades\Mail;
+//use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Role;
 use Validator;
 use View;
@@ -225,31 +226,50 @@ class PurchaseorderController extends Controller
             if (Auth::guest()) {
                 return redirect('/');
             }
+            $user = Auth::user();
+            if($request->isMethod('post')) {
             
-            $vendorId = $request->name_of_firm;
+                try {
+                    \DB::beginTransaction();
+                    unset($inputs['_token']);
 
-            if(($vendorId)AND (!empty($vendorId)))
-                {   
-                    foreach($vendorId as $vendor_id){         
-                        $vendor_id;
-                        $vendor_email = Vendor::where(['id'=>$vendor_id])->select('id', 'email')->get();
-                        dd($vendor_email);die;
+                    $vendorIds = $vendorId = $request->name_of_firm;
+
+                    $vendors = Vendor::whereIn('id', [$vendorIds])->get();
+
+                    if(!empty($vendors) && count($vendors) > 0) {
+                        foreach($vendors as $key => $vendor) {
+                            // /***************Send Mail Code**************************/
+                            if(!empty($message)) {
+                                $mail_data['from_email'] = $user->email;
+                                $mail_data['to_email'] = $vendor->email;
+                                $mail_data['subject'] = $request->product_request_title;
+                                $mail_data['message'] = $request->product_request_description;
+                                if(!$this->sendGeneralMail($mail_data)) {
+                                    throw new \Exception("Error occurs please try again.", 151);
+                                }
+                            }
+                        }
+                    } else {
+                        throw new \Exception("Vendor Data not found.", 151);
                     }
+                    \DB::commit();
+
+                    $message = 'Email Sent Successfully.';
+                    return redirect()->back()->withSuccess($message);
+                } catch (\Exception $e) {
+                    \DB::rollBack();
+
+                    $message = 'Error code 500: internal server error.';
+                    if($e->getCode() == 151) {
+                        $message = $e->getMessage();
+                    }
+                    // $e->getMessage()
+                    return redirect()->back()->withError($message)->withInput($request->all());
                 }
-            else
-                {
-            
-                }   
-                 dd($vendor_email);die;
-
-
-            // $vendorDetail =  DB::table('vendors as vend')
-            // ->join('vendor_approvals as vap','vend.id','=','vap.vendor_id')
-            // ->where('vap.vendor_status','1')
-            // ->pluck('vend.name_of_firm', 'vend.id')
-            // ->toArray();
-
-            // $data['vendorDetail'] = $vendorDetail;
-             return view('purchaseorder.request_quote', $data);
+            } else {
+                $message = 'Error code 400: Invalid Request.';
+                return redirect()->back()->withError($message)->withInput($request->all());
+            }
         }
 }
