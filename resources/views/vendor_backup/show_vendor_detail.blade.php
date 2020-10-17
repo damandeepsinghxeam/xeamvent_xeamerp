@@ -3,12 +3,7 @@
 @section('content')
 
 <style>
-/*.viewTilTable tr td:first-child { font-weight: 600; }*/
-#projectHandover table tr th,
-#projectHandover table tr td:first-child {
-  font-family: 'Lato-bold';
-}
-  
+.viewTilTable tr td:first-child { font-weight: 600; }
 </style>
 
 <!-- Content Wrapper Starts here -->
@@ -16,7 +11,7 @@
 
   <!-- Content Header Starts here -->
   <section class="content-header">
-    <h1><i class="fa fa-eye"></i> View Vendor Detail</h1>
+    <h1>Vendor Detail</h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Dashboard</li>
@@ -27,37 +22,37 @@
   <!-- Main content Starts here -->
   <section class="content">
     <div class="row">
-      <div class="col-md-12">
-        <div class="box main_box p-sm">
+      <div class="col-sm-12">
+        <div class="box box-primary">
      @php  
 
-      @$name_of_firm = $vendor_data['vendor_approval']->name_of_firm;
-      @$type_of_firm = $vendor_data['vendor_approval']->type_of_firm;
-      @$type_of_firm_others = $vendor_data['vendor_approval']->type_of_firm_others;
-      @$status_of_company = $vendor_data['vendor_approval']->status_of_company;
-      @$type_of_service_provide = $vendor_data['vendor_approval']->type_of_service_provide;
-      @$manpower_provided = $vendor_data['vendor_approval']->manpower_provided;
-      @$address = $vendor_data['vendor_approval']->address;
-      @$country_id = $vendor_data['vendor_approval']->country_id;
-      @$state_id = $vendor_data['vendor_approval']->state_id;
-      @$city_id = $vendor_data['vendor_approval']->city_id;
-      @$pin = $vendor_data['vendor_approval']->pin;
-      @$std_code_with_phn_no = $vendor_data['vendor_approval']->std_code_with_phn_no;
-      @$email = $vendor_data['vendor_approval']->email;
-      @$website = $vendor_data['vendor_approval']->website;
-      @$mobile = $vendor_data['vendor_approval']->mobile;
-      @$name_of_contact_person = $vendor_data['vendor_approval']->name_of_contact_person;
-      @$designation_of_contact_person = $vendor_data['vendor_approval']->designation_of_contact_person;
-      @$description_of_company = $vendor_data['vendor_approval']->description_of_company;
-      @$items_for_service = $vendor_data['vendor_approval']->items_for_service;
+		@$name_of_firm = $vendor_data['vendor_approval']->name_of_firm;
+		@$type_of_firm = $vendor_data['vendor_approval']->type_of_firm;
+		@$type_of_firm_others = $vendor_data['vendor_approval']->type_of_firm_others;         
+		@$status_of_company = $vendor_data['vendor_approval']->status_of_company;
+		@$type_of_service_provide = $vendor_data['vendor_approval']->type_of_service_provide;
+		@$manpower_provided = $vendor_data['vendor_approval']->manpower_provided;
+		@$address = $vendor_data['vendor_approval']->address;
+		@$country_id = $vendor_data['vendor_approval']->country_id;
+		@$state_id = $vendor_data['vendor_approval']->state_id;
+		@$city_id = $vendor_data['vendor_approval']->city_id;
+		@$pin = $vendor_data['vendor_approval']->pin;
+		@$std_code_with_phn_no = $vendor_data['vendor_approval']->std_code_with_phn_no;
+		@$email = $vendor_data['vendor_approval']->email;
+		@$website = $vendor_data['vendor_approval']->website;
+		@$mobile = $vendor_data['vendor_approval']->mobile;
+		@$name_of_contact_person = $vendor_data['vendor_approval']->name_of_contact_person;
+		@$designation_of_contact_person = $vendor_data['vendor_approval']->designation_of_contact_person;
+		@$description_of_company = $vendor_data['vendor_approval']->description_of_company;
+		@$items_for_service = $vendor_data['vendor_approval']->items_for_service;
+				
+		@endphp 
 
-    @endphp 
-
-			<div class="box-body form-sidechange">
+			<div class="box-body">
 				<!-- Tabs Content Starts here -->
 				<div class="nav-tabs-custom">
 					<ul class="nav nav-tabs edit-nav-styling">
-					  <li class="active"><a href="#projectHandover" class="f_b" data-toggle="tab">Vendor Detail</a></li>
+					  <li class="active"><a href="#projectHandover" data-toggle="tab">Vendor Detail</a></li>
 					</ul>
 					<div class="tab-content">
 						
@@ -67,10 +62,9 @@
 						<div class="row">
 							<div class="col-md-6">
 								<table class="table table-bordered table-striped viewTilTable">
-									<thead class="table-heading-style table_1">
+									<thead class="table-heading-style">
 										<tr>
-                      <th style="width: 40%;">Field</th>
-                      <th style="width: 60%;">Value</th>
+
 										</tr>
 									</thead>
 									<tbody>
@@ -101,6 +95,7 @@
 											<td>Manpower Provided</td>
 											<td>@if($manpower_provided){{$manpower_provided}} @else - @endif</td>
 										</tr>
+										
 										<tr>
 											<td>Address</td>
 											<td>{{$address}}</td>
@@ -126,23 +121,12 @@
 											<td>STD Code with Phone No</td>
 											<td>{{$std_code_with_phn_no}}</td>
 										</tr>
-									</tbody>
-								</table>
-							</div>
-							<div class="col-md-6">
-							  <table class="table table-bordered table-striped viewTilTable">
-									<thead class="table-heading-style table_1">
-										<tr>
-                      <th style="width: 40%;">Field</th>
-                      <th style="width: 60%;">Value</th>
-										</tr>
-									</thead>
-									<tbody>
 										<tr>
 											<td>Email</td>
 											<td>{{$email}}</td>
 										</tr>
 										<tr>
+										
 											<td>Website</td>
 											<td>@if($manpower_provided){{$website}} @else - @endif</td>
 										</tr>
@@ -165,15 +149,14 @@
 										<tr>
 											<td>Items for Service</td>
 											@if(count($items) > 0)
-												<td>
 												@foreach($items as $item)
-												  <p>{{$item}}</p>
+												<td>{{$item}}</td>
 												@endforeach
-												</td>
 											@else
 												<td>-</td>
 											@endif
 										</tr>
+										
 									</tbody>
 								</table>
 							</div>

@@ -2,9 +2,6 @@
 @section('content')
 
 <link rel="stylesheet" href="{{asset('public/admin_assets/plugins/timepicker/bootstrap-timepicker.min.css')}}">
-
-<link rel="stylesheet" href="{{asset('public/admin_assets/dist/css/travel_module.css')}}">
-
 <script src="{{asset('public/admin_assets/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
 <script src="{{asset('public/admin_assets/plugins/validations/jquery.validate.js')}}"></script>
 <script src="{{asset('public/admin_assets/plugins/validations/additional-methods.js')}}"></script>
@@ -13,7 +10,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
       <section class="content-header">
-        <h1><i class="fa fa-edit"></i> Edit Vendor</h1>
+        <h1> Edit Vendor</h1>
         <ol class="breadcrumb">
           <li><a href="{{url('/employees/dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
           <!-- <li><a href="{{url('/jrf/list-jrf')}}">JRF List</a></li>  -->
@@ -60,13 +57,13 @@
 	                 <div class="col-md-6">
 	                    <div class="form-group">
 
-						          <div class="form-group">
+						<div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="jrf_industry_type" class="apply-leave-label label_1">Name of Firm / Company<sup class="ast">*</sup></label>
+	                             <label for="jrf_industry_type" class="apply-leave-label">Name of Firm / Company<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <input type="text" class="form-control input-md basic-detail-input-style input_1" name="name_of_firm" id="name_of_firm" value="{{ $data['vendor']->name_of_firm }}" placeholder="Enter Name Of Firm">
+	                             <input type="text" class="form-control input-sm basic-detail-input-style" name="name_of_firm" id="name_of_firm" value="{{ $data['vendor']->name_of_firm }}" placeholder="Enter Name Of Firm">
 	                          </div>
 	                       </div>
 	                    </div>
@@ -74,17 +71,17 @@
 	                      	<div class="form-group">
 	                           	<div class="row">
 	                              	<div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                                	<label for="type_of_firm" class="apply-leave-label label_1">Type Of Firm<sup class="ast">*</sup></label>
+	                                	<label for="type_of_firm" class="apply-leave-label">Type Of Firm<sup class="ast">*</sup></label>
 	                              	</div>
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-                                  <select name="type_of_firm" class="form-control input-md basic-detail-input-style input_1" id="type_of_firm">
-                                    <option value="">Please select Firm Type</option>
-                                    <option value="Public Limited Co" {{ $data['vendor']->type_of_firm == "Public Limited Co" ? 'selected' : '' }}>Public Limited Co</option> 
-                                    <option value="Partenership Co" {{ $data['vendor']->type_of_firm == "Partenership Co" ? 'selected' : '' }}>Partenership Co</option> 
-                                    <option value="Proprietorship" {{ $data['vendor']->type_of_firm == "Proprietorship" ? 'selected' : '' }}>Proprietorship</option>
-                                    <option value="Govt Sector" {{ $data['vendor']->type_of_firm == "Govt Sector" ? 'selected' : '' }}>Govt Sector</option>  
-                                    <option value="Others" {{ $data['vendor']->type_of_firm == "Others" ? 'selected' : '' }}>Others</option>
-                                  </select>
+										<select name="type_of_firm" class="form-control input-sm basic-detail-input-style" id="type_of_firm">
+											<option value="">Please select Firm Type</option>
+											<option value="Public Limited Co" {{ $data['vendor']->type_of_firm == "Public Limited Co" ? 'selected' : '' }}>Public Limited Co</option> 
+											<option value="Partenership Co" {{ $data['vendor']->type_of_firm == "Partenership Co" ? 'selected' : '' }}>Partenership Co</option> 
+											<option value="Proprietorship" {{ $data['vendor']->type_of_firm == "Proprietorship" ? 'selected' : '' }}>Proprietorship</option>
+											<option value="Govt Sector" {{ $data['vendor']->type_of_firm == "Govt Sector" ? 'selected' : '' }}>Govt Sector</option>  
+											<option value="Others" {{ $data['vendor']->type_of_firm == "Others" ? 'selected' : '' }}>Others</option>
+										</select>
 	                              </div>
 	                           </div>
 	                      	</div>
@@ -93,64 +90,64 @@
 	                        <div class="form-group">
 	                           <div class="row">
 	                              <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                                 <label for="type_of_firm_others" class="apply-leave-label label_1">Please Specify Others<sup class="ast">*</sup></label>
+	                                 <label for="type_of_firm_others" class="apply-leave-label">Please Specify Others<sup class="ast">*</sup></label>
 	                              </div>
 	                              <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                                  <input type="text" name="type_of_firm_others" class="form-control input-md basic-detail-input-style input_1" id="type_of_firm_others" value="{{ $data['type_of_firm_others'] }}" placeholder="Please Specify Others"> 
+	                                  <input type="text" name="type_of_firm_others" class="form-control input-sm basic-detail-input-style" id="type_of_firm_others" value="{{ $data['type_of_firm_others'] }}" placeholder="Please Specify Others"> 
 	                              </div>
 	                           </div>
 	                        </div>
 	                    </div>
 
-						          <div class="form-group">
+						<div class="form-group">
 	                           	<div class="row">
 	                              	<div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                                	<label for="status_of_company" class="apply-leave-label label_1">Status Of Company<sup class="ast">*</sup></label>
+	                                	<label for="status_of_company" class="apply-leave-label">Status Of Company<sup class="ast">*</sup></label>
 	                              	</div>
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-                                  <select name="status_of_company" class="form-control input-md basic-detail-input-style input_1" id="status_of_company">
-                                    <option value="">Please select Status Of Company</option>
-                                    <option value="Manufacturer" {{ $data['status_of_company'] == "Manufacturer" ? 'selected="selected"' : '' }}>Manufacturer</option> 
-                                    <option value="Authorized Dealer" {{ $data['status_of_company'] == "Authorized Dealer" ? 'selected="selected"' : '' }}>Authorized Dealer</option> 
-                                    <option value="Stokist" {{ $data['status_of_company'] == "Stokist" ? 'selected="selected"' : '' }}>Stokist</option>
-                                    <option value="Trader" {{ $data['status_of_company'] == "Trader" ? 'selected="selected"' : '' }}>Trader</option>
-                                    <option value="Service Provider" {{ $data['status_of_company'] == "Service Provider" ? 'selected="selected"' : '' }}>Service Provider</option>  
-                                  </select>
+										<select name="status_of_company" class="form-control input-sm basic-detail-input-style" id="status_of_company">
+											<option value="">Please select Status Of Company</option>
+											<option value="Manufacturer" {{ $data['status_of_company'] == "Manufacturer" ? 'selected="selected"' : '' }}>Manufacturer</option> 
+											<option value="Authorized Dealer" {{ $data['status_of_company'] == "Authorized Dealer" ? 'selected="selected"' : '' }}>Authorized Dealer</option> 
+											<option value="Stokist" {{ $data['status_of_company'] == "Stokist" ? 'selected="selected"' : '' }}>Stokist</option>
+											<option value="Trader" {{ $data['status_of_company'] == "Trader" ? 'selected="selected"' : '' }}>Trader</option>
+											<option value="Service Provider" {{ $data['status_of_company'] == "Service Provider" ? 'selected="selected"' : '' }}>Service Provider</option>  
+										</select>
 	                              </div>
 	                           </div>
 	                      	</div>
 
-						            <div class="service" style="display: none;">
+						<div class="service" style="display: none;">
 	                        <div class="form-group">
 	                           <div class="row">
-							                   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                                	<label for="type_of_service_provide" class="apply-leave-label label_1">Type Of Service Provide<sup class="ast">*</sup></label>
+							   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+	                                	<label for="type_of_service_provide" class="apply-leave-label">Type Of Service Provide<sup class="ast">*</sup></label>
 	                              	</div>
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-                                <select name="type_of_service_provide" class="form-control input-md basic-detail-input-style input_1" id="type_of_service_provide">
-                                  <option value="">Please select Type Of Service Provide</option>
-                                  <option value="Mechanical Contractor" {{ $data['type_of_service_provide'] == "Mechanical Contractor" ? 'selected="selected"' : '' }}>Mechanical Contractor</option> 
-                                  <option value="Electrical Contractor" {{ $data['type_of_service_provide'] == "Electrical Contractor" ? 'selected="selected"' : '' }}>Electrical Contractor</option> 
-                                  <option value="Instrumentation Contractor" {{ $data['type_of_service_provide'] == "Instrumentation Contractor" ? 'selected="selected"' : '' }}>Instrumentation Contractor</option>
-                                  <option value="Civil Contractor" {{ $data['type_of_service_provide'] == "Civil Contractor" ? 'selected="selected"' : '' }}>Civil Contractor</option>
-                                  <option value="Computer Systems" {{ $data['type_of_service_provide'] == "Computer Systems" ? 'selected="selected"' : '' }}>Computer Systems</option>
-                                  <option value="Consultancy Services" {{ $data['type_of_service_provide'] == "Consultancy Services" ? 'selected="selected"' : '' }}>Consultancy Services</option>  
-                                  <option value="Repair & Maintenance Services" {{ $data['type_of_service_provide'] == "Repair & Maintenance Services" ? 'selected="selected"' : '' }}>Repair & Maintenance Services</option>
-                                  <option value="Printing Services" {{ $data['type_of_service_provide'] == "Printing Services" ? 'selected="selected"' : '' }}>Printing Services</option>  
-                                  <option value="Transportation Services" {{ $data['type_of_service_provide'] == "Transportation Services" ? 'selected="selected"' : '' }}>Transportation Services</option> 
-                                  <option value="Shipping Services" {{ $data['type_of_service_provide'] == "Shipping Services" ? 'selected="selected"' : '' }}>Shipping Services</option> 
-                                  <option value="E-Tender Services" {{ $data['type_of_service_provide'] == "E-Tender Services" ? 'selected="selected"' : '' }}>E-Tender Services</option>  
-                                  <option value="Placement Services" {{ $data['type_of_service_provide'] == "Placement Services" ? 'selected="selected"' : '' }}>Placement Services</option> 
-                                  <option value="Insurance Services" {{ $data['type_of_service_provide'] == "Insurance Services" ? 'selected="selected"' : '' }}>Insurance Services</option>
-                                  <option value="Health Services" {{ $data['type_of_service_provide'] == "Health Services" ? 'selected="selected"' : '' }}>Health Services</option> 
-                                  <option value="Courier Services" {{ $data['type_of_service_provide'] == "Courier Services" ? 'selected="selected"' : '' }}>Courier Services</option>  
-                                  <option value="Surveyor" {{ $data['type_of_service_provide'] == "Surveyor" ? 'selected="selected"' : '' }}>Surveyor</option>
-                                  <option value="General Services" {{ $data['type_of_service_provide'] == "General Services" ? 'selected="selected"' : '' }}>General Services</option>
-                                  <option value="Financial Services" {{ $data['type_of_service_provide'] == "Financial Services" ? 'selected="selected"' : '' }}>Financial Services</option> 
-                                  <option value="Security Services" {{ $data['type_of_service_provide'] == "Security Services" ? 'selected="selected"' : '' }}>Security Services</option> 
-                                  <option value="Auditing Services" {{ $data['type_of_service_provide'] == "Auditing Services" ? 'selected="selected"' : '' }}>Auditing Services</option> 
-                                  <option value="Manpower Supply" {{ $data['type_of_service_provide'] == "Manpower Supply" ? 'selected="selected"' : '' }}>Manpower Supply</option>      
-                                </select>
+										<select name="type_of_service_provide" class="form-control input-sm basic-detail-input-style" id="type_of_service_provide">
+											<option value="">Please select Type Of Service Provide</option>
+											<option value="Mechanical Contractor" {{ $data['type_of_service_provide'] == "Mechanical Contractor" ? 'selected="selected"' : '' }}>Mechanical Contractor</option> 
+											<option value="Electrical Contractor" {{ $data['type_of_service_provide'] == "Electrical Contractor" ? 'selected="selected"' : '' }}>Electrical Contractor</option> 
+											<option value="Instrumentation Contractor" {{ $data['type_of_service_provide'] == "Instrumentation Contractor" ? 'selected="selected"' : '' }}>Instrumentation Contractor</option>
+											<option value="Civil Contractor" {{ $data['type_of_service_provide'] == "Civil Contractor" ? 'selected="selected"' : '' }}>Civil Contractor</option>
+											<option value="Computer Systems" {{ $data['type_of_service_provide'] == "Computer Systems" ? 'selected="selected"' : '' }}>Computer Systems</option>
+											<option value="Consultancy Services" {{ $data['type_of_service_provide'] == "Consultancy Services" ? 'selected="selected"' : '' }}>Consultancy Services</option>  
+											<option value="Repair & Maintenance Services" {{ $data['type_of_service_provide'] == "Repair & Maintenance Services" ? 'selected="selected"' : '' }}>Repair & Maintenance Services</option>
+											<option value="Printing Services" {{ $data['type_of_service_provide'] == "Printing Services" ? 'selected="selected"' : '' }}>Printing Services</option>  
+											<option value="Transportation Services" {{ $data['type_of_service_provide'] == "Transportation Services" ? 'selected="selected"' : '' }}>Transportation Services</option> 
+											<option value="Shipping Services" {{ $data['type_of_service_provide'] == "Shipping Services" ? 'selected="selected"' : '' }}>Shipping Services</option> 
+											<option value="E-Tender Services" {{ $data['type_of_service_provide'] == "E-Tender Services" ? 'selected="selected"' : '' }}>E-Tender Services</option>  
+											<option value="Placement Services" {{ $data['type_of_service_provide'] == "Placement Services" ? 'selected="selected"' : '' }}>Placement Services</option> 
+											<option value="Insurance Services" {{ $data['type_of_service_provide'] == "Insurance Services" ? 'selected="selected"' : '' }}>Insurance Services</option>
+											<option value="Health Services" {{ $data['type_of_service_provide'] == "Health Services" ? 'selected="selected"' : '' }}>Health Services</option> 
+											<option value="Courier Services" {{ $data['type_of_service_provide'] == "Courier Services" ? 'selected="selected"' : '' }}>Courier Services</option>  
+											<option value="Surveyor" {{ $data['type_of_service_provide'] == "Surveyor" ? 'selected="selected"' : '' }}>Surveyor</option>
+											<option value="General Services" {{ $data['type_of_service_provide'] == "General Services" ? 'selected="selected"' : '' }}>General Services</option>
+											<option value="Financial Services" {{ $data['type_of_service_provide'] == "Financial Services" ? 'selected="selected"' : '' }}>Financial Services</option> 
+											<option value="Security Services" {{ $data['type_of_service_provide'] == "Security Services" ? 'selected="selected"' : '' }}>Security Services</option> 
+											<option value="Auditing Services" {{ $data['type_of_service_provide'] == "Auditing Services" ? 'selected="selected"' : '' }}>Auditing Services</option> 
+											<option value="Manpower Supply" {{ $data['type_of_service_provide'] == "Manpower Supply" ? 'selected="selected"' : '' }}>Manpower Supply</option>      
+										</select>
 	                              </div>
 	                           </div>
 	                        </div>
@@ -158,10 +155,10 @@
 							<div class="form-group">
 	                           <div class="row">
 							   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                                	<label for="manpower_provided" class="apply-leave-label label_1">Manpower Provided<sup class="ast">*</sup></label>
+	                                	<label for="manpower_provided" class="apply-leave-label">Manpower Provided<sup class="ast">*</sup></label>
 	                              	</div>
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-										<select name="manpower_provided" class="form-control input-md basic-detail-input-style input_1" id="manpower_provided">
+										<select name="manpower_provided" class="form-control input-sm basic-detail-input-style" id="manpower_provided">
 											<option value="">Please Specify Manpower Provided</option>
 											<option value="Yes" {{ $data['manpower_provided'] == "Yes" ? 'selected="selected"' : '' }}>Yes</option> 
 											<option value="No" {{ $data['manpower_provided'] == "No" ? 'selected="selected"' : '' }}>No</option> 
@@ -174,10 +171,10 @@
 						<div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="address" class="apply-leave-label label_1">Address<sup class="ast">*</sup></label>
+	                             <label for="address" class="apply-leave-label">Address<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <textarea rows="4" cols="50" class="form-control input-md basic-detail-input-style input_1" id="address" name="address" placeholder="Address">{{ $data['address'] }}</textarea>
+	                             <textarea rows="4" cols="50" class="form-control input-sm basic-detail-input-style" id="address" name="address" placeholder="Address">{{ $data['address'] }}</textarea>
 	                          </div>
 	                       </div>
 	                    </div>
@@ -185,10 +182,10 @@
 						<div class="form-group">
 	                           <div class="row">
 							   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                                	<label for="country_id" class="apply-leave-label label_1">Country<sup class="ast">*</sup></label>
+	                                	<label for="country_id" class="apply-leave-label">Country<sup class="ast">*</sup></label>
 	                              	</div>
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-									    <select class="form-control input-md basic-detail-input-style input_1 country_id" name="country_id" id ='country_id'>
+									    <select class="form-control input-sm basic-detail-input-style country_id" name="country_id" id ='country_id'>
 											@if(!$data['countries']->isEmpty())
 												@foreach($data['countries'] as $country)
 													<option value="{{$country->id}}" @if(@$country->id == $data['vendor']->country_id){{'selected'}}@endif>(+{{@$country->phone_code}}) {{@$country->iso3}}
@@ -203,10 +200,10 @@
 							<div class="form-group">
 	                           <div class="row">
 							   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                                	<label for="state_id" class="apply-leave-label label_1">State<sup class="ast">*</sup></label>
+	                                	<label for="state_id" class="apply-leave-label">State<sup class="ast">*</sup></label>
 	                              	</div>
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-									  <select class="form-control state_id input-md basic-detail-input-style input_1" name="state_id" id="state_id">
+									  <select class="form-control state_id input-sm basic-detail-input-style" name="state_id" id="state_id">
 										@if(!$data['states']->isEmpty())
 											@foreach($data['states'] as $state)
 												<option value="{{$state->id}}" @if($state->id == $data['vendor']->state_id){{"selected"}}@endif>{{$state->name}}</option>
@@ -220,10 +217,10 @@
 							<div class="form-group">
 	                           <div class="row">
 							   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                                	<label for="type" class="apply-leave-label label_1">City<sup class="ast">*</sup></label>
+	                                	<label for="type" class="apply-leave-label">City<sup class="ast">*</sup></label>
 	                              	</div>
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-									  <select class="form-control city_id input-md basic-detail-input-style input_1" name="city_id" id="city_id">
+									  <select class="form-control city_id input-sm basic-detail-input-style" name="city_id" id="city_id">
 									  </select>
 	                              </div>
 	                           </div>
@@ -232,17 +229,17 @@
 							<div class="form-group">
 	                           <div class="row">
 							   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-							   <label for="pin" class="apply-leave-label label_1">Pincode<sup class="ast">*</sup></label>
+							   <label for="pin" class="apply-leave-label">Pincode<sup class="ast">*</sup></label>
 	                              	</div>
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-									  <input autocomplete="off" type="text" class="form-control input-md basic-detail-input-style input_1" name="pin" id="pin" value="{{ $data['pin'] }}" placeholder="Please Enter Numeric  Value In Pin Code.">
+									  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="pin" id="pin" value="{{ $data['pin'] }}" placeholder="Please Enter Numeric  Value In Pin Code.">
 	                              </div>
 	                           </div>
 	                        </div>
 					
 	                      @php $user_id = Auth::id(); @endphp
 	                        <input type="hidden" name="user_id" value="{{@$user_id}}">
-							            <input type="hidden" name="id" value="{{ $data['id'] }}">
+							<input type="hidden" name="id" value="{{ $data['id'] }}">
 
 	                    </div>
 
@@ -250,35 +247,39 @@
 
 	                 <div class="col-md-6">
 	                    <div class="form-group">
+	                    <div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="std_code_with_phn_no" class="apply-leave-label label_1">STD Code with Phone No.<sup class="ast">*</sup></label>
+	                             <label for="std_code_with_phn_no" class="apply-leave-label">STD Code with Phone No.<sup class="ast">*</sup></label>
 	                          </div>
 	                          
-                            <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-                              <input autocomplete="off" type="text" class="form-control input-md basic-detail-input-style input_1" name="std_code_with_phn_no" id="std_code_with_phn_no" value="{{ $data['std_code_with_phn_no'] }}" placeholder="Please Enter STD Code with Phone No.">	
-                            </div>
+							  <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
+							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="std_code_with_phn_no" id="std_code_with_phn_no" value="{{ $data['std_code_with_phn_no'] }}" placeholder="Please Enter STD Code with Phone No.">	
+                                </div>
 								             
 	                       </div>
 	                    </div>
+	                       <div class="row">
+	                       </div>
+	                    </div>
 
 	                    <div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="email" class="apply-leave-label label_1">Email<sup class="ast">*</sup></label>
+	                             <label for="email" class="apply-leave-label">Email<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-							  <input autocomplete="off" type="text" class="form-control input-md basic-detail-input-style input_1" name="email" id="email" value="{{ $data['email'] }}" placeholder="Please Enter Valid Company Email Id.">
+							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="email" id="email" value="{{ $data['email'] }}" placeholder="Please Enter Valid Company Email Id.">
 	                          </div>
 	                       </div>
 	                    </div>
 	                    <div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="website" class="apply-leave-label label_1">Website</label>
+	                             <label for="website" class="apply-leave-label">Website</label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-							  <input autocomplete="off" type="text" class="form-control input-md basic-detail-input-style input_1" name="website" id="website" value="{{ $data['website'] }}" placeholder="Please enter full website url with http or https.">
+							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="website" id="website" value="{{ $data['website'] }}" placeholder="Please enter full website url with http or https.">
 	                          </div>
 	                       </div>
 	                    </div>
@@ -286,10 +287,10 @@
 						<div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="mobile" class="apply-leave-label label_1">Mobile<sup class="ast">*</sup></label>
+	                             <label for="mobile" class="apply-leave-label">Mobile<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-							  <input autocomplete="off" type="text" class="form-control input-md basic-detail-input-style input_1" name="mobile" id="mobile" value="{{ $data['mobile'] }}" maxlength="10" placeholder="Please enter mobile">
+							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="mobile" id="mobile" value="{{ $data['mobile'] }}" maxlength="10" placeholder="Please enter mobile">
 	                          </div>
 	                       </div>
 	                    </div>
@@ -298,10 +299,10 @@
 	                    <div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="name_of_contact_person" class="apply-leave-label label_1">Name of Contact Person<sup class="ast">*</sup></label>
+	                             <label for="name_of_contact_person" class="apply-leave-label">Name of Contact Person<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <input type="text" class="form-control input-md basic-detail-input-style input_1" name="name_of_contact_person" id="name_of_contact_person" value="{{ $data['name_of_contact_person'] }}" placeholder="Enter Name Of Contact Person">
+	                             <input type="text" class="form-control input-sm basic-detail-input-style" name="name_of_contact_person" id="name_of_contact_person" value="{{ $data['name_of_contact_person'] }}" placeholder="Enter Name Of Contact Person">
 	                          </div>
 	                       </div>
 	                    </div>
@@ -309,10 +310,10 @@
 						<div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="designation_of_contact_person" class="apply-leave-label label_1">Designation Of Contact Person<sup class="ast">*</sup></label>
+	                             <label for="designation_of_contact_person" class="apply-leave-label">Designation Of Contact Person<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <input type="text" class="form-control input-md basic-detail-input-style input_1" name="designation_of_contact_person" id="designation_of_contact_person" value="{{ $data['designation_of_contact_person'] }}" placeholder="Enter Name Of Contact Person">
+	                             <input type="text" class="form-control input-sm basic-detail-input-style" name="designation_of_contact_person" id="designation_of_contact_person" value="{{ $data['designation_of_contact_person'] }}" placeholder="Enter Name Of Contact Person">
 	                          </div>
 	                       </div>
 	                    </div>
@@ -322,10 +323,10 @@
 						<div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="description_of_company" class="apply-leave-label label_1">Brief Description of Business of your Company<sup class="ast">*</sup></label>
+	                             <label for="description_of_company" class="apply-leave-label">Brief Description of Business of your Company<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <textarea rows="4" cols="50" class="form-control input-md basic-detail-input-style input_1" id="description_of_company" name="description_of_company"  placeholder="Brief Description of Business of your Company">{{ $data['description_of_company'] }}</textarea>
+	                             <textarea rows="4" cols="50" class="form-control input-sm basic-detail-input-style" id="description_of_company" name="description_of_company"  placeholder="Brief Description of Business of your Company">{{ $data['description_of_company'] }}</textarea>
 	                          </div>
 	                       </div>
 	                    </div>
@@ -333,10 +334,10 @@
 						<div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="items_for_service" class="apply-leave-label label_1">Items for Service<sup class="ast">*</sup></label>
+	                             <label for="items_for_service" class="apply-leave-label">Items for Service<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <select class="form-control select2 input-md basic-detail-input-style input_1" name="items_for_service[]" multiple="multiple" style="width: 100%;" id="items_for_service" data-placeholder="Items For Service ">
+	                             <select class="form-control select2 input-sm basic-detail-input-style" name="items_for_service[]" multiple="multiple" style="width: 100%;" id="items_for_service" data-placeholder="Items For Service ">
 	                                @if(!$data['vendoritems']->isEmpty())
 										@php
 											$item_id = explode (",", $data['vendor']->items_for_service);

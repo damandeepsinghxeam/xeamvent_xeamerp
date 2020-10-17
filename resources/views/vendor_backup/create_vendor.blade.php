@@ -2,9 +2,6 @@
 @section('content')
 
 <link rel="stylesheet" href="{{asset('public/admin_assets/plugins/timepicker/bootstrap-timepicker.min.css')}}">
-
-<link rel="stylesheet" href="{{asset('public/admin_assets/dist/css/travel_module.css')}}">
-
 <script src="{{asset('public/admin_assets/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
 <script src="{{asset('public/admin_assets/plugins/validations/jquery.validate.js')}}"></script>
 <script src="{{asset('public/admin_assets/plugins/validations/additional-methods.js')}}"></script>
@@ -25,7 +22,7 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
         <div class="col-sm-12">
-          <div class="box main_box p-sm success">
+          <div class="box box-primary success">
              @if ($errors->basic->any())
               <div class="alert alert-danger alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -55,79 +52,79 @@
 	        <!-- form start -->
 	        <form id="vendorRequisitionForm" action="{{ url('vendor/save-vendor') }}" method="POST" enctype="multipart/form-data">
 	        {{ csrf_field() }}
-	           <div class="box-body form-sidechange">
+	           <div class="box-body jrf-form-body">
 	              <div class="row">
 	                 <div class="col-md-6">
 	                    <div class="form-group">
 
-                        <div class="form-group">
-                          <div class="row">
-                            <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-                              <label for="jrf_industry_type" class="apply-leave-label label_1">Name of Firm / Company<sup class="ast">*</sup></label>
-                            </div>
-                            <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-                              <input type="text" class=" form-control input-md basic-detail-input-style input_1" name="name_of_firm" id="name_of_firm" placeholder="Enter Name Of Firm">
-                            </div>
-                          </div>
-                        </div>
-                        <!-- for Project JRF -->
-                        <div class="form-group">
-                          <div class="row">
-                            <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-                              <label for="type_of_firm" class="apply-leave-label label_1">Type Of Firm<sup class="ast">*</sup></label>
-                            </div>
-                            <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-                              <select name="type_of_firm" class="form-control input-md basic-detail-input-style input_1" id="type_of_firm">
-                                <option value="">Please select Firm Type</option>
-                                <option value="Public Limited Co">Public Limited Co</option> 
-                                <option value="Partenership Co">Partenership Co</option> 
-                                <option value="Proprietorship">Proprietorship</option>
-                                <option value="Govt Sector">Govt Sector</option>  
-                                <option value="Others">Others</option>
-                              </select>
-                            </div>
-                         </div>
-                        </div>
+						<div class="form-group">
+	                       <div class="row">
+	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+	                             <label for="jrf_industry_type" class="apply-leave-label">Name of Firm / Company<sup class="ast">*</sup></label>
+	                          </div>
+	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
+	                             <input type="text" class="form-control input-sm basic-detail-input-style" name="name_of_firm" id="name_of_firm" placeholder="Enter Name Of Firm">
+	                          </div>
+	                       </div>
+	                    </div>
+	                    <!-- for Project JRF -->
+	                      	<div class="form-group">
+	                           	<div class="row">
+	                              	<div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+	                                	<label for="type_of_firm" class="apply-leave-label">Type Of Firm<sup class="ast">*</sup></label>
+	                              	</div>
+	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
+										<select name="type_of_firm" class="form-control input-sm basic-detail-input-style" id="type_of_firm">
+											<option value="">Please select Firm Type</option>
+											<option value="Public Limited Co">Public Limited Co</option> 
+											<option value="Partenership Co">Partenership Co</option> 
+											<option value="Proprietorship">Proprietorship</option>
+											<option value="Govt Sector">Govt Sector</option>  
+											<option value="Others">Others</option>
+										</select>
+	                              </div>
+	                           </div>
+	                      	</div>
 
 	                      <div class="others_firm" style="display: none;">
 	                        <div class="form-group">
 	                           <div class="row">
 	                              <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                                 <label for="type_of_firm_others" class="apply-leave-label label_1">Please Specify Others<sup class="ast">*</sup></label>
+	                                 <label for="type_of_firm_others" class="apply-leave-label">Please Specify Others<sup class="ast">*</sup></label>
 	                              </div>
 	                              <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                                  <input type="text" name="type_of_firm_others" class="form-control input-md basic-detail-input-style input_1" id="type_of_firm_others" placeholder="Please Specify Others"> 
+	                                  <input type="text" name="type_of_firm_others" class="form-control input-sm basic-detail-input-style" id="type_of_firm_others" placeholder="Please Specify Others"> 
 	                              </div>
 	                           </div>
 	                        </div>
 	                    </div>
 
-                      <div class="form-group">
-                        <div class="row">
-                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-                            <label for="status_of_company" class="apply-leave-label label_1">Status Of Company<sup class="ast">*</sup></label>
-                          </div>
-                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-                            <select name="status_of_company" class="form-control input-md basic-detail-input-style input_1" id="status_of_company">
-                              <option value="">Please select Status Of Company</option>
-                              <option value="Manufacturer">Manufacturer</option> 
-                              <option value="Authorized Dealer">Authorized Dealer</option> 
-                              <option value="Stokist">Stokist</option>
-                              <option value="Trader">Trader</option>
-                              <option value="Service Provider">Service Provider</option>  
-                            </select>
-                          </div>
-                       </div>
-                      </div>
-
-						          <div class="service" style="display: none;">
-	                        <div class="form-group">
-	                           <div class="row">
-                                 <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-                                  <label for="type_of_service_provide" class="apply-leave-label label_1">Type Of Service Provide<sup class="ast">*</sup></label>
+						<div class="form-group">
+	                           	<div class="row">
+	                              	<div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+	                                	<label for="status_of_company" class="apply-leave-label">Status Of Company<sup class="ast">*</sup></label>
 	                              	</div>
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-										<select name="type_of_service_provide" class="form-control input-md basic-detail-input-style input_1" id="type_of_service_provide">
+										<select name="status_of_company" class="form-control input-sm basic-detail-input-style" id="status_of_company">
+											<option value="">Please select Status Of Company</option>
+											<option value="Manufacturer">Manufacturer</option> 
+											<option value="Authorized Dealer">Authorized Dealer</option> 
+											<option value="Stokist">Stokist</option>
+											<option value="Trader">Trader</option>
+											<option value="Service Provider">Service Provider</option>  
+										</select>
+	                              </div>
+	                           </div>
+	                      	</div>
+
+						<div class="service" style="display: none;">
+	                        <div class="form-group">
+	                           <div class="row">
+							   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+	                                	<label for="type_of_service_provide" class="apply-leave-label">Type Of Service Provide<sup class="ast">*</sup></label>
+	                              	</div>
+	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
+										<select name="type_of_service_provide" class="form-control input-sm basic-detail-input-style" id="type_of_service_provide">
 											<option value="">Please select Type Of Service Provide</option>
 											<option value="Mechanical Contractor">Mechanical Contractor</option> 
 											<option value="Electrical Contractor">Electrical Contractor</option> 
@@ -149,19 +146,19 @@
 											<option value="Financial Services">Financial Services</option> 
 											<option value="Security Services">Security Services</option> 
 											<option value="Auditing Services">Auditing Services</option> 
-											<option value="Manpower Supply">Manpower Supply</option>
+											<option value="Manpower Supply">Manpower Supply</option>      
 										</select>
 	                              </div>
 	                           </div>
 	                        </div>
 
-							      <div class="form-group">
+							<div class="form-group">
 	                           <div class="row">
-							                   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                                	<label for="manpower_provided" class="apply-leave-label label_1">Manpower Provided<sup class="ast">*</sup></label>
+							   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+	                                	<label for="manpower_provided" class="apply-leave-label">Manpower Provided<sup class="ast">*</sup></label>
 	                              	</div>
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-										<select name="manpower_provided" class="form-control input-md basic-detail-input-style input_1" id="manpower_provided">
+										<select name="manpower_provided" class="form-control input-sm basic-detail-input-style" id="manpower_provided">
 											<option value="">Please Specify Manpower Provided</option>
 											<option value="Yes">Yes</option> 
 											<option value="No">No</option> 
@@ -171,24 +168,24 @@
 	                        </div>
 	                    </div> 
 
-						          <div class="form-group">
-                       <div class="row">
-                        <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-                           <label for="address" class="apply-leave-label label_1">Address<sup class="ast">*</sup></label>
-                        </div>
-                        <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-                           <textarea rows="4" cols="50" class="form-control input-md basic-detail-input-style input_1" id="address" name="address" placeholder="Address"></textarea>
-                        </div>
-                       </div>
+						<div class="form-group">
+	                       <div class="row">
+	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+	                             <label for="address" class="apply-leave-label">Address<sup class="ast">*</sup></label>
+	                          </div>
+	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
+	                             <textarea rows="4" cols="50" class="form-control input-sm basic-detail-input-style" id="address" name="address" placeholder="Address"></textarea>
+	                          </div>
+	                       </div>
 	                    </div>
 
-						          <div class="form-group">
+						<div class="form-group">
 	                           <div class="row">
-							                   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                                	<label for="country_id" class="apply-leave-label label_1">Country<sup class="ast">*</sup></label>
+							   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+	                                	<label for="country_id" class="apply-leave-label">Country<sup class="ast">*</sup></label>
 	                              	</div>
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-									    <select class="form-control input-md basic-detail-input-style input_1 country_id" name="country_id" id ='country_id'>
+									    <select class="form-control input-sm basic-detail-input-style country_id" name="country_id" id ='country_id'>
 											@if(!$data['countries']->isEmpty())
 												@foreach($data['countries'] as $country)
 													<option value="{{$country->id}}" @if(@$country->phone_code == '91'){{'selected'}}@endif>(+{{@$country->phone_code}}) {{@$country->iso3}}
@@ -200,30 +197,19 @@
 	                           </div>
 	                        </div> 
 
-							      <div class="form-group">
+							<div class="form-group">
 	                           <div class="row">
-							                   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                                	<label for="state_id" class="apply-leave-label label_1">State<sup class="ast">*</sup></label>
+							   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+	                                	<label for="state_id" class="apply-leave-label">State<sup class="ast">*</sup></label>
 	                              	</div>
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-                                    <select class="form-control state_id input-md basic-detail-input-style input_1" name="state_id" id="state_id">
-                                    @if(!$data['states']->isEmpty())
-                                      @foreach($data['states'] as $state)
-                                        <option value="{{$state->id}}" @if($state->name == "Punjab"){{"selected"}}@endif>{{$state->name}}</option>
-                                      @endforeach
-                                    @endif
-                                    </select>
-	                              </div>
-	                           </div>
-	                        </div> 
-
-                  <div class="form-group">
-                             <div class="row">
-                     <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                                	<label for="type" class="apply-leave-label label_1">City<sup class="ast">*</sup></label>
-	                              	</div>
-	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-									  <select class="form-control city_id input-md basic-detail-input-style input_1" name="city_id" id="city_id"></select>
+									  <select class="form-control state_id input-sm basic-detail-input-style" name="state_id" id="state_id">
+										@if(!$data['states']->isEmpty())
+											@foreach($data['states'] as $state)
+												<option value="{{$state->id}}" @if($state->name == "Punjab"){{"selected"}}@endif>{{$state->name}}</option>
+											@endforeach
+										@endif
+                                      </select>
 	                              </div>
 	                           </div>
 	                        </div> 
@@ -231,10 +217,21 @@
 							<div class="form-group">
 	                           <div class="row">
 							   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-							   <label for="pin" class="apply-leave-label label_1">Pincode<sup class="ast">*</sup></label>
+	                                	<label for="type" class="apply-leave-label">City<sup class="ast">*</sup></label>
 	                              	</div>
 	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-									  <input autocomplete="off" type="text" class="form-control input-md basic-detail-input-style input_1" name="pin" id="pin" placeholder="Please Enter Numeric  Value In Pin Code.">
+									  <select class="form-control city_id input-sm basic-detail-input-style" name="city_id" id="city_id"></select>
+	                              </div>
+	                           </div>
+	                        </div> 
+
+							<div class="form-group">
+	                           <div class="row">
+							   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+							   <label for="pin" class="apply-leave-label">Pincode<sup class="ast">*</sup></label>
+	                              	</div>
+	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
+									  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="pin" id="pin" placeholder="Please Enter Numeric  Value In Pin Code.">
 	                              </div>
 	                           </div>
 	                        </div>
@@ -249,25 +246,29 @@
 
 	                 <div class="col-md-6">
 	                    <div class="form-group">
+	                    <div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="std_code_with_phn_no" class="apply-leave-label label_1 p-t-none">STD Code with Phone No.<sup class="ast">*</sup></label>
+	                             <label for="std_code_with_phn_no" class="apply-leave-label">STD Code with Phone No.<sup class="ast">*</sup></label>
 	                          </div>
 	                          
-                            <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-                            <input autocomplete="off" type="text" class="form-control input-md basic-detail-input-style input_1" name="std_code_with_phn_no" id="std_code_with_phn_no" placeholder="Please Enter STD Code with Phone No.">	
-                            </div>
+							  <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
+							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="std_code_with_phn_no" id="std_code_with_phn_no" placeholder="Please Enter STD Code with Phone No.">	
+                                </div>
 								             
+	                       </div>
+	                    </div>
+	                       <div class="row">
 	                       </div>
 	                    </div>
 
 	                    <div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="email" class="apply-leave-label label_1">Email<sup class="ast">*</sup></label>
+	                             <label for="email" class="apply-leave-label">Email<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-							                <input autocomplete="off" type="text" class="form-control input-md basic-detail-input-style input_1" name="email" id="email" placeholder="Please Enter Valid Company Email Id.">
+							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="email" id="email" placeholder="Please Enter Valid Company Email Id.">
 	                          </div>
 	                       </div>
 	                    </div>
@@ -277,18 +278,18 @@
 	                             <label for="website" class="apply-leave-label">Website</label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-							                <input autocomplete="off" type="text" class="form-control input-md basic-detail-input-style input_1" name="website" id="website" placeholder="Please enter full website url with http or https.">
+							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="website" id="website" placeholder="Please enter full website url with http or https.">
 	                          </div>
 	                       </div>
 	                    </div>
 
-						          <div class="form-group">
+						<div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
 	                             <label for="mobile" class="apply-leave-label">Mobile<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-							                <input autocomplete="off" type="text" class="form-control input-md basic-detail-input-style input_1" name="mobile" id="mobile" maxlength="10" placeholder="Please enter mobile">
+							  <input autocomplete="off" type="text" class="form-control input-sm basic-detail-input-style" name="mobile" id="mobile" maxlength="10" placeholder="Please enter mobile">
 	                          </div>
 	                       </div>
 	                    </div>
@@ -300,42 +301,42 @@
 	                             <label for="name_of_contact_person" class="apply-leave-label">Name of Contact Person<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <input type="text" class="form-control input-md basic-detail-input-style input_1" name="name_of_contact_person" id="name_of_contact_person" placeholder="Enter Name Of Contact Person">
+	                             <input type="text" class="form-control input-sm basic-detail-input-style" name="name_of_contact_person" id="name_of_contact_person" placeholder="Enter Name Of Contact Person">
 	                          </div>
 	                       </div>
 	                    </div>
 
-						          <div class="form-group">
+						<div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
 	                             <label for="designation_of_contact_person" class="apply-leave-label">Designation Of Contact Person<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <input type="text" class="form-control input-md basic-detail-input-style input_1" name="designation_of_contact_person" id="designation_of_contact_person" placeholder="Enter Name Of Contact Person">
+	                             <input type="text" class="form-control input-sm basic-detail-input-style" name="designation_of_contact_person" id="designation_of_contact_person" placeholder="Enter Name Of Contact Person">
 	                          </div>
 	                       </div>
 	                    </div>
 
 
 
-						          <div class="form-group">
+						<div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
 	                             <label for="description_of_company" class="apply-leave-label">Brief Description of Business of your Company<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <textarea rows="4" cols="50" class="form-control input-md basic-detail-input-style input_1" id="description_of_company" name="description_of_company" placeholder="Brief Description of Business of your Company"></textarea>
+	                             <textarea rows="4" cols="50" class="form-control input-sm basic-detail-input-style" id="description_of_company" name="description_of_company" placeholder="Brief Description of Business of your Company"></textarea>
 	                          </div>
 	                       </div>
 	                    </div>
 
-						          <div class="form-group">
+						<div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
 	                             <label for="items_for_service" class="apply-leave-label">Items for Service<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <select class="form-control select2 input-md basic-detail-input-style input_1" name="items_for_service[]" multiple="multiple" style="width: 100%;" id="items_for_service" data-placeholder="Items For Service ">
+	                             <select class="form-control select2 input-sm basic-detail-input-style" name="items_for_service[]" multiple="multiple" style="width: 100%;" id="items_for_service" data-placeholder="Items For Service ">
 	                                @if(!$data['vendoritems']->isEmpty())
 	                                @foreach($data['vendoritems'] as $Vendoritem)  
 	                                <option value="{{$Vendoritem->id}}">{{$Vendoritem->name}}</option>

@@ -4,8 +4,6 @@
 
 <link rel="stylesheet" href="{{asset('public/admin_assets/plugins/dataTables/jquery.dataTables.min.css')}}">
 
-<link rel="stylesheet" href="{{asset('public/admin_assets/dist/css/travel_module.css')}}">
-
 <!-- Content Wrapper. Contains page content -->
 
   <div class="content-wrapper">
@@ -13,12 +11,17 @@
     <!-- Content Header (Page header) -->
 
     <section class="content-header">
-    
+
     @if(@$approval!=1)
-     <h1><i class="fa fa-list"></i> Vendor List</h1>
+     <h1>
+         Vendor List
+      </h1>
 
     @else
-     <h1><i class="fa fa-list"></i> Vendor List For Approval</h1>
+     <h1>
+        Vendor Approved List
+       
+      </h1>
 
     @endif
      
@@ -33,9 +36,7 @@
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-         <div class="col-md-12">
-          <div class="box main_box">
-           
+          <div class="box">
             <!-- <div class="box-header">
               <h3 class="box-title"><a class="btn btn-info" href='{{ url("mastertables/projects/add") }}'>Add</a></h3>
             </div> -->
@@ -89,9 +90,9 @@
 
             <div class="box-body">
 
-              <table id="listProjects" class="table table-bordered table-striped">
+              <table id="listProjects" class="table table-bordered table-striped text-center">
 
-                <thead class="table-heading-style table_1">
+                <thead class="table-heading-style">
 
                 <tr>
 
@@ -145,47 +146,27 @@
 
         <td>@if($value['vendor_status'] == '0')
 
-        <span class="label label-danger f_b">Pending</span>
+        <span class="label label-danger">Pending</span>
 
         @elseif($value['vendor_status'] == '1')
 
-        <span class="label label-success f_b">Approved</span>
+        <span class="label label-success">Approved</span>
 
         @elseif($value['vendor_status'] == '2')
 
-        <span class="label label-primary f_b">Rejected</span>
+        <span class="label label-primary">Rejected</span>
 
         @endif
 
         </td>                 
 
-        @if(auth()->user()->can('edit-vendor') || auth()->user()->can('vendor-approval'))
-
         <td>
-
-        @if((auth()->user()->can('edit-vendor'))  AND ($value['vendor_status'] == '0') AND (auth()->user()->id==$value['supervisor_id']))
-
-            <a class="btn btn-xs bg-purple" href='{{ url("vendor/edit/")."/".$value['id']}}' title="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-
-                @elseif((auth()->user()->can('edit-vendor'))  AND ($value['vendor_status'] == '0') AND (auth()->user()->id!=$value['supervisor_id']))
-        
-                    <a class="btn btn-xs bg-purple" href='{{ url("vendor/edit/")."/".$value['id']}}' title="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
-
-        @endif
-
-        @if(auth()->user()->can('vendor-approval') && $value)
-          @if($value['vendor_status'] == '0')
-          <a class="btn btn-xs bg-blue approveBtn" href='{{ url("vendor/approve/")."/".$value['id']}}' title="approve"><i class="fa fa-check" aria-hidden="true"></i></a>
-          <a class="btn btn-xs bg-red rejectBtn" href='{{ url("vendor/reject/")."/".$value['id']}}' title="reject"><i class="fa fa-close" style="color:black" aria-hidden="true"></i></a>
-          <!-- <a class="btn btn-xs bg-red rejectBtn" href='#' title="Send Back" data-toggle="modal" data-target="#project_InfoModal"><i class="fa fa-reply" aria-hidden="true"></i></a> -->
-
-          <a class="btn btn-xs bg-orange" href='{{ url("vendor/show_vendor_detail/".$value['id'])}}' title="show"><i class="fa fa-eye" aria-hidden="true"></i></a>
+  
+          @if($value['vendor_status'] == '1')
+                   <a class="btn btn-xs bg-orange" href='{{ url("vendor/show_vendor_detail/".$value['id'])}}' title="show"><i class="fa fa-eye" aria-hidden="true"></i></a>
           @endif
-        @endif
         
-        </td>
-
-        @endif                 
+        </td>                 
 
                 </tr>
 
@@ -193,7 +174,7 @@
         @endif
                 </tbody>
 
-                <tfoot class="table-heading-style table_1">
+                <tfoot class="table-heading-style">
 
                 <tr>
 
@@ -226,7 +207,6 @@
             <!-- /.box-body -->
 
           </div>
-         </div>
 
           <!-- /.box -->
 

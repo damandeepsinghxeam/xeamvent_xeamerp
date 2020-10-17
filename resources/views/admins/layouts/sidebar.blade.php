@@ -861,6 +861,7 @@ if(!empty($usser)) {
                     @can('product-request-approval')
                         <li class=""><a href="{{ url('purchaseorder/approval-product-requests') }}"><i class="fa fa-circle-o text-red"></i>Approve Product Request</a></li>
                     @endcan
+                    <li class=""><a href="{{ url('purchaseorder/request-quote') }}"><i class="fa fa-circle-o text-red"></i>Request Quotation</a></li>
                 </ul>
             </li>
 

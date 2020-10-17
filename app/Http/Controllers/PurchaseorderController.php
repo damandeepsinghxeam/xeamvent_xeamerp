@@ -200,32 +200,56 @@ class PurchaseorderController extends Controller
             return view('purchaseorder.list_product_requests_status')->with(['requested_product_items'=>$data, 'approval'=>'1']);
     
         }
-        
+
+      // Request a Vendor For Product Quotation Form  
         public function request_quote()
         {
             if (Auth::guest()) {
                 return redirect('/');
             }
-    
-            $data['vendoritems']         = Vendoritem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
-            
-            $vendor_detail =  DB::table('vendors as vend')
+
+            $vendorDetail =  DB::table('vendors as vend')
             ->join('vendor_approvals as vap','vend.id','=','vap.vendor_id')
             ->where('vap.vendor_status','1')
-            ->select('vend.*')
-            ->get();
+            ->pluck('vend.name_of_firm', 'vend.id')
+            ->toArray();
 
-            if($vendor_detail AND !$vendor_detail->isEmpty()){   
-                foreach($vendor_detail as $vendorData){         
-                    $vendor_data_array['id'] = $vendorData->id;
-                    $vendor_data_array['name_of_firm'] = $vendorData->name_of_firm;
-                    $data[] = $vendor_data_array;
-                    
+            $data['vendorDetail'] = $vendorDetail;
+            return view('purchaseorder.request_quote', $data);
+        }
+
+        
+
+        public function saveRequestQuote(Request $request)
+        {
+            if (Auth::guest()) {
+                return redirect('/');
+            }
+            
+            $vendorId = $request->name_of_firm;
+
+            if(($vendorId)AND (!empty($vendorId)))
+                {   
+                    foreach($vendorId as $vendor_id){         
+                        $vendor_id;
+                        $vendor_email = Vendor::where(['id'=>$vendor_id])->select('id', 'email')->get();
+                        dd($vendor_email);die;
+                    }
                 }
-            }else{
-                $data=[];
-            }   
+            else
+                {
+            
+                }   
+                 dd($vendor_email);die;
 
-            return view('purchaseorder.request_quote')->with(['data' => $data]);
+
+            // $vendorDetail =  DB::table('vendors as vend')
+            // ->join('vendor_approvals as vap','vend.id','=','vap.vendor_id')
+            // ->where('vap.vendor_status','1')
+            // ->pluck('vend.name_of_firm', 'vend.id')
+            // ->toArray();
+
+            // $data['vendorDetail'] = $vendorDetail;
+             return view('purchaseorder.request_quote', $data);
         }
 }
