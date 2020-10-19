@@ -32,8 +32,6 @@
 	              <div class="row">
 	                 <div class="col-md-6">
 	                    <div class="form-group">
-
-
 						<div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">

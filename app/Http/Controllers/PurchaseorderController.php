@@ -231,23 +231,19 @@ class PurchaseorderController extends Controller
             
                 try {
                     \DB::beginTransaction();
-                    unset($inputs['_token']);
 
                     $vendorIds = $vendorId = $request->name_of_firm;
 
                     $vendors = Vendor::whereIn('id', [$vendorIds])->get();
-
                     if(!empty($vendors) && count($vendors) > 0) {
                         foreach($vendors as $key => $vendor) {
                             // /***************Send Mail Code**************************/
-                            if(!empty($message)) {
-                                $mail_data['from_email'] = $user->email;
-                                $mail_data['to_email'] = $vendor->email;
-                                $mail_data['subject'] = $request->product_request_title;
-                                $mail_data['message'] = $request->product_request_description;
-                                if(!$this->sendGeneralMail($mail_data)) {
-                                    throw new \Exception("Error occurs please try again.", 151);
-                                }
+                            $mail_data['from_email'] = $user->email;
+                            $mail_data['to_email'] = $vendor->email;
+                            $mail_data['subject'] = $request->product_request_title;
+                            $mail_data['message'] = $request->product_request_description;
+                            if(!$this->sendGeneralMail($mail_data)) {
+                                throw new \Exception("Error occurs please try again.", 151);
                             }
                         }
                     } else {
@@ -259,7 +255,7 @@ class PurchaseorderController extends Controller
                     return redirect()->back()->withSuccess($message);
                 } catch (\Exception $e) {
                     \DB::rollBack();
-
+                   // dd($e->getMessage());
                     $message = 'Error code 500: internal server error.';
                     if($e->getCode() == 151) {
                         $message = $e->getMessage();
@@ -272,4 +268,13 @@ class PurchaseorderController extends Controller
                 return redirect()->back()->withError($message)->withInput($request->all());
             }
         }
+
+        function sendGeneralMail($mail_data)
+        {   //mail_data Keys => to_email, subject, fullname, message
+                if(!empty($mail_data['to_email'])){
+                    Mail::to($mail_data['to_email'])->send(new GeneralMail($mail_data));
+                }
+                return true;
+        }//end of function
+        
 }
