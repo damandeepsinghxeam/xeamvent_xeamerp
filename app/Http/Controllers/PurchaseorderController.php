@@ -149,7 +149,7 @@ class PurchaseorderController extends Controller
                                    ->update(['product_requested_status' => '1']);
                
                
-               return redirect("purchaseorder/approval-product-requests")->with('success', "Vendor has been approved."); 
+               return redirect("purchaseorder/approval-product-requests")->with('success', "Item has been approved."); 
    
            }elseif($action == 'reject'){
    

@@ -312,12 +312,10 @@
 	                             <label for="designation_of_contact_person" class="apply-leave-label label_1">Designation Of Contact Person<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <input type="text" class="form-control input-md basic-detail-input-style input_1" name="designation_of_contact_person" id="designation_of_contact_person" value="{{ $data['designation_of_contact_person'] }}" placeholder="Enter Name Of Contact Person">
+	                             <input type="text" class="form-control input-md basic-detail-input-style input_1" name="designation_of_contact_person" id="designation_of_contact_person" value="{{ $data['designation_of_contact_person'] }}" placeholder="Enter Designation Of Contact Person">
 	                          </div>
 	                       </div>
 	                    </div>
-
-
 
 						<div class="form-group">
 	                       <div class="row">

@@ -843,8 +843,9 @@ if(!empty($usser)) {
                     <li class=""><a href="{{ url('vendor/create') }}"><i class="fa fa-circle-o text-red"></i>Create Vendor</a></li>
                     @can('vendor-approval')
                         <li class=""><a href="{{ url('vendor/approval-vendors') }}"><i class="fa fa-circle-o text-red"></i>Approve Vendor</a></li>
-                        <li class=""><a href="{{ url('vendor/approved-vendors') }}"><i class="fa fa-circle-o text-red"></i>Approved Vendors List</a></li>
+                        
                     @endcan
+                    <li class=""><a href="{{ url('vendor/approved-vendors') }}"><i class="fa fa-circle-o text-red"></i>Approved Vendors List</a></li>
                    
                 </ul>
             </li>
