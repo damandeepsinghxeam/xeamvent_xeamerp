@@ -137,7 +137,16 @@
 
         <td>{{@$value['name_of_firm']}}</td>
 
-        <td>{{@$value['type_of_firm']}}</td>
+
+        <td>@if($value['type_of_firm'] == 'Others')
+
+        {{@$value['type_of_firm']." - (". $value['type_of_firm_others'].")"}}
+
+        @else
+
+        {{@$value['type_of_firm']}}
+
+        @endif </td>
 
         <td>{{@$value['status_of_company']}}</td>
 

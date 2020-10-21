@@ -117,7 +117,6 @@ class PurchaseorderController extends Controller
                 $product_request_data_array['product_requested_status'] = $productRequestData->product_requested_status;
                 $product_request_data_array['supervisor_id'] = $productRequestData->supervisor_id;
                 $data[] = $product_request_data_array;
-                
             }
         }else{
             $data=[];

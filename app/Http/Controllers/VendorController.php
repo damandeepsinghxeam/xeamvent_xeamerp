@@ -159,6 +159,7 @@ class VendorController extends Controller
                     $vendor_approval_data_array['id'] = $vendorData->id;
                     $vendor_approval_data_array['name_of_firm'] = $vendorData->name_of_firm;
                     $vendor_approval_data_array['type_of_firm'] = $vendorData->type_of_firm;
+                    $vendor_approval_data_array['type_of_firm_others'] = $vendorData->type_of_firm_others;
                     $vendor_approval_data_array['status_of_company'] = $vendorData->status_of_company;
                     $vendor_approval_data_array['email'] = $vendorData->email;
                     $vendor_approval_data_array['vendor_status'] = $vendorData->vendor_status;
@@ -199,6 +200,7 @@ class VendorController extends Controller
                 $vendor_approval_data_array['id'] = $vendorData->id;
                 $vendor_approval_data_array['name_of_firm'] = $vendorData->name_of_firm;
                 $vendor_approval_data_array['type_of_firm'] = $vendorData->type_of_firm;
+                $vendor_approval_data_array['type_of_firm_others'] = $vendorData->type_of_firm_others;
                 $vendor_approval_data_array['status_of_company'] = $vendorData->status_of_company;
                 $vendor_approval_data_array['email'] = $vendorData->email;
                 $vendor_approval_data_array['vendor_status'] = $vendorData->vendor_status;
