@@ -37,14 +37,14 @@ if(!empty($usser)) {
             <li class="header">MAIN NAVIGATION</li>
             <li>
                 <a href="{{ url('employees/dashboard') }}">
-                    <i class="fa fa-dashboard side_icon_0"></i> <span>Dashboard</span>
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-users side_icon_1"></i> <span>Employees Management</span>
+                    <i class="fa fa-users"></i> <span>Employees Management</span>
                     <span class="pull-right-container">
-                    <i class="fa fa-angle-right pull-right"></i>
+                    <i class="fa fa-angle-left pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
@@ -63,7 +63,7 @@ if(!empty($usser)) {
             @if(auth()->user()->can('create-company') || auth()->user()->can('edit-company') || auth()->user()->can('approve-company'))
                 <li>
                     <a href="{{ url('mastertables/companies') }}">
-                        <i class="fa fa-industry side_icon_2"></i> <span>Companies Management</span>
+                        <i class="fa fa-industry"></i> <span>Companies Management</span>
                     </a>
                 </li>
             @endif
@@ -72,9 +72,9 @@ if(!empty($usser)) {
 
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-sitemap side_icon_3"></i> <span>Project Management</span>
+                        <i class="fa fa-sitemap"></i> <span>Project Management</span>
                         <span class="pull-right-container">
-              <i class="fa fa-angle-right pull-right"></i>
+              <i class="fa fa-angle-left pull-right"></i>
             </span>
                     </a>
 
@@ -100,9 +100,9 @@ if(!empty($usser)) {
 
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-sitemap side_icon_4"></i> <span>Master Management</span>
+                    <i class="fa fa-sitemap"></i> <span>Master Management</span>
                     <span class="pull-right-container">
-                      <i class="fa fa-angle-right pull-right"></i>
+                      <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
@@ -117,16 +117,16 @@ if(!empty($usser)) {
             @can('approve-probation')
                 <li>
                     <a href="{{ url('employees/probation-approvals') }}">
-                        <i class="fa fa-check-square-o side_icon_5"></i> <span>Probation Management</span>
+                        <i class="fa fa-check-square-o"></i> <span>Probation Management</span>
                     </a>
                 </li>
             @endcan
 
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-plane side_icon_6"></i> <span>Leaves Management</span>
+                    <i class="fa fa-plane fa-lg"></i> <span>Leaves Management</span>
                     <span class="pull-right-container">
-                    <i class="fa fa-angle-right pull-right"></i>
+                    <i class="fa fa-angle-left pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
@@ -147,9 +147,9 @@ if(!empty($usser)) {
 
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-calendar side_icon_7"></i> <span>Attendance Management</span>
+                    <i class="fa fa-calendar"></i> <span>Attendance Management</span>
                     <span class="pull-right-container">
-                    <i class="fa fa-angle-right pull-right"></i>
+                    <i class="fa fa-angle-left pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
@@ -169,9 +169,9 @@ if(!empty($usser)) {
 
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-clock-o side_icon_8"></i> <span>Task Management</span>
+                    <i class="fa fa-clock-o"></i> <span>Task Management</span>
                     <span class="pull-right-container">
-                    <i class="fa fa-angle-right pull-right"></i>
+                    <i class="fa fa-angle-left pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
@@ -196,9 +196,9 @@ if(!empty($usser)) {
             @if(auth()->user()->can('bd-team.create') || auth()->user()->can('bd-team.index'))
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-briefcase side_icon_9"></i> <span>B.D Team Management</span>
+                        <i class="fa fa-briefcase"></i> <span>B.D Team Management</span>
                         <span class="pull-right-container">
-                      <i class="fa fa-angle-right pull-right"></i>
+                      <i class="fa fa-angle-left pull-right"></i>
                     </span>
                     </a>
 
@@ -241,9 +241,9 @@ if(!empty($usser)) {
 
             <li class="treeview @if(in_array($routeName, $ulRouteArr)) active @endif">
                 <a href="#">
-                    <i class="fa fa-briefcase side_icon_10"></i> <span>Lead Management</span>
+                    <i class="fa fa-briefcase"></i> <span>Lead Management</span>
                     <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
 
@@ -308,9 +308,9 @@ if(!empty($usser)) {
             @if(auth()->user()->can('tender-processing') || auth()->user()->can('assigned-costestimation'))
                 <li class="treeview @if(in_array($routeName, $ulRouteArr)) active @endif">
                     <a href="#">
-                        <i class="fa fa-briefcase side_icon_12"></i> <span>Tender Processing</span>
+                        <i class="fa fa-briefcase"></i> <span>Tender Processing</span>
                         <span class="pull-right-container">
-                            <i class="fa fa-angle-right pull-right"></i>
+                            <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
 
@@ -335,7 +335,7 @@ if(!empty($usser)) {
 
             <li>
                 <a href="{{ url('mastertables/kra') }}">
-                    <i class="fa fa-cogs side_icon_11"></i> <span>KRA Management</span>
+                    <i class="fa fa-cogs"></i> <span>KRA Management</span>
                 </a>
             </li>
 
@@ -343,9 +343,9 @@ if(!empty($usser)) {
             @can('manage-masterTable')
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-money side_icon_13" aria-hidden="true"></i><span>Payroll Management</span>
+                        <i class="fa fa-money" aria-hidden="true"></i><span>Payroll Management</span>
                         <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </span>
                     </a>
 
@@ -371,7 +371,7 @@ if(!empty($usser)) {
                             <a href="#">
                                 <i class="fa fa-file-text fa-lg"></i> <span>Salary Structures</span>
                                 <span class="pull-right-container">
-                                    <i class="fa fa-angle-right pull-right"></i>
+                                    <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
                             <ul class="treeview-menu">
@@ -384,7 +384,7 @@ if(!empty($usser)) {
 {{--                            <a href="#">--}}
 {{--                                <i class="fa fa-file-text fa-lg"></i> <span>Salary Sheets</span>--}}
 {{--                                <span class="pull-right-container">--}}
-{{--                                    <i class="fa fa-angle-right pull-right"></i>--}}
+{{--                                    <i class="fa fa-angle-left pull-right"></i>--}}
 {{--                                </span>--}}
 {{--                            </a>--}}
 {{--                            <ul class="treeview-menu">--}}
@@ -406,7 +406,7 @@ if(!empty($usser)) {
                                 <a href="#">
                                     <i class="fa fa-file-text fa-lg"></i> <span>PT Rates</span>
                                     <span class="pull-right-container">
-                                    <i class="fa fa-angle-right pull-right"></i>
+                                    <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                                 </a>
                                 <ul class="treeview-menu">
@@ -421,7 +421,7 @@ if(!empty($usser)) {
                                 <a href="#">
                                     <i class="fa fa-money fa-lg"></i> <span>PF's</span>
                                     <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </span>
                                 </a>
                                 <ul class="treeview-menu">
@@ -438,7 +438,7 @@ if(!empty($usser)) {
                                 <a href="#">
                                     <i class="fa fa-money fa-lg"></i> <span>ESI's</span>
                                     <span class="pull-right-container">
-                                            <i class="fa fa-angle-right pull-right"></i>
+                                            <i class="fa fa-angle-left pull-right"></i>
                                         </span>
                                 </a>
                                 <ul class="treeview-menu">
@@ -452,7 +452,7 @@ if(!empty($usser)) {
                             <a href="#">
                                 <i class="fa fa-file-text fa-lg"></i> <span>Lwf Management</span>
                                 <span class="pull-right-container">
-                                    <i class="fa fa-angle-right pull-right"></i>
+                                    <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
                             <ul class="treeview-menu">
@@ -467,9 +467,9 @@ if(!empty($usser)) {
             @can('jrf-menu')
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-archive side_icon_15" aria-hidden="true"></i><span>JRF Management</span>
+                        <i class="fa fa-archive" aria-hidden="true"></i><span>JRF Management</span>
                         <span class="pull-right-container">
-                          <i class="fa fa-angle-right pull-right"></i>
+                          <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
 
@@ -503,13 +503,13 @@ if(!empty($usser)) {
             @endcan
 
 
-            <li class="hide"><a title="All Dms Documents" href="{{ route('dms.document.my.documents') }}"><i class="fa fa-files-o side_icon_2"></i>My Documents</a></li>
+            <li class="hide"><a title="All Dms Documents" href="{{ route('dms.document.my.documents') }}"><i class="fa fa-files-o fa-lg"></i>My Documents</a></li>
 
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-file-text side_icon_13"></i> <span>DMS Document</span>
+                    <i class="fa fa-file-text fa-lg"></i> <span>DMS Document</span>
                     <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
@@ -534,8 +534,8 @@ if(!empty($usser)) {
 
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-plane side_icon_14"></i> <span>Travel & Expense<br> Management</span>
-                    <span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span>
+                    <i class="fa fa-suitcase"></i> <span>Travel & Expense<br> Management</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
                     <li class="">
@@ -559,9 +559,9 @@ if(!empty($usser)) {
 
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-money side_icon_15"></i> <span>Payroll Management</span>
+                    <i class="fa fa-briefcase"></i> <span>Payroll Management</span>
                     <span class="pull-right-container">
-                      <i class="fa fa-angle-right pull-right"></i>
+                      <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
 
@@ -587,7 +587,7 @@ if(!empty($usser)) {
                             <a href="#">
                                 <i class="fa fa-file-text fa-lg"></i> <span>PT Rates</span>
                                 <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </span>
                             </a>
                             <ul class="treeview-menu">
@@ -602,8 +602,8 @@ if(!empty($usser)) {
                             <a href="#">
                                 <i class="fa fa-money fa-lg"></i> <span>PF's</span>
                                 <span class="pull-right-container">
-                                <i class="fa fa-angle-right pull-right"></i>
-                                </span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                             </a>
                             <ul class="treeview-menu">
                                 <li class=""><a title="All Pf's" href="{{ route('payroll.pf.index') }}"><i class="fa fa-circle-o text-red"></i>All PF's</a></li>
@@ -618,7 +618,7 @@ if(!empty($usser)) {
                             <a href="#">
                                 <i class="fa fa-money fa-lg"></i> <span>ESI's</span>
                                 <span class="pull-right-container">
-                                            <i class="fa fa-angle-right pull-right"></i>
+                                            <i class="fa fa-angle-left pull-right"></i>
                                         </span>
                             </a>
                             <ul class="treeview-menu">
@@ -634,9 +634,9 @@ if(!empty($usser)) {
 
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-briefcase side_icon_1"></i> <span>JRF Management </span>
+                    <i class="fa fa-briefcase"></i> <span>JRF Management </span>
                     <span class="pull-right-container">
-                      <i class="fa fa-angle-right pull-right"></i>
+                      <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
 
@@ -834,37 +834,34 @@ if(!empty($usser)) {
 
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-sitemap side_icon_2"></i> <span>Vendor</span>
+                    <i class="fa fa-sitemap"></i> <span>Vendor</span>
                     <span class="pull-right-container">
-                      <i class="fa fa-angle-right pull-right"></i>
+                      <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
                     <li class=""><a href="{{ url('vendor/create') }}"><i class="fa fa-circle-o text-red"></i>Create Vendor</a></li>
                     @can('vendor-approval')
                         <li class=""><a href="{{ url('vendor/approval-vendors') }}"><i class="fa fa-circle-o text-red"></i>Approve Vendor</a></li>
-                        <li class=""><a href="{{ url('vendor/approved-vendors') }}"><i class="fa fa-circle-o text-red"></i>Approved Vendors List</a></li>
                     @endcan
-                   
+                    <li class=""><a href="{{ url('vendor/approved-vendors') }}"><i class="fa fa-circle-o text-red"></i>Approved Vendors List</a></li>
                 </ul>
             </li>
 
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-sitemap side_icon_3"></i> <span>Purchase Order</span>
+                    <i class="fa fa-sitemap"></i> <span>Purchase Order</span>
                     <span class="pull-right-container">
-                      <i class="fa fa-angle-right pull-right"></i>
+                      <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                   @can('new-product-request')
                     <li class=""><a href="{{ url('purchaseorder/product_request') }}"><i class="fa fa-circle-o text-red"></i>Create Product Request</a></li>
                     <li class=""><a href="{{ url('purchaseorder/product-requests-status') }}"><i class="fa fa-circle-o text-red"></i>Product Request Status</a></li>
-                    <li class=""><a href="{{ url('purchaseorder/request-quote') }}"><i class="fa fa-circle-o text-red"></i>Request Quotation</a></li>
-                    @endcan
                     @can('product-request-approval')
                         <li class=""><a href="{{ url('purchaseorder/approval-product-requests') }}"><i class="fa fa-circle-o text-red"></i>Approve Product Request</a></li>
                     @endcan
+                    <li class=""><a href="{{ url('purchaseorder/request-quote') }}"><i class="fa fa-circle-o text-red"></i>Request Quotation</a></li>
                 </ul>
             </li>
 
