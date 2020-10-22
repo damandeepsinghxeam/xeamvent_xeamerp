@@ -105,11 +105,7 @@
                   
                   <th>Status</th>                  
 
-                  @if(auth()->user()->can('edit-vendor') || auth()->user()->can('vendor-approval'))
-
-                  <th>Actions</th>
-
-                  @endif                 
+                  <th>Actions</th>             
 
                 </tr>
 
