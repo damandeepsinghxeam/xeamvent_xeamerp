@@ -14,12 +14,17 @@ class Vendor extends Model
     public function country() {
         return $this->belongsTo('App\Country', 'country_id', 'id');
     }
-    
+
     public function state() {
         return $this->belongsTo('App\State', 'state_id', 'id');
     }
 
     public function city() {
         return $this->belongsTo('App\City', 'city_id', 'id');
+    }
+
+    function notifications()
+    {
+        return $this->morphMany('App\Notification', 'notificationable');
     }
 }

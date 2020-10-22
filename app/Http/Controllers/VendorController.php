@@ -122,25 +122,31 @@ class VendorController extends Controller
         
         ];
 
-        $user      = User::where(['id' => Auth::id()])->with('employee')->first();
+        $user = User::where(['id' => Auth::id()])->with('employee')->first();
 
-         $saved_vendor = $user->vendor()->create($data);     
-
+        $saved_vendor = $user->vendor()->create($data);
          
-        $userId = User::permission('vendor-approval')->pluck('id');
-        $supervisorUserId = $userId[0];
+        $userId = User::permission('vendor-approval')->first();
+        $supervisorUserId = $userId->id;
     
        // $userId = User::where('employee_code', '01')->first()->id;
         $vendor_approval = [
             'user_id'       => $request->user_id,
-            'vendor_id'        => $saved_vendor->id,
+            'vendor_id'     => $saved_vendor->id,
             'supervisor_id' => $supervisorUserId,
-            'vendor_status'    => '0', //inprogress
+            'vendor_status' => '0', //inprogress
         ];
 
-        //dd($vendor_approval);
-        
-        $saved_vendor = $user->vendorapprovals()->create($vendor_approval);
+        $notification_data = [
+            'sender_id' => $request->user_id,
+            'receiver_id' => $supervisorUserId,
+            'label' => 'Vendor For Approval',
+            'read_status' => '0'
+        ]; 
+        $notification_data['message'] = "New Vendor is added and is Pending for Approval";        
+        $saved_vendor_approval = $user->vendorapprovals()->create($vendor_approval);
+
+        $saved_vendor->notifications()->create($notification_data);
 
         return redirect()->back()->with('success', "Vendor created successfully.");
     }
