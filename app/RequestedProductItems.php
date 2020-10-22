@@ -33,4 +33,9 @@ class RequestedProductItems extends Model
         return $this->hasMany('App\VendorApprovals');
     }
 
+    function notifications()
+    {
+        return $this->morphMany('App\Notification', 'notificationable');
+    }
+
 }

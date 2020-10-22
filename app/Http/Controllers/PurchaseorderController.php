@@ -85,7 +85,17 @@ class PurchaseorderController extends Controller
             
             ];
 
-            $saved_vendor = $user->RequestedProductItems()->create($data);   
+            $notification_data = [
+                'sender_id' => $request->user_id,
+                'receiver_id' => $supervisorUserId,
+                'label' => 'Item Request For Approval',
+                'read_status' => '0'
+            ]; 
+            $notification_data['message'] = "New Item Request is added and is Pending for Approval";  
+
+            $saved_item = $user->RequestedProductItems()->create($data);               
+            
+            $saved_item->notifications()->create($notification_data);
     
             return redirect()->back()->with('success', "Product Request created successfully.");
         }
