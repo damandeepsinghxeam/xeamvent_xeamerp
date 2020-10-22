@@ -96,8 +96,6 @@
           
                   <th>Product Name</th>
 
-                  <th>Product Name (Other)</th>
-
                   <th>Number Of Items Requested</th>
           
                   <th>Product Description</th>
@@ -125,9 +123,15 @@
 
         <td>{{@$loop->iteration}}</td>
 
-        <td>{{@$value['product_name']}}</td>
+        <td>@if($value['product_name'] == 'Others')
 
-        <td>{{@$value['others_product_name']}}</td>
+        {{@$value['product_name']." - (". $value['others_product_name'].")"}}
+
+        @else
+
+        {{@$value['product_name']}}
+
+        @endif </td>
 
         <td>{{@$value['no_of_items_requested']}}</td>
 
@@ -163,8 +167,6 @@
                   <th>S.No.</th>
           
                   <th>Product Name</th>
-
-                  <th>Product Name (Other)</th>
 
                   <th>Number Of Items Requested</th>
 
