@@ -34,6 +34,7 @@ class CreateVendorsTable extends Migration
             $table->string('name_of_contact_person');
             $table->string('designation_of_contact_person');
             $table->string('description_of_company');
+            $table->bigInteger('category_id');
             $table->string('items_for_service');
             $table->timestamps();
         });

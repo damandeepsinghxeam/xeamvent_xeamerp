@@ -332,10 +332,10 @@
 						<div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="category" class="apply-leave-label">Cateory<sup class="ast">*</sup></label>
+	                             <label for="category_id" class="apply-leave-label">Item Cateory<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <select class="form-control input-md basic-detail-input-style input_1" name="category"  style="width: 100%;" id="category" data-placeholder="Select Category">
+	                             <select class="form-control input-md basic-detail-input-style input_1" name="category_id"  style="width: 100%;" id="category_id" data-placeholder="Select Category">
 								    <option value="">Please Specify Category</option>
 									@if(!$data['vendoritemscategories']->isEmpty())
 	                                @foreach($data['vendoritemscategories'] as $Vendoritemscategorie)  
@@ -445,7 +445,10 @@
         "designation_of_contact_person" : {
 			required : true
         },
-        "description_of_company" : {
+		"description_of_company" : {
+          required: true
+        },
+        "category_id" : {
           required: true
         },
 		"items_for_service[]" : {
@@ -521,6 +524,9 @@
           },
           "description_of_company" : {
             required: 'Enter Description Of Company'
+          },
+		  "category_id" : {
+            required: 'Enter Category'
           },
 		  "items_for_service[]" : {
             required: 'Select Items For Service'
@@ -621,7 +627,7 @@
      }).change();
 
 
-	 $('#category').on('change', function(){
+	 $('#category_id').on('change', function(){
 
 			var categoryId = $(this).val();
 
