@@ -329,18 +329,32 @@
 	                       </div>
 	                    </div>
 
-						          <div class="form-group">
+						<div class="form-group">
+	                       <div class="row">
+	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+	                             <label for="category" class="apply-leave-label">Cateory<sup class="ast">*</sup></label>
+	                          </div>
+	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
+	                             <select class="form-control input-md basic-detail-input-style input_1" name="category"  style="width: 100%;" id="category" data-placeholder="Select Category">
+								    <option value="">Please Specify Category</option>
+									@if(!$data['vendoritemscategories']->isEmpty())
+	                                @foreach($data['vendoritemscategories'] as $Vendoritemscategorie)  
+	                                <option value="{{$Vendoritemscategorie->id}}">{{$Vendoritemscategorie->name}}</option>
+	                                @endforeach
+	                                @endif  
+	                             </select>
+	                          </div>
+	                       </div>
+	                    </div>
+
+						<div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
 	                             <label for="items_for_service" class="apply-leave-label">Items for Service<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
 	                             <select class="form-control select2 input-md basic-detail-input-style input_1" name="items_for_service[]" multiple="multiple" style="width: 100%;" id="items_for_service" data-placeholder="Items For Service ">
-	                                @if(!$data['vendoritems']->isEmpty())
-	                                @foreach($data['vendoritems'] as $Vendoritem)  
-	                                <option value="{{$Vendoritem->id}}">{{$Vendoritem->name}}</option>
-	                                @endforeach
-	                                @endif  
+	                              
 	                             </select>
 	                          </div>
 	                       </div>
@@ -605,6 +619,50 @@
 			});
 
      }).change();
+
+
+	 $('#category').on('change', function(){
+
+			var categoryId = $(this).val();
+
+			var categoryIds = [];
+
+			categoryIds.push(categoryId);
+
+			$('#items_for_service').empty();
+
+			var displayString = "";
+
+			$.ajax({
+
+				type: 'POST',
+
+				url: "{{ url('vendor/category-wise-services') }} ",
+
+				data: {categoryIds: categoryIds},
+
+				success: function(result){
+
+					if(result.length != 0){
+
+						result.forEach(function(item){
+
+							displayString += '<option value="'+item.id+'">'+item.name+'</option>';
+
+						});
+
+					}else{
+
+						displayString += '<option value="" selected disabled>None</option>';
+
+					}
+
+					$('#items_for_service').append(displayString);
+				}
+
+			});
+
+		}).change();
 
 
 

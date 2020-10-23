@@ -14,6 +14,7 @@ use App\EmployeeProfile;
 use App\Http\Controllers\Controller;
 use App\Mail\GeneralMail;
 use App\Vendoritem;
+use App\Vendoritemscategorie;
 use App\User;
 use Auth;
 use DateTime;
@@ -53,10 +54,24 @@ class VendorController extends Controller
         $data['countries'] = Country::where(['isactive'=>1])->get();
         $data['states'] = State::where(['isactive'=>1])->get();    
         $data['cities']         = City::where(['isactive' => 1])->orderBy('name')->get();
+        $data['vendoritemscategories']         = Vendoritemscategorie::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
         $data['vendoritems']         = Vendoritem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
        
         return view('vendor.create_vendor')->with(['data' => $data]);
     }
+
+        /*
+        Ajax request to get category wise vendor items
+    */
+        function categoryWiseServices(Request $request)
+            {
+                $category_Ids = $request->categoryIds;
+                $vendoritems = Vendoritem::where(['isactive'=>1])
+                    ->whereIn('category_id',$category_Ids)
+                    ->select('id','name')
+                    ->get();
+                return $vendoritems;
+            }//end of function
 
     /**
      * Store a newly created resource in storage.

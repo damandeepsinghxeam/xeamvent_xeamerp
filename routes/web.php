@@ -18,6 +18,7 @@ Route::get('add-leave', 'UserController@addLeave');
 Route::group(['prefix' => 'vendor', 'middleware' => 'App\Http\Middleware\RestrictEmployee'], function () {
     Route::get('create', 'VendorController@create');
     Route::post('save-vendor', 'VendorController@saveVendor');
+    Route::post('category-wise-services', 'VendorController@categoryWiseServices');
     Route::get('approval-vendors','VendorController@listApprovalVendors');
     Route::get('approved-vendors','VendorController@listApprovedVendors');
     Route::post('edit-vendor', 'VendorController@editVendor');
