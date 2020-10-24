@@ -345,6 +345,7 @@ class VendorController extends Controller
             $data['countries'] = Country::where(['isactive'=>1])->get();
             $data['states'] = State::where(['isactive'=>1])->get();    
             $data['cities']  = City::where(['isactive' => 1])->orderBy('name')->get();
+            $data['vendoritemscategories'] = Vendoritemscategorie::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
             $data['vendoritems'] = Vendoritem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
 
             $vendor = Vendor::where(['id'=>$vendor_id])->first();
@@ -370,6 +371,7 @@ class VendorController extends Controller
             $data['name_of_contact_person'] = $vendor->name_of_contact_person;
             $data['designation_of_contact_person'] = $vendor->designation_of_contact_person;
             $data['description_of_company'] = $vendor->description_of_company;
+            $data['category_id'] = $vendor->category_id;
             $data['items_for_service'] = $vendor->items_for_service;
 
             // echo"<pre>";

@@ -329,22 +329,39 @@
 	                    </div>
 
 						<div class="form-group">
+	                           <div class="row">
+							   <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+	                                	<label for="type" class="apply-leave-label label_1">Item Category<sup class="ast">*</sup></label>
+	                              	</div>
+	                              	<div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
+									  <select class="form-control category_id input-md basic-detail-input-style input_1" name="category_id" id="category_id">
+										@if(!$data['vendoritemscategories']->isEmpty())
+											@foreach($data['vendoritemscategories'] as $category)
+												<option value="{{$category->id}}" @if($category->id == $data['vendor']->category_id){{"selected"}}@endif>{{$category->name}}</option>
+											@endforeach
+										@endif
+                                      </select>
+	                              </div>
+	                           </div>
+	                        </div> 
+
+						<div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
 	                             <label for="items_for_service" class="apply-leave-label label_1">Items for Service<sup class="ast">*</sup></label>
 	                          </div>
+							  	@php
+									$item_id = explode (",", $data['vendor']->items_for_service);
+								@endphp
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
 	                             <select class="form-control select2 input-md basic-detail-input-style input_1" name="items_for_service[]" multiple="multiple" style="width: 100%;" id="items_for_service" data-placeholder="Items For Service ">
 	                                @if(!$data['vendoritems']->isEmpty())
-										@php
-											$item_id = explode (",", $data['vendor']->items_for_service);
-										@endphp
 										@foreach($data['vendoritems'] as $Vendoritem)
 											@php
 												$selectedItem = null;
-												if(!empty($item_id) && in_array($Vendoritem->id, $item_id)) {
+												/* if(!empty($item_id) && in_array($Vendoritem->id, $item_id)) {
 													$selectedItem = 'selected';
-												}
+												} */
 											@endphp
 											<option value="{{$Vendoritem->id}}" {{$selectedItem}}>{{$Vendoritem->name}}</option>
 										@endforeach
@@ -537,22 +554,19 @@ $(document).ready(function () {
 
 
     // No space Method
-
     jQuery.validator.addMethod("noSpace", function(value, element) { 
       return value == '' || value.trim().length != 0;  
     }, "No space please and don't leave it empty");
-
-
 
     $('.only_numeric').bind('keyup paste', function(){
         this.value = this.value.replace(/[^0-9-]/g, '');
     });
 
-   /* $("div.alert-dismissible").fadeOut(3000);
-    $("#shift_timing_to").timepicker({
-      showInputs: false
-    });  */
-
+   	/* $("div.alert-dismissible").fadeOut(3000);
+    	$("#shift_timing_to").timepicker({
+      	showInputs: false
+    	});
+	*/
 
     $("#type_of_firm").click(function () {
        var type = $(this).val();
@@ -608,6 +622,38 @@ $(document).ready(function () {
 
 		});
 
+	}).change();
+
+
+	$('#category_id').on('change', function() {
+
+		var categoryId = $(this).val();
+		var categoryIds = [];
+		categoryIds.push(categoryId);
+		$('#items_for_service').empty();
+		var displayString = "";
+
+		var items_for_service = '{{$data['vendor']->items_for_service}}'.split(',');
+
+		$.ajax({
+			type: 'POST',
+			url: "{{ url('vendor/category-wise-services') }} ",
+			data: {categoryIds: categoryIds},
+			success: function(result) {
+				if(result.length != 0) {
+					result.forEach(function(item) {
+						var selectedItem = null;
+						if($.inArray(item.id.toString(), items_for_service)!='-1') {
+							selectedItem = 'selected';
+						}
+						displayString += '<option value="'+item.id+'" '+selectedItem+'>'+item.name+'</option>';
+					});
+				}else{
+					displayString += '<option value="" selected disabled>None</option>';
+				}
+				$('#items_for_service').append(displayString);
+			}
+		});
 	}).change();
 
 	$('#preStateId').on('change', function(){
