@@ -409,13 +409,20 @@ class VendorController extends Controller
             
             $data['vendor_approval'] = Vendor::where(['id'=>$vendor_id])
                                                 ->first(); 
-        
+            
+            $cat_id = $data['vendor_approval']->category_id;
+            $category_name = DB::table('vendoritemscategories')->where('id', $cat_id)->value('name');
+
             $items = [];
             if(!empty($data['vendor_approval']->items_for_service)) {
+
+                
                 $item_id = explode (",", $data['vendor_approval']->items_for_service);
                 $items = Vendoritem::whereIn('id', $item_id)->pluck('name')->toArray();
+
+                
             }                     
-            return view('vendor.show_vendor_detail')->with(['vendor_data'=>$data,'items'=>$items]);
+            return view('vendor.show_vendor_detail')->with(['vendor_data'=>$data,'items'=>$items,'category_name'=>$category_name]);
         }
     }//end of function    
 

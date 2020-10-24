@@ -163,6 +163,10 @@
 											<td>{{$description_of_company}}</td>
 										</tr>
 										<tr>
+											<td>Item Category</td>
+											<td>{{$category_name}}</td>
+										</tr>
+										<tr>
 											<td>Items for Service</td>
 											@if(count($items) > 0)
 												<td>
