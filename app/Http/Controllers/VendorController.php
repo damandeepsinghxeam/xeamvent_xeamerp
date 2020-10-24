@@ -265,7 +265,8 @@ class VendorController extends Controller
             'mobile'                        => ['required','min:10','max:10'],
             'name_of_contact_person'        => 'required',
             'designation_of_contact_person' => 'required',
-            'description_of_company'        => 'required',      
+            'description_of_company'        => 'required',
+            'category_id'                   => 'required',       
             'items_for_service'             => 'required',     
         ]);
 
@@ -294,6 +295,7 @@ class VendorController extends Controller
             'name_of_contact_person'         => $request->name_of_contact_person,
             'designation_of_contact_person'  => $request->designation_of_contact_person,
             'description_of_company'         => $request->description_of_company,
+            'category_id'                    => $request->category_id,
             'items_for_service'              => implode(',', $request->items_for_service)
         
         ];
@@ -322,6 +324,7 @@ class VendorController extends Controller
                                 'name_of_contact_person'         => $request->name_of_contact_person,
                                 'designation_of_contact_person'  => $request->designation_of_contact_person,
                                 'description_of_company'         => $request->description_of_company,
+                                'category_id'                    => $request->category_id,
                                 'items_for_service'              => implode(',', $request->items_for_service)
                                     ]);
     
