@@ -419,8 +419,6 @@ class VendorController extends Controller
                 
                 $item_id = explode (",", $data['vendor_approval']->items_for_service);
                 $items = Vendoritem::whereIn('id', $item_id)->pluck('name')->toArray();
-
-                
             }                     
             return view('vendor.show_vendor_detail')->with(['vendor_data'=>$data,'items'=>$items,'category_name'=>$category_name]);
         }
