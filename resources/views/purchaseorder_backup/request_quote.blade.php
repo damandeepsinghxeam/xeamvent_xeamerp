@@ -1,10 +1,7 @@
 @extends('admins.layouts.app')
 @section('content')
 
-<link rel="stylesheet" href="{{asset('public/admin_assets/plugins/timepicker/bootstrap-timepicker.min.css')}}">
-<script src="{{asset('public/admin_assets/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
-<script src="{{asset('public/admin_assets/plugins/validations/jquery.validate.js')}}"></script>
-<script src="{{asset('public/admin_assets/plugins/validations/additional-methods.js')}}"></script>
+<link rel="stylesheet" href="{{asset('public/admin_assets/dist/css/travel_module.css')}}">
 
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -22,23 +19,47 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
         <div class="col-sm-12">
-          <div class="box box-primary success">
-          @include('admins.validation_errors')
+          <div class="box main_box p-sm success">
+             @if ($errors->basic->any())
+              <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <ul>
+                    @foreach ($errors->basic->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+              </div>
+              @endif
+
+              <div class="alert-dismissible">
+                @if(session()->has('success'))
+                  <div class="alert {{(session()->get('error')) ? 'alert-danger' : 'alert-success'}}">
+                    {{ session()->get('success') }}
+                  </div>
+                @endif
+              </div>
+
+              @if(session()->has('jrfError'))
+                <div class="alert alert-danger alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  {{ session()->get('jrfError') }}
+                </div>
+              @endif
 
 	        <!-- form start -->
 	        <form id="productRequisitionForm" action="{{ url('purchaseorder/save-request-quote') }}" method="POST" enctype="multipart/form-data">
 	        {{ csrf_field() }}
-	           <div class="box-body jrf-form-body">
+	           <div class="box-body form-sidechange">
 	              <div class="row">
 	                 <div class="col-md-6">
-	                    <div class="form-group">
-						<div class="form-group">
+
+                      <div class="form-group">
 	                       <div class="row">
 	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="name_of_firm" class="apply-leave-label">Select Vendor<sup class="ast">*</sup></label>
+	                             <label for="name_of_firm" class="apply-leave-label label_1">Select Vendor<sup class="ast">*</sup></label>
 	                          </div>
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <select class="form-control select2 input-sm basic-detail-input-style" name="name_of_firm[]" multiple="multiple" style="width: 100%;" id="name_of_firm" data-placeholder="Select Vendors">
+	                             <select class="form-control select2 input-md basic-detail-input-style input_1" name="name_of_firm[]" multiple="multiple" style="width: 100%;" id="name_of_firm" data-placeholder="Select Vendors">
 	                                @if(!empty($vendorDetail))
                                     @foreach($vendorDetail as $vendorId => $vandorName)  
                                     <option value="{{$vendorId}}">{{$vandorName}}</option>
@@ -48,44 +69,45 @@
 	                          </div>
 	                       </div>
 	                    </div>
-					           	@php $user_id = Auth::id(); @endphp
-	                        <input type="hidden" name="user_id" value="{{@$user_id}}">
-	                    </div>
+	                    
+						          @php $user_id = Auth::id(); @endphp
+                     
+                      <input type="hidden" name="user_id" value="{{@$user_id}}">
 
 	                 </div>
 
 	                 <div class="col-md-6">
 
-					 <div class="form-group">
-	                       <div class="row">
-	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="product_request_title" class="apply-leave-label">Product Request Title<sup class="ast">*</sup></label>
-	                          </div>
-	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <input type="text" class="form-control input-sm basic-detail-input-style" name="product_request_title" id="product_request_title" placeholder="Enter Product Request Title">
-	                          </div>
-	                       </div>
-	                </div>
+                   <div class="form-group">
+                       <div class="row">
+                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+                             <label for="product_request_title" class="apply-leave-label label_1">Product Request Title<sup class="ast">*</sup></label>
+                          </div>
+                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
+                             <input type="text" class="form-control input-md basic-detail-input-style input_1" name="product_request_title" id="product_request_title" placeholder="Enter Product Request Title">
+                          </div>
+                       </div>
+                    </div>
 
                     <div class="form-group">
-	                       <div class="row">
-	                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
-	                             <label for="product_request_description" class="apply-leave-label">Product Request Description<sup class="ast">*</sup></label>
-	                          </div>
-	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-	                             <textarea rows="4" cols="50" class="form-control input-sm basic-detail-input-style" id="product_request_description" name="product_request_description" placeholder="Enter Product Request Description"></textarea>
-	                          </div>
-	                       </div>
-	                    </div>
+                       <div class="row">
+                          <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+                             <label for="product_request_description" class="apply-leave-label label_1">Product Request Description<sup class="ast">*</sup></label>
+                          </div>
+                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
+                             <textarea rows="4" cols="50" class="form-control input-md basic-detail-input-style input_1" id="product_request_description" name="product_request_description" placeholder="Enter Product Request Description"></textarea>
+                          </div>
+                       </div>
+                     </div>
 
 	                  </div>
 	                </div>
-	              <div class="text-center">
-	                 <input type="submit" class="btn btn-primary submit-btn-style" id="submit"  value="Submit" name="submit">
-	              </div>
-	           </div>
-	          </form>
-	        <!-- form end -->
+                  <div class="text-center">
+                     <input type="submit" class="btn btn-primary submit-btn-style" id="submit"  value="Submit" name="submit">
+                  </div>
+	               </div>
+	            </form>
+	            <!-- form end -->
 	        </div>
 	      <!-- /.box-body -->
 	    </div>
@@ -93,6 +115,15 @@
   </section>
   </div>
 <!-- /.row -->
+
+<!--Script Files starts here-->
+
+<!--<link rel="stylesheet" href="{{asset('public/admin_assets/plugins/timepicker/bootstrap-timepicker.min.css')}}">
+<script src="{{asset('public/admin_assets/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>-->
+<script src="{{asset('public/admin_assets/plugins/validations/jquery.validate.js')}}"></script>
+<script src="{{asset('public/admin_assets/plugins/validations/additional-methods.js')}}"></script>
+
+<!--Script Files ends here-->
 
 <script>
     $("#productRequisitionForm").validate({

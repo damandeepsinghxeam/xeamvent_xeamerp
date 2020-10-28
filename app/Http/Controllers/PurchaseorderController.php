@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use Mail;
 use App\Mail\GeneralMail;
 use App\Productitem;
+use App\Vendoritemscategorie;
 use App\Vendoritem;
 use App\User;
 use Auth;
@@ -37,8 +38,9 @@ class PurchaseorderController extends Controller
         if (Auth::guest()) {
             return redirect('/');
         }
-
-        $data['productitems']  = Productitem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
+        //$data['productitems']  = Productitem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
+        $data['vendoritemscategories']         = Vendoritemscategorie::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
+        $data['vendoritems']         = Vendoritem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
         return view('purchaseorder.create_product_request')->with(['data' => $data]);
     }
 

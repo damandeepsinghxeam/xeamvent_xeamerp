@@ -1,19 +1,8 @@
-@extends('admins.layouts.app')
-@section('content')
+<?php include('header.php');?>
+<?php include('sidebar.php');?>
 
-
-<link rel="stylesheet" href="{{asset('public/admin_assets/bower_components/summernote/summernote.min.css')}}">
-<link rel="stylesheet" href="{{asset('public/admin_assets/dist/css/travel_module.css')}}">
-<style>
-
-  #purchase_order_table {
-    counter-reset: serial-number;  /* Set the serial number counter to 0 */
-  }
-	#purchase_order_table td:first-child:before {
-		counter-increment: serial-number;  /* Increment the serial number counter */
-		content: counter(serial-number);  /* Display the counter */
-  }
-</style>
+<link rel="stylesheet" href="bower_components/summernote/summernote.min.css">
+<link rel="stylesheet" href="dist/css/travel_module.css">
 
 <!-- Content Wrapper Starts here -->
 <div class="content-wrapper">
@@ -33,9 +22,12 @@
       <div class="col-sm-12">
         <div class="box main_box p-sm">
           <!-- Form Starts here -->
-          <form id="purchase_order_form">            
+          <form id="purchase_order_form">
+            
             <!-- Box Body Starts here -->
-            <div class="box-body form-sidechange">              
+            <div class="box-body form-sidechange">
+              
+              
               <!-- Table Starts here -->
               <table id="purchase_order_table" class="table table-striped table-responsive table-bordered">
                 <thead class="table-heading-style table_1">
@@ -49,32 +41,32 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td></td>
+                    <td>1</td>
                     <td>
-                      <select name="category[]" class="form-control input-md basic-detail-input-style input_1 category" id="category">
+                      <select name="category" class="form-control input-md basic-detail-input-style input_1" id="">
                           <option value="" selected disabled>Select Category</option>
-                          <!-- <option value="">Please select Product Item</option> -->
-                            @if(!$data['vendoritemscategories']->isEmpty())
-                              @foreach($data['vendoritemscategories'] as $Vendoritemscategorie)  
-                                <option value="{{$Vendoritemscategorie->id}}">{{$Vendoritemscategorie->name}}</option>
-                              @endforeach
-                            @endif  
+                          <option value="Category 1">Category 1</option>
+                          <option value="Category 2">Category 2</option>
+                          <option value="Category 3">Category 3</option>
+                          <option value="Category 4">Category 4</option>
                         </select>
                     </td>
                     <td>
-                    <!-- <select name="items" class="form-control input-md basic-detail-input-style input_1 select2" id=""> -->
-                      <select name="items[]" class="form-control input-md basic-detail-input-style input_1 item" id="items">
-                        <option value="">--Select--</option>
-                      </select>
+                      <select name="items" class="form-control input-md basic-detail-input-style input_1 select2" id="">
+                          <option value="" selected disabled>Select Item</option>
+                          <option value="Item 1">Item 1</option>
+                          <option value="Item 2">Item 2</option>
+                          <option value="Item 3">Item 3</option>
+                          <option value="Item 4">Item 4</option>
+                        </select>
                     </td>
                     <td>
-                      <input type="text" name="quantity[]" class="form-control input-md basic-detail-input-style input_1 quantity" id="" placeholder="For Ex. 10">
+                      <input type="text" name="quantity" class="form-control input-md basic-detail-input-style input_1" id="" placeholder="For Ex. 10">
                     </td>
                     <td>
                       <a href="javascript:void(0)" id="add_Item">
                         <i class="fa fa-plus a_r_style a_r_style_green"></i>
                       </a>
-                      <a href='javascript:void(0);' class='remove'><span class='fa fa-minus a_r_style a_r_style_red'></span></a>
                      </td>
                   </tr>
                 </tbody>
@@ -88,7 +80,8 @@
                   </tr>
                 </tfoot>
               </table>
-              <!-- Table Ends here -->              
+              <!-- Table Ends here -->
+              
               <div class="row m-t-md">
                 <div class="col-md-12">
                   <p>Who will coordinate with the vendor:</p>
@@ -207,79 +200,63 @@
 
 
 <!-- Script Source Files Starts here -->
-<script src="{{asset('public/admin_assets/plugins/validations/jquery.validate.js')}}"></script>
-<script src="{{asset('public/admin_assets/plugins/validations/additional-methods.js')}}"></script>
-<script src="{{asset('public/admin_assets/bower_components/summernote/summernote.min.js')}}"></script>
+<script src="validations/jquery.validate.js"></script>
+<script src="validations/additional-methods.js"></script>
+<script src="bower_components/summernote/summernote.min.js"></script>
 <!-- Script Source Files Ends here -->
 
 <!-- Custom Script Starts here -->
 <script>
-  $(document).ready(function() {
-    
-    $.validator.prototype.checkForm = function() {
-      //overriden in a specific page
-      this.prepareForm();
-      for (var i = 0, elements = (this.currentElements = this.elements()); elements[i]; i++) {
-        if (this.findByName(elements[i].name).length !== undefined && this.findByName(elements[i].name).length > 1) {
-          for (var cnt = 0; cnt < this.findByName(elements[i].name).length; cnt++) {
-            this.check(this.findByName(elements[i].name)[cnt]);
-          }
-        } else {
-          this.check(elements[i]);
-        }
-      }
-      return this.valid();
-    };
-
+  $(document).ready(function(){
     //Validation Starts here
     $("#purchase_order_form").validate({
-      errorPlacement: function(error, element) {
-        if (element.hasClass('select2')) {
-            error.insertAfter(element.next('span.select2'));
-        } else {
-            error.insertAfter(element);
+        rules: {
+            "category" : {
+                required: true
+            },
+            "items" : {
+                required: true
+            },
+            "quantity" :{
+                required:true
+            },
+            "coordinate_departments" :{
+                required:true
+            },
+            "coordinate_employees" :{
+                required:true
+            },
+            "required_by" : {
+                required: true
+            }
+        },
+        errorPlacement: function(error, element) {
+            if (element.hasClass('select2')) {
+                error.insertAfter(element.next('span.select2'));
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        messages: {
+            "category" : {
+                required: "Select Category"
+            },
+            "items" : {
+                required: "Select Item"
+            },
+            "quantity":{
+                required: "Enter Quantity"
+            },
+            "coordinate_departments" :{
+                required: "Select Department"
+            },
+            "coordinate_employees" :{
+                required: "Select Employees"
+            },
+            "required_by" : {
+                required: "Select Date"
+            }
         }
-      },
-      rules: {
-          "category[]" : {
-              required: true
-          },
-          "items[]" : {
-              required: true
-          },
-          "quantity[]" :{
-              required:true
-          },
-          "coordinate_departments" :{
-              required:true
-          },
-          "coordinate_employees" :{
-              required:true
-          },
-          "required_by" : {
-              required: true
-          }
-      },
-      messages: {
-          "category[]" : {
-              required: "Select Category"
-          },
-          "items[]" : {
-              required: "Select Item"
-          },
-          "quantity[]":{
-              required: "Enter Quantity"
-          },
-          "coordinate_departments" :{
-              required: "Select Department"
-          },
-          "coordinate_employees" :{
-              required: "Select Employees"
-          },
-          "required_by" : {
-              required: "Select Date"
-          }
-      }
     });
     //Validation Ends here
   
@@ -314,82 +291,48 @@
     /*Summernote functionality ends here*/
     
     /*Add More Items functionality starts here*/
-    // $("#add_Item").on('click', function(){
-    //   $('#purchase_order_table tbody').append('<tr><td></td><td><select name="category" class="form-control input-md basic-detail-input-style input_1" id="category"><option value="" selected disabled>Select Category</option><option value="Item 1">Item 1</option><option value="Item 2">Item 2</option><option value="Item 3">Item 3</option><option value="Item 4">Item 4</option></select></td><td><select name="items" class="form-control input-md basic-detail-input-style input_1" id="items"><option value="" selected disabled>Select Item</option><option value="Item 1">Item 1</option><option value="Item 2">Item 2</option><option value="Item 3">Item 3</option><option value="Item 4">Item 4</option></select></td><td><input type="text" name="quantity" class="form-control input-md basic-detail-input-style input_1" id="" placeholder="For Ex. 10"></td><td><a href="javascript:void(0)" id="" class="remove_Item"><i class="fa fa-minus a_r_style a_r_style_red"></i></a></td></tr>');
+    $("#add_Item").on('click', function(){
+      $('#purchase_order_table tbody').append('<tr><td>i</td><td><select name="category" class="form-control input-md basic-detail-input-style input_1" id=""><option value="" selected disabled>Select Category</option><option value="Item 1">Item 1</option><option value="Item 2">Item 2</option><option value="Item 3">Item 3</option><option value="Item 4">Item 4</option></select></td><td><select name="items" class="form-control input-md basic-detail-input-style input_1 select2" id=""><option value="" selected disabled>Select Item</option><option value="Item 1">Item 1</option><option value="Item 2">Item 2</option><option value="Item 3">Item 3</option><option value="Item 4">Item 4</option></select></td><td><input type="text" name="quantity" class="form-control input-md basic-detail-input-style input_1" id="" placeholder="For Ex. 10"></td><td><a href="javascript:void(0)" id="" class="remove_Item"><i class="fa fa-minus a_r_style a_r_style_red"></i></a></td></tr>');
       
-    //   $('.remove_Item').on('click', function(){
-    //     $(this).parents('tr').remove();
-    //   });
-      
-    // });
-    /*Add More Items functionality ends here*/
-
-    $(document).on('click', '#add_Item', function() {
-      var data = $("#purchase_order_table tr:eq(1)").clone(true).appendTo("#purchase_order_table");
-      data.find("select").val('');
-      data.find('select[name="items[]"]').html('<option value="">--Select--</option>');
-      data.find("input").val('');
-    });
-
-    $(document).on('click', '.remove', function() {
-      var trIndex = $(this).closest("tr").index();
-        if(trIndex>0) {
-        $(this).closest("tr").remove();
-      } else {		
-      }
-    });
-
-    $(document).on('change', '.category', function(){
-      var category = $(this);
-
-      var categoryId = $(this).val();
-      var categoryIds = [];
-      categoryIds.push(categoryId);
-      // $(category).parents('tr').find('select[name="items"]').empty();
-      // $('#items').empty();
-      var displayString = '<option value="">--Select--</option>';
-
-      $.ajax({
-        type: 'POST',
-        url: "{{ url('vendor/category-wise-services') }} ",
-        data: {categoryIds: categoryIds},
-        success: function(result){
-
-          if(result.length != 0){
-            result.forEach(function(item){
-              displayString += '<option value="'+item.id+'">'+item.name+'</option>';
-            });
-          }
-
-          $(category).parents('tr').find('select[name="items[]"]').html(displayString);
-          //$('#items').append(displayString);
-        }
+      $('.remove_Item').on('click', function(){
+        $(this).parents('tr').remove();
       });
-    }).change();
-
-    $("div.alert-dismissible").fadeOut(25000);
-  });
-
-  //jQuery.noConflict();
-$(function () {
-  //Initialize Select2 Elements
-  $('.select2').select2()
-  //Date picker
-  $('.datepicker').datepicker({
-    autoclose: true,
-    orientation: "bottom",
-    format: 'dd/mm/yyyy'
-  });
-  //Timepicker
-  if($('.timepicker').length) {
-    $('.timepicker').timepicker({
-      showInputs: false
+      
     });
-  }    
-  $("select").on("select2:close", function (e) {
-      $(this).valid(); 
+    /*Add More Items functionality ends here*/
   });
-});
+</script>
+
+<script type="text/javascript">
+    $("div.alert-dismissible").fadeOut(25000);
+    //jQuery.noConflict();
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+        //Date picker
+        $('.datepicker').datepicker({
+          autoclose: true,
+          orientation: "bottom",
+          format: 'dd/mm/yyyy'
+        });
+        //Timepicker
+        if($('.timepicker').length) {
+          $('.timepicker').timepicker({
+            showInputs: false
+          });
+        }
+    });
+
+    $("select").on("select2:close", function (e) {
+        $(this).valid(); 
+    });
+
 </script>
 <!-- Custom Script Ends here -->
-@endsection
+
+
+<?php include('footer.php');?>
+  
+
+
+

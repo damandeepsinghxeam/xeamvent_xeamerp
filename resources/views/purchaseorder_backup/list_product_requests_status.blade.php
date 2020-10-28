@@ -4,6 +4,8 @@
 
 <link rel="stylesheet" href="{{asset('public/admin_assets/plugins/dataTables/jquery.dataTables.min.css')}}">
 
+<link rel="stylesheet" href="{{asset('public/admin_assets/dist/css/travel_module.css')}}">
+
 <!-- Content Wrapper. Contains page content -->
 
   <div class="content-wrapper">
@@ -13,15 +15,10 @@
     <section class="content-header">
 
     @if(@$approval!=1)
-     <h1>
-         Product Request Status
-      </h1>
+     <h1><i class="fa fa-list"></i> Product Request Status</h1>
 
     @else
-     <h1>
-     Product Request Status
-       
-      </h1>
+     <h1><i class="fa fa-list"></i> Product Request Status</h1>
 
     @endif
      
@@ -36,7 +33,8 @@
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-          <div class="box">
+         <div class="col-sm-12">
+          <div class="box main_box p-sm">
             <!-- <div class="box-header">
               <h3 class="box-title"><a class="btn btn-info" href='{{ url("mastertables/projects/add") }}'>Add</a></h3>
             </div> -->
@@ -88,17 +86,15 @@
 
             <div class="box-body">
 
-              <table id="listProjects" class="table table-bordered table-striped text-center">
+              <table id="listProjects" class="table table-bordered table-striped">
 
-                <thead class="table-heading-style">
+                <thead class="table-heading-style table_1">
 
                 <tr>
 
                   <th>S.No.</th>
           
                   <th>Product Name</th>
-
-                  <th>Product Name (Other)</th>
 
                   <th>Number Of Items Requested</th>
           
@@ -127,9 +123,15 @@
 
         <td>{{@$loop->iteration}}</td>
 
-        <td>{{@$value['product_name']}}</td>
+        <td>@if($value['product_name'] == 'Others')
 
-        <td>{{@$value['others_product_name']}}</td>
+        {{@$value['product_name']." - (". $value['others_product_name'].")"}}
+
+        @else
+
+        {{@$value['product_name']}}
+
+        @endif </td>
 
         <td>{{@$value['no_of_items_requested']}}</td>
 
@@ -137,15 +139,15 @@
 
         <td>@if($value['product_requested_status'] == '0')
 
-        <span class="label label-danger">Pending</span>
+        <span class="label label-danger f_b">Pending</span>
 
         @elseif($value['product_requested_status'] == '1')
 
-        <span class="label label-success">Approved</span>
+        <span class="label label-success f_b">Approved</span>
 
         @elseif($value['product_requested_status'] == '2')
 
-        <span class="label label-primary">Rejected</span>
+        <span class="label label-primary f_b">Rejected</span>
 
         @endif
         
@@ -158,15 +160,13 @@
         @endif
                 </tbody>
 
-                <tfoot class="table-heading-style">
+                <tfoot class="table-heading-style table_1">
 
                 <tr>
 
                   <th>S.No.</th>
           
                   <th>Product Name</th>
-
-                  <th>Product Name (Other)</th>
 
                   <th>Number Of Items Requested</th>
 
@@ -185,29 +185,11 @@
             <!-- /.box-body -->
 
           </div>
-
+         </div>
           <!-- /.box -->
-
       </div>
-
       <!-- /.row -->
-
-      <!-- Main row -->
-
-      <div class="row">
-
-        <!-- Left col -->
-
-        
-
-      </div>
-
-      <!-- /.row (main row) -->
-
-
-
     </section>
-
     <!-- /.content -->
 
 
@@ -257,9 +239,9 @@
 
   <!-- /.content-wrapper -->
 
-
-
-  <script src="{{asset('public/admin_assets/plugins/dataTables/jquery.dataTables.min.js')}}"></script>
+<!--Script Files starts here-->
+<script src="{{asset('public/admin_assets/plugins/dataTables/jquery.dataTables.min.js')}}"></script>
+<!--Script Files ends here-->
 
   <script type="text/javascript">
 
