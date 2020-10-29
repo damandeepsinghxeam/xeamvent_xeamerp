@@ -164,7 +164,7 @@
                   <label for="" class="apply-leave-label label_1">Requirement<span style="color:red">*</span></label>
                 </div>
                 <div class="col-md-10">
-                  <textarea id="po_summernote" name="editordata"></textarea>
+                  <textarea id="po_summernote" name="requirement"></textarea>
                 </div>
               </div>
               
@@ -257,6 +257,9 @@
           "coordinate_employees[]" :{
               required:true
           },
+          "requirement": {
+              required: true
+          },
           "required_by" : {
               required: true
           }
@@ -276,6 +279,9 @@
           },
           "coordinate_employees[]" :{
               required: "Select Employees"
+          },
+          "requirement": {
+            required: "Select Requirement"
           },
           "required_by" : {
               required: "Select Date"
@@ -339,6 +345,8 @@
       } else {		
       }
     });
+ 
+ // get category wise items
 
     $(document).on('change', '.category', function(){
       var category = $(this);
@@ -368,30 +376,36 @@
       });
     }).change();
 
+ // get department wise employees
 
-   // get department wise employees
       $('#departments').on('change', function(){
-          var departmentId = $(this).val();
-          var departmentIds = [];
-          departmentIds.push(departmentId);
-          $('#coordinate_employees').empty();
-          var displayString = "";
-          $.ajax({
-            type: 'POST',
-            url: "{{ url('purchaseorder/deptt-wise-employees') }} ",
-            data: {departmentIds: departmentIds},
-            success: function(result){
-              if(result.length != 0){
-                result.forEach(function(emp){
-                  displayString += '<option value="'+emp.user_id+'">'+emp.fullname+'</option>';
+                var departmentIds = $(this).val();
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ URL('purchaseorder/deptt-wise-employees') }}',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        departmentIds: departmentIds
+                    },
+                    success: function (data) {
+                      console.log(data);
+                        var employees = data.data;
+                        // $('#employees').empty();
+                        if(employees)
+                        {
+                            var formoption = "";
+                            $.each(employees, function(v) {
+                                var val = employees[v]
+                                formoption += "<option value='" + val['id'] + "'>" + val['fullname'] + "</option>";
+                            });
+                            $('#coordinate_employees').html(formoption);
+                        }
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                    }
                 });
-              }else{
-                displayString += '<option value="" selected disabled>None</option>';
-              }
-              $('#coordinate_employees').append(displayString);
-            }
-          });
-      }).change();
+            });
     
 
     $("div.alert-dismissible").fadeOut(25000);

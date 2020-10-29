@@ -20,6 +20,7 @@ use App\Productitem;
 use App\Vendoritemscategorie;
 use App\Vendoritem;
 use App\User;
+use Response;
 use Auth;
 use DateTime;
 use DB;
@@ -51,21 +52,28 @@ class PurchaseorderController extends Controller
     */
     function depttWiseEmployees(Request $request)
     {
-        // $department_Ids = $request->departmentIds;
-        // $vendoritems = Vendoritem::where(['isactive'=>1])
-        //     ->whereIn('category_id',$department_Ids)
-        //     ->select('id','name')
+        // $department_ids = $request->departmentIds;
+        // $data = DB::table('employees as e')
+        //     ->join('employee_profiles as ep','e.user_id','=','ep.user_id')
+        //     ->join('users as u','e.user_id','=','u.id')
+        //     ->whereIn('ep.department_id',$department_ids)
+        //     ->where(['e.approval_status'=>'1','e.isactive'=>1,'ep.isactive'=>1])
+        //     ->select('e.user_id','e.fullname','u.employee_code')
         //     ->get();
-        // return $vendoritems;
-        $department_ids = $request->departmentIds;
-        $data = DB::table('employees as e')
-            ->join('employee_profiles as ep','e.user_id','=','ep.user_id')
-            ->join('users as u','e.user_id','=','u.id')
-            ->whereIn('ep.department_id',$department_ids)
-            ->where(['e.approval_status'=>'1','e.isactive'=>1,'ep.isactive'=>1])
-            ->select('e.user_id','e.fullname','u.employee_code')
-            ->get();
-        return $data;
+        // return $data;
+
+        if($request->departmentIds != '') {
+            $data = DB::table('employees as e')
+                ->join('employee_profiles as ep', 'e.user_id', '=', 'ep.user_id')
+                ->whereIn('ep.department_id', $request->departmentIds)
+                ->where(['e.approval_status' => '1', 'e.isactive' => 1, 'ep.isactive' => 1])
+                ->select('e.id', 'e.fullname')
+                ->get();
+                
+        }
+        
+        
+        return Response::json(['success'=>true,'data'=>$data]);
     }//end of function
 
 
