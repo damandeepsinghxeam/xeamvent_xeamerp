@@ -101,11 +101,13 @@
                         <label for="" class="apply-leave-label label_1">Co-ordinator's Departments<span style="color:red">*</span></label>
                       </div>
                       <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-                        <select name="coordinate_departments" class="form-control input-md basic-detail-input-style input_1 select2" id="" multiple="multiple" data-placeholder="Select Department">
-                          <option value="Department 1">Department 1</option>
-                          <option value="Department 2">Department 2</option>
-                          <option value="Department 3">Department 3</option>
-                          <option value="Department 4">Department 4</option>
+                        <select name="coordinate_departments[]" class="form-control input-md basic-detail-input-style input_1 select2" id="departments" multiple="multiple" data-placeholder="Select Department">
+                          <!-- <option value="">Please select Product Item</option> -->
+                            @if(!$data['departments']->isEmpty())
+                              @foreach($data['departments'] as $Department)  
+                                <option value="{{$Department->id}}">{{$Department->name}}</option>
+                              @endforeach
+                            @endif
                         </select>
                       </div>
                     </div>
@@ -118,11 +120,8 @@
                         <label for="" class="apply-leave-label label_1">Co-ordinator<span style="color:red">*</span></label>
                       </div>
                       <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
-                        <select name="coordinate_employees" class="form-control input-md basic-detail-input-style input_1 select2" id="" multiple="multiple" data-placeholder="Select Employees">
-                          <option value="Employee 1">Employee 1</option>
-                          <option value="Employee 2">Employee 2</option>
-                          <option value="Employee 3">Employee 3</option>
-                          <option value="Employee 4">Employee 4</option>
+                        <select name="coordinate_employees[]" class="form-control input-md basic-detail-input-style input_1 select2" id="coordinate_employees" multiple="multiple" data-placeholder="Select Employees">
+                         
                         </select>
                       </div>
                     </div>
@@ -215,6 +214,7 @@
 <!-- Custom Script Starts here -->
 <script>
   $(document).ready(function() {
+
     
     $.validator.prototype.checkForm = function() {
       //overriden in a specific page
@@ -248,12 +248,13 @@
               required: true
           },
           "quantity[]" :{
+              required:true,
+              digits : true
+          },
+          "coordinate_departments[]" :{
               required:true
           },
-          "coordinate_departments" :{
-              required:true
-          },
-          "coordinate_employees" :{
+          "coordinate_employees[]" :{
               required:true
           },
           "required_by" : {
@@ -270,10 +271,10 @@
           "quantity[]":{
               required: "Enter Quantity"
           },
-          "coordinate_departments" :{
+          "coordinate_departments[]" :{
               required: "Select Department"
           },
-          "coordinate_employees" :{
+          "coordinate_employees[]" :{
               required: "Select Employees"
           },
           "required_by" : {
@@ -282,7 +283,7 @@
       }
     });
     //Validation Ends here
-  
+
     /*Insurance Expiry Functionality Starts here*/
     $("#insurance_expiry").hide();
     $('.insurance').click(function () {
@@ -366,6 +367,32 @@
         }
       });
     }).change();
+
+
+   // get department wise employees
+      $('#departments').on('change', function(){
+          var departmentId = $(this).val();
+          var departmentIds = [];
+          departmentIds.push(departmentId);
+          $('#coordinate_employees').empty();
+          var displayString = "";
+          $.ajax({
+            type: 'POST',
+            url: "{{ url('purchaseorder/deptt-wise-employees') }} ",
+            data: {departmentIds: departmentIds},
+            success: function(result){
+              if(result.length != 0){
+                result.forEach(function(emp){
+                  displayString += '<option value="'+emp.user_id+'">'+emp.fullname+'</option>';
+                });
+              }else{
+                displayString += '<option value="" selected disabled>None</option>';
+              }
+              $('#coordinate_employees').append(displayString);
+            }
+          });
+      }).change();
+    
 
     $("div.alert-dismissible").fadeOut(25000);
   });

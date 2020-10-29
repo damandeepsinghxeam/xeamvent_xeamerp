@@ -7,7 +7,7 @@ use App\RequestedProductItems;
 use App\Vendor;
 use App\VendorApprovals;
 use Illuminate\Http\Request;
-
+use App\Department;
 use App\Country;
 use App\State;
 use App\City;
@@ -41,8 +41,32 @@ class PurchaseorderController extends Controller
         //$data['productitems']  = Productitem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
         $data['vendoritemscategories']         = Vendoritemscategorie::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
         $data['vendoritems']         = Vendoritem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
+        $data['departments'] = Department::where(['isactive'=>1])->orderBy('name')->select('id', 'name')->get();
         return view('purchaseorder.create_product_request')->with(['data' => $data]);
     }
+
+
+            /*
+        Ajax request to get deptt wise employees
+    */
+    function depttWiseEmployees(Request $request)
+    {
+        // $department_Ids = $request->departmentIds;
+        // $vendoritems = Vendoritem::where(['isactive'=>1])
+        //     ->whereIn('category_id',$department_Ids)
+        //     ->select('id','name')
+        //     ->get();
+        // return $vendoritems;
+        $department_ids = $request->departmentIds;
+        $data = DB::table('employees as e')
+            ->join('employee_profiles as ep','e.user_id','=','ep.user_id')
+            ->join('users as u','e.user_id','=','u.id')
+            ->whereIn('ep.department_id',$department_ids)
+            ->where(['e.approval_status'=>'1','e.isactive'=>1,'ep.isactive'=>1])
+            ->select('e.user_id','e.fullname','u.employee_code')
+            ->get();
+        return $data;
+    }//end of function
 
 
         // for save Product Form 

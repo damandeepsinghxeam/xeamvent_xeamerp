@@ -160,7 +160,7 @@
         },
         "no_of_items_requested" : {
           required: true,
-		  digits : true 
+		     digits : true 
         },		
 		"product_description" : {
           required: true
