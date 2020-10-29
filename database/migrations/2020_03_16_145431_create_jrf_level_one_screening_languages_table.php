@@ -16,9 +16,9 @@ class CreateJrfLevelOneScreeningLanguagesTable extends Migration
         Schema::create('jrf_level_one_screening_languages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('jrf_level_one_screening_id');
-            $table->foreign('jrf_level_one_screening_id')->references('id')->on('jrf_level_one_screenings')->onDelete('cascade');
+            //$table->foreign('jrf_level_one_screening_id')->references('id')->on('jrf_level_one_screenings')->onDelete('cascade');
             $table->unsignedBigInteger('language_id');
-            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+            //$table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
             $table->boolean('read_language')->default(0);
             $table->boolean('write_language')->default(0);
             $table->boolean('speak_language')->default(0);

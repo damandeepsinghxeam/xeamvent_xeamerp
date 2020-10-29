@@ -33,7 +33,8 @@
       <div class="col-sm-12">
         <div class="box main_box p-sm">
           <!-- Form Starts here -->
-          <form id="purchase_order_form">            
+          <form id="purchase_order_form" action="{{ url('purchaseorder/save-product-request') }}" method="POST" enctype="multipart/form-data">            
+          {{ csrf_field() }}
             <!-- Box Body Starts here -->
             <div class="box-body form-sidechange">              
               <!-- Table Starts here -->
@@ -54,9 +55,9 @@
                       <select name="category[]" class="form-control input-md basic-detail-input-style input_1 category" id="category">
                           <option value="" selected disabled>Select Category</option>
                           <!-- <option value="">Please select Product Item</option> -->
-                            @if(!$data['vendoritemscategories']->isEmpty())
-                              @foreach($data['vendoritemscategories'] as $Vendoritemscategorie)  
-                                <option value="{{$Vendoritemscategorie->id}}">{{$Vendoritemscategorie->name}}</option>
+                            @if(!$data['vendor_categories']->isEmpty())
+                              @foreach($data['vendor_categories'] as $vendor_category)
+                                <option value="{{$vendor_category->id}}">{{$vendor_category->name}}</option>
                               @endforeach
                             @endif  
                         </select>
@@ -347,6 +348,25 @@
     });
  
  // get category wise items
+    function getVendors(){
+      let categoriesIds = []
+      $('.category').each(function(){
+        categoriesIds.push($(this).val())
+      })
+      console.log(categoriesIds)
+      $.ajax({
+        type: 'POST',
+        url: "{{ url('purchaseorder/get-vendors-by-category') }} ",
+        data: JSON.stringify(categoriesIds),
+        contentType: "application/json",
+        success: function(result){
+
+          if(result.length != 0){
+            console.log(result)
+          }
+        }
+      });
+    }
 
     $(document).on('change', '.category', function(){
       var category = $(this);
@@ -363,11 +383,13 @@
         url: "{{ url('vendor/category-wise-services') }} ",
         data: {categoryIds: categoryIds},
         success: function(result){
+          console.log(result);
 
           if(result.length != 0){
             result.forEach(function(item){
               displayString += '<option value="'+item.id+'">'+item.name+'</option>';
             });
+            getVendors();
           }
 
           $(category).parents('tr').find('select[name="items[]"]').html(displayString);
@@ -390,7 +412,7 @@
                     success: function (data) {
                       console.log(data);
                         var employees = data.data;
-                        // $('#employees').empty();
+                        // $('#coordinate_employees').empty();
                         if(employees)
                         {
                             var formoption = "";

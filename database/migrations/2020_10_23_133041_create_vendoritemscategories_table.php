@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVendoritemscategoriesTable extends Migration
+class CreateVendorCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateVendoritemscategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vendoritemscategories', function (Blueprint $table) {
+        Schema::create('vendor_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->boolean('isactive')->default(1);
@@ -29,6 +29,6 @@ class CreateVendoritemscategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendoritemscategories');
+        Schema::dropIfExists('vendor_categories');
     }
 }

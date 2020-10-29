@@ -30,6 +30,7 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'App\Http\Middleware\Restric
 Route::group(['prefix' => 'purchaseorder', 'middleware' => 'App\Http\Middleware\RestrictEmployee'], function () {
     Route::get('product_request', 'PurchaseorderController@create_product_request');
     Route::post('deptt-wise-employees', 'PurchaseorderController@depttWiseEmployees');
+    Route::post('get-vendors-by-category', 'PurchaseorderController@getVendorsByCategory');
     Route::post('save-product-request', 'PurchaseorderController@saveProductRequest');
     Route::get('approval-product-requests','PurchaseorderController@listProductRequests');
     Route::get('product-requests-status','PurchaseorderController@ProductRequestsStatus');

@@ -17,7 +17,7 @@ use App\Http\Controllers\Controller;
 use Mail;
 use App\Mail\GeneralMail;
 use App\Productitem;
-use App\Vendoritemscategorie;
+use App\VendorCategory;
 use App\Vendoritem;
 use App\User;
 use Response;
@@ -40,7 +40,7 @@ class PurchaseorderController extends Controller
             return redirect('/');
         }
         //$data['productitems']  = Productitem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
-        $data['vendoritemscategories']         = Vendoritemscategorie::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
+        $data['vendor_categories']         = VendorCategory::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
         $data['vendoritems']         = Vendoritem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
         $data['departments'] = Department::where(['isactive'=>1])->orderBy('name')->select('id', 'name')->get();
         return view('purchaseorder.create_product_request')->with(['data' => $data]);
@@ -52,15 +52,6 @@ class PurchaseorderController extends Controller
     */
     function depttWiseEmployees(Request $request)
     {
-        // $department_ids = $request->departmentIds;
-        // $data = DB::table('employees as e')
-        //     ->join('employee_profiles as ep','e.user_id','=','ep.user_id')
-        //     ->join('users as u','e.user_id','=','u.id')
-        //     ->whereIn('ep.department_id',$department_ids)
-        //     ->where(['e.approval_status'=>'1','e.isactive'=>1,'ep.isactive'=>1])
-        //     ->select('e.user_id','e.fullname','u.employee_code')
-        //     ->get();
-        // return $data;
 
         if($request->departmentIds != '') {
             $data = DB::table('employees as e')
@@ -70,12 +61,20 @@ class PurchaseorderController extends Controller
                 ->select('e.id', 'e.fullname')
                 ->get();
                 
-        }
-        
+        }   
         
         return Response::json(['success'=>true,'data'=>$data]);
     }//end of function
 
+
+    function getVendorsByCategory(Request $request)
+    {
+        $ids = $request->all();
+        //return $idString = implode(',', $ids);
+        return VendorCategory::whereIn('id', $ids)
+                    ->with('vendors')
+                    ->get();
+    }//end of function
 
         // for save Product Form 
 
@@ -83,6 +82,7 @@ class PurchaseorderController extends Controller
         {   
     
           $data = $request->all();
+          dd($data);
     
             if (Auth::guest()) {
                 return redirect('/');

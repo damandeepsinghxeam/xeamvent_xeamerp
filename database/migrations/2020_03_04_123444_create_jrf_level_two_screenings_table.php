@@ -36,7 +36,7 @@ class CreateJrfLevelTwoScreeningsTable extends Migration
             $table->string('interaction_date')->nullable()->comment('Date of Interaction with Management'); 
             $table->enum('final_result',['Rejected','Selected','On-hold'])->nullable();
             $table->enum('status',['0','1'])->default(0);
-            $table->string('reject_reason ')->nullable();
+            $table->string('reject_reason')->nullable();
             $table->enum('mgmt_status',['0','1','2'])->default(0);
             $table->string('mgmt_date');
             $table->timestamps();

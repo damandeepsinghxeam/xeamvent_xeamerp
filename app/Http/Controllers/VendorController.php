@@ -14,7 +14,7 @@ use App\EmployeeProfile;
 use App\Http\Controllers\Controller;
 use App\Mail\GeneralMail;
 use App\Vendoritem;
-use App\Vendoritemscategorie;
+use App\VendorCategory;
 use App\User;
 use Auth;
 use DateTime;
@@ -54,7 +54,7 @@ class VendorController extends Controller
         $data['countries'] = Country::where(['isactive'=>1])->get();
         $data['states'] = State::where(['isactive'=>1])->get();    
         $data['cities']         = City::where(['isactive' => 1])->orderBy('name')->get();
-        $data['vendoritemscategories']         = Vendoritemscategorie::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
+        $data['vendor_categories']         = VendorCategory::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
         $data['vendoritems']         = Vendoritem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
        
         return view('vendor.create_vendor')->with(['data' => $data]);
@@ -348,7 +348,7 @@ class VendorController extends Controller
             $data['countries'] = Country::where(['isactive'=>1])->get();
             $data['states'] = State::where(['isactive'=>1])->get();    
             $data['cities']  = City::where(['isactive' => 1])->orderBy('name')->get();
-            $data['vendoritemscategories'] = Vendoritemscategorie::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
+            $data['vendorcategories'] = VendorCategory::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
             $data['vendoritems'] = Vendoritem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
 
             $vendor = Vendor::where(['id'=>$vendor_id])->first();

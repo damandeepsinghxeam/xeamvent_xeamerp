@@ -59,7 +59,7 @@ class CreateJrfsTable extends Migration
             $table->string('benefits_perks')->nullable();
             $table->string('temp_or_perm')->nullable();
             $table->string('service_charges_fee')->nullable();
-            $table->enum('closure_type', ['open','closed'])->default(open);
+            $table->enum('closure_type', ['open','closed'])->default('open');
             $table->string('closure_date')->nullable();
             //  end
 
