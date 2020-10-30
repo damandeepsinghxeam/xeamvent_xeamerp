@@ -13,7 +13,7 @@ use App\Employee;
 use App\EmployeeProfile;
 use App\Http\Controllers\Controller;
 use App\Mail\GeneralMail;
-use App\Vendoritem;
+use App\StockItem;
 use App\VendorCategory;
 use App\User;
 use Auth;
@@ -55,7 +55,7 @@ class VendorController extends Controller
         $data['states'] = State::where(['isactive'=>1])->get();    
         $data['cities']         = City::where(['isactive' => 1])->orderBy('name')->get();
         $data['vendor_categories']         = VendorCategory::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
-        $data['vendoritems']         = Vendoritem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
+        $data['stock_items']         = StockItem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
        
         return view('vendor.create_vendor')->with(['data' => $data]);
     }
@@ -66,11 +66,11 @@ class VendorController extends Controller
         function categoryWiseServices(Request $request)
             {
                 $category_Ids = $request->categoryIds;
-                $vendoritems = Vendoritem::where(['isactive'=>1])
+                $stockitems = StockItem::where(['isactive'=>1])
                     ->whereIn('category_id',$category_Ids)
                     ->select('id','name')
                     ->get();
-                return $vendoritems;
+                return $stockitems;
             }//end of function
 
     /**
@@ -348,8 +348,8 @@ class VendorController extends Controller
             $data['countries'] = Country::where(['isactive'=>1])->get();
             $data['states'] = State::where(['isactive'=>1])->get();    
             $data['cities']  = City::where(['isactive' => 1])->orderBy('name')->get();
-            $data['vendorcategories'] = VendorCategory::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
-            $data['vendoritems'] = Vendoritem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
+            $data['vendor_categories'] = VendorCategory::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
+            $data['stockitems'] = StockItem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
 
             $vendor = Vendor::where(['id'=>$vendor_id])->first();
 
@@ -411,14 +411,14 @@ class VendorController extends Controller
                                                 ->first(); 
             
             $cat_id = $data['vendor_approval']->category_id;
-            $category_name = DB::table('vendoritemscategories')->where('id', $cat_id)->value('name');
+            $category_name = DB::table('vendor_categories')->where('id', $cat_id)->value('name');
 
             $items = [];
             if(!empty($data['vendor_approval']->items_for_service)) {
 
                 
                 $item_id = explode (",", $data['vendor_approval']->items_for_service);
-                $items = Vendoritem::whereIn('id', $item_id)->pluck('name')->toArray();
+                $items = StockItem::whereIn('id', $item_id)->pluck('name')->toArray();
             }                     
             return view('vendor.show_vendor_detail')->with(['vendor_data'=>$data,'items'=>$items,'category_name'=>$category_name]);
         }

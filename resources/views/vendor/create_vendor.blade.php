@@ -337,9 +337,9 @@
 	                          <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
 	                             <select class="form-control input-md basic-detail-input-style input_1" name="category_id"  style="width: 100%;" id="category_id" data-placeholder="Select Category">
 								    <option value="">Please Specify Category</option>
-									@if(!$data['vendoritemscategories']->isEmpty())
-	                                @foreach($data['vendoritemscategories'] as $Vendoritemscategorie)  
-	                                <option value="{{$Vendoritemscategorie->id}}">{{$Vendoritemscategorie->name}}</option>
+									@if(!$data['vendor_categories']->isEmpty())
+	                                @foreach($data['vendor_categories'] as $vendor_category)  
+	                                <option value="{{$vendor_category->id}}">{{$vendor_category->name}}</option>
 	                                @endforeach
 	                                @endif  
 	                             </select>

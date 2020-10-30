@@ -18,7 +18,7 @@ use Mail;
 use App\Mail\GeneralMail;
 use App\Productitem;
 use App\VendorCategory;
-use App\Vendoritem;
+use App\StockItem;
 use App\User;
 use Response;
 use Auth;
@@ -41,7 +41,7 @@ class PurchaseorderController extends Controller
         }
         //$data['productitems']  = Productitem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
         $data['vendor_categories']         = VendorCategory::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
-        $data['vendoritems']         = Vendoritem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
+        $data['stock_items']         = Stockitem::where(['isactive' => 1])->orderBy('name')->select('id', 'name')->get();
         $data['departments'] = Department::where(['isactive'=>1])->orderBy('name')->select('id', 'name')->get();
         return view('purchaseorder.create_product_request')->with(['data' => $data]);
     }
