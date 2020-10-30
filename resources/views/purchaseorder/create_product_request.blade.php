@@ -353,7 +353,7 @@
       $('.category').each(function(){
         categoriesIds.push($(this).val())
       })
-      console.log(categoriesIds)
+      //console.log(categoriesIds)
       $.ajax({
         type: 'POST',
         url: "{{ url('purchaseorder/get-vendors-by-category') }} ",
@@ -362,7 +362,15 @@
         success: function(result){
 
           if(result.length != 0){
-            console.log(result)
+            //console.log(result)
+            result.forEach(function(vendor){
+              console.log(vendor.name_of_firm)
+              // chk += '<input id="' + vendor.name_of_firm + '" type="checkbox" name="' + vendor.name_of_firm + '" value="' + vendor.name_of_firm + '">';
+              // chk += '<label for="' + vendor.name_of_firm + '">ABC</label>';
+
+            });
+            //$('#chkboxlist').html(chk);
+            
           }
         }
       });
@@ -383,7 +391,7 @@
         url: "{{ url('vendor/category-wise-services') }} ",
         data: {categoryIds: categoryIds},
         success: function(result){
-          console.log(result);
+          //console.log(result);
 
           if(result.length != 0){
             result.forEach(function(item){
@@ -410,7 +418,7 @@
                         departmentIds: departmentIds
                     },
                     success: function (data) {
-                      console.log(data);
+                      //console.log(data);
                         var employees = data.data;
                         // $('#coordinate_employees').empty();
                         if(employees)
@@ -424,7 +432,7 @@
                         }
                     },
                     error: function (xhr) {
-                        console.log(xhr.responseText);
+                        //console.log(xhr.responseText);
                     }
                 });
             });
