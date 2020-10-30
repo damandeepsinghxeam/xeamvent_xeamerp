@@ -59,21 +59,31 @@ class PurchaseorderController extends Controller
                 ->whereIn('ep.department_id', $request->departmentIds)
                 ->where(['e.approval_status' => '1', 'e.isactive' => 1, 'ep.isactive' => 1])
                 ->select('e.id', 'e.fullname')
-                ->get();
-                
-        }   
-        
+                ->get();            
+        }     
         return Response::json(['success'=>true,'data'=>$data]);
     }//end of function
 
-
+    // get vendors by categories
+    
     function getVendorsByCategory(Request $request)
     {
         $ids = $request->all();
         //return $idString = implode(',', $ids);
-        return VendorCategory::whereIn('id', $ids)
-                    ->with('vendors')
+        // return VendorCategory::whereIn('id', $ids)
+        //             ->with('vendors')
+        //             ->get();
+        // return Vendor::whereIn('category_id', $ids)
+        // ->get();
+
+        $Vendor =  DB::table('vendors as vend')
+                    ->join('vendor_approvals as vap','vend.id','=','vap.vendor_id')
+                    ->where('vap.vendor_status','1')
+                    ->whereIn('vend.category_id', $ids)
+                    ->select('vend.id','vend.name_of_firm','vap.vendor_status')
                     ->get();
+        return $Vendor;
+                    
     }//end of function
 
         // for save Product Form 
