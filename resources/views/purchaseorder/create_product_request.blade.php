@@ -137,7 +137,7 @@
                        <h2>Vendors<span style="color:red">*</span></h2>
                      </div>
                      <div class="vendor_list_content p-sm m-t-md">
-                       <div class="vendor_list_item">
+                       <!-- <div class="vendor_list_item">
                           <label class="t-check-container">
                             <input type="checkbox" class="selectSingleCheckbox">
                             <span class="task-checkmark"></span>&nbsp;&nbsp; Vendor Name 1
@@ -154,7 +154,7 @@
                             <input type="checkbox" class="selectSingleCheckbox">
                             <span class="task-checkmark"></span>&nbsp;&nbsp; Vendor Name 3
                           </label>
-                        </div>
+                        </div> -->
                      </div>
                   </div>
                 </div>
@@ -354,6 +354,7 @@
         categoriesIds.push($(this).val())
       })
       //console.log(categoriesIds)
+      var chk = '';
       $.ajax({
         type: 'POST',
         url: "{{ url('purchaseorder/get-vendors-by-category') }} ",
@@ -363,14 +364,17 @@
 
           if(result.length != 0){
             //console.log(result)
-            result.forEach(function(vendor){
-              console.log(vendor.name_of_firm)
-              // chk += '<input id="' + vendor.name_of_firm + '" type="checkbox" name="' + vendor.name_of_firm + '" value="' + vendor.name_of_firm + '">';
-              // chk += '<label for="' + vendor.name_of_firm + '">ABC</label>';
-
+            var _inc = 1;
+            result.forEach(function(vendor) {
+              chk += '<div class="vendor_list_item">'+
+                        '<label class="t-check-container" for="vendor_name['+_inc+']">'+
+                          '<input type="checkbox" name="vender_name[]" id="vendor_name['+_inc+']" class="selectSingleCheckbox vender_name" value="' + vendor.id + '">'+
+                          '<span class="task-checkmark m-r-sm"></span>' + vendor.name_of_firm +
+                        '</label>'+
+                      '</div>';
+              _inc++;
             });
-            //$('#chkboxlist').html(chk);
-            
+            $('.vendor_list_content').html(chk);            
           }
         }
       });
