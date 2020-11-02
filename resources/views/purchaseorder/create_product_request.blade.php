@@ -142,24 +142,27 @@
                             <input type="checkbox" class="selectSingleCheckbox">
                             <span class="task-checkmark"></span>&nbsp;&nbsp; Vendor Name 1
                           </label>
-                        </div>
-                        <div class="vendor_list_item">
-                          <label class="t-check-container">
-                            <input type="checkbox" class="selectSingleCheckbox">
-                            <span class="task-checkmark"></span>&nbsp;&nbsp; Vendor Name 2
-                          </label>
-                        </div>
-                        <div class="vendor_list_item">
-                          <label class="t-check-container">
-                            <input type="checkbox" class="selectSingleCheckbox">
-                            <span class="task-checkmark"></span>&nbsp;&nbsp; Vendor Name 3
-                          </label>
                         </div> -->
                      </div>
                   </div>
                 </div>
               </div>
               
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+                        <label for="required_by" class="apply-leave-label label_1">Short Discription<span style="color:red">*</span></label>
+                      </div>
+                      <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
+                        <input type="text" name="required_by" class="form-control input-md basic-detail-input-style input_1" id="" placeholder="Short Decription">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div class="row">
                 <div class="col-md-2 leave-label-box label-470">
                   <label for="" class="apply-leave-label label_1">Requirement<span style="color:red">*</span></label>
@@ -362,7 +365,6 @@
         data: JSON.stringify(categoriesIds),
         contentType: "application/json",
         success: function(result){
-
           if(result.length != 0){
             //console.log(result)
             var _inc = 1;
