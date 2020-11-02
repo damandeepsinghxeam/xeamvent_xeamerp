@@ -343,6 +343,7 @@
       var trIndex = $(this).closest("tr").index();
         if(trIndex>0) {
         $(this).closest("tr").remove();
+        getVendors();
       } else {		
       }
     });
