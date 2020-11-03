@@ -52,7 +52,7 @@ class FeeTypeSeeder extends Seeder
 				'name' => 'Online',
 				'is_emd' => 1,
 				'is_processing_fee' => 1,
-				'is_tender_fee' => 1,
+				' ' => 1,
 				'isactive' => 1,
 			],
 			[

@@ -19,10 +19,10 @@
 <div class="content-wrapper">
   <!-- Content Header Starts here -->
   <section class="content-header">
-    <h1><i class="fa fa-file"></i> Purchase Request Form</h1>
+    <h1><i class="fa fa-file"></i> Purchase Order Form</h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Purchase Request</li>
+        <li class="active">Purchase Order</li>
     </ol>
   </section>
   <!-- Content Header Ends here -->
@@ -42,10 +42,9 @@
                 <thead class="table-heading-style table_1">
                   <tr>
                     <th>S No.</th>
-                    <th style="width: 200px;">Product / Item Category</th>
-                    <th style="width: 200px;">Product / Items</th>
+                    <th style="width: 300px;">Product / Item Category</th>
+                    <th style="width: 300px;">Product / Items</th>
                     <th style="width: 200px;">Quantity</th>
-                    <th style="width: 200px;">Approx. Price</th>
                     <th>Add / Remove</th>
                   </tr>
                 </thead>
@@ -73,9 +72,6 @@
                       <input type="text" name="quantity[]" class="form-control input-md basic-detail-input-style input_1 quantity" id="" placeholder="For Ex. 10">
                     </td>
                     <td>
-                      <input type="text" name="approx_price[]" class="form-control input-md basic-detail-input-style input_1" id="" placeholder="Enter Price">
-                    </td>
-                    <td>
                       <a href="javascript:void(0)" id="add_Item">
                         <i class="fa fa-plus a_r_style a_r_style_green"></i>
                       </a>
@@ -86,10 +82,9 @@
                 <tfoot class="table-heading-style table_1">
                   <tr>
                     <th>S No.</th>
-                    <th style="width: 200px;">Product / Item Category</th>
-                    <th style="width: 200px;">Product / Items</th>
+                    <th style="width: 300px;">Product / Item Category</th>
+                    <th style="width: 300px;">Product / Items</th>
                     <th style="width: 200px;">Quantity</th>
-                    <th style="width: 200px;">Approx. Price</th>
                     <th>Add / Remove</th>
                   </tr>
                 </tfoot>
@@ -127,6 +122,7 @@
                       </div>
                       <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
                         <select name="coordinate_employees[]" class="form-control input-md basic-detail-input-style input_1 select2" id="coordinate_employees" multiple="multiple" data-placeholder="Select Employees">
+                         
                         </select>
                       </div>
                     </div>
@@ -134,30 +130,45 @@
                 </div>
               </div>
               
-              <!--<div class="row">
+              <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                   <div class="vendor_list_box">
                      <div class="vendor_list_heading">
                        <h2>Vendors<span style="color:red">*</span></h2>
                      </div>
                      <div class="vendor_list_content p-sm m-t-md">
-                        <div class="vendor_list_item">
+                       <!-- <div class="vendor_list_item">
                           <label class="t-check-container">
                             <input type="checkbox" class="selectSingleCheckbox">
                             <span class="task-checkmark"></span>&nbsp;&nbsp; Vendor Name 1
                           </label>
-                        </div> 
+                        </div> -->
                      </div>
                   </div>
                 </div>
-              </div>-->
+              </div>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4 col-sm-4 col-xs-4 leave-label-box label-470">
+                        <label for="required_by" class="apply-leave-label label_1">Short Discription<span style="color:red">*</span></label>
+                      </div>
+                      <div class="col-md-8 col-sm-8 col-xs-8 leave-input-box input-470">
+                        <input type="text" name="required_by" class="form-control input-md basic-detail-input-style input_1" id="" placeholder="Short Decription">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <div class="row">
                 <div class="col-md-2 leave-label-box label-470">
-                  <label for="" class="apply-leave-label label_1">Purpose<span style="color:red">*</span></label>
+                  <label for="" class="apply-leave-label label_1">Requirement<span style="color:red">*</span></label>
                 </div>
                 <div class="col-md-10">
-                  <textarea id="po_summernote" name="purpose"></textarea>
+                  <textarea id="po_summernote" name="requirement"></textarea>
                 </div>
               </div>
               
@@ -244,17 +255,13 @@
               required:true,
               digits : true
           },
-          "approx_price[]" :{
-              required:true,
-              digits : true
-          },
           "coordinate_departments[]" :{
               required:true
           },
           "coordinate_employees[]" :{
               required:true
           },
-          "purpose": {
+          "requirement": {
               required: true
           },
           "required_by" : {
@@ -271,17 +278,14 @@
           "quantity[]":{
               required: "Enter Quantity"
           },
-          "approx_price[]" :{
-              required: "Enter Approx. Price"
-          },
           "coordinate_departments[]" :{
               required: "Select Department"
           },
           "coordinate_employees[]" :{
               required: "Select Employees"
           },
-          "purpose": {
-            required: "Enter Purpose"
+          "requirement": {
+            required: "Select Requirement"
           },
           "required_by" : {
               required: "Select Date"

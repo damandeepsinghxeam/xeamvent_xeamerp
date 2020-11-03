@@ -15,8 +15,7 @@ class CreatePurchaseOrderTable extends Migration
     {
         Schema::create('purchase_order', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('short_description');
-            $table->string('requirement');
+            $table->string('purpose');
             $table->date('required_by');
             $table->bigInteger('created_by');
             $table->bigInteger('supervisor_id');
