@@ -46,8 +46,7 @@ class PurchaseorderController extends Controller
         return view('purchaseorder.create_product_request')->with(['data' => $data]);
     }
 
-
-            /*
+    /*
         Ajax request to get deptt wise employees
     */
     function depttWiseEmployees(Request $request)
@@ -99,9 +98,14 @@ class PurchaseorderController extends Controller
             }
     
             $validator = Validator::make($request->all(), [
-                'product_name'                  => 'required',
-                'no_of_items_requested'         => 'required',
-                'product_description'           => 'required',
+                'category'                  => 'required',
+                'items'                     => 'required',
+                'quantity'                  => 'required',
+                'approx_price'              => 'required',
+                'coordinate_employees'      => 'required',
+                'purpose'                   => 'required',
+                'required_by'               => 'required',
+                
             ]);
     
             if ($validator->fails()) {
@@ -118,22 +122,37 @@ class PurchaseorderController extends Controller
 
            $supervisorUserId = $userId[0];
     
-            $data = [
-                'user_id'                               => $request->user_id,
-                'product_name'                          => $request->product_name,
-                'others_product_name'                   => $request->others_product_name,
-                'no_of_items_requested'                 => $request->no_of_items_requested,
-                'product_description'                   => $request->product_description,
-                'supervisor_id'                         => $supervisorUserId,
-                'product_requested_status'                         => '0', //inprogress
-            
+            $data_purchase_order = [
+                'purpose'                   => $request->purpose,
+                'required_by'               => $request->required_by,
+                'created_by'                => $request->user_id,
+                'supervisor_id'             => $supervisorUserId,
+                'purchase_order_status'     => '0' //inprogress
             ];
 
+            $data_purchase_order_stock_item = [
+                'purchase_order_id'         => $saved_purchase_order->id,
+                'category_id'               => $request->category,
+                'stock_item_id'             => $request->items,
+                'quantity'                  => $request->quantity,
+                'approx_price'              => $request->approx_price
+            ];
+
+            $data_purchase_order_coordinator = [
+            'purchase_order_id'      => $saved_purchase_order->id,
+            'coordinator_user_id'    => $request->coordinate_employees
+            ];
+
+            $data_purchase_order_vendor = [
+                'purchase_order_id'      => $saved_purchase_order->id,
+                'vendor_id'    => $request->vendor_id
+                ];
+
             $notification_data = [
-                'sender_id' => $request->user_id,
-                'receiver_id' => $supervisorUserId,
-                'label' => 'Item Request For Approval',
-                'read_status' => '0'
+                'sender_id'        => $request->user_id,
+                'receiver_id'      => $supervisorUserId,
+                'label'            => 'Item Request For Approval',
+                'read_status'      => '0'
             ]; 
             $notification_data['message'] = "New Item Request is added and is Pending for Approval";  
 

@@ -178,6 +178,9 @@
                     </div>
                 </div>
               </div>
+
+              @php $user_id = Auth::id(); @endphp
+	            <input type="hidden" name="user_id" value="{{@$user_id}}">
               
             </div>
             <!-- Box Body Ends here -->

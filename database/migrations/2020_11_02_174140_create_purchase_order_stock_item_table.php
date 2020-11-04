@@ -22,6 +22,7 @@ class CreatePurchaseOrderStockItemTable extends Migration
             $table->unsignedBigInteger('stock_item_id');
             $table->foreign('stock_item_id')->references('id')->on('stock_items')->onDelete('cascade');
             $table->bigInteger('quantity');
+            $table->bigInteger('approx_price');
             $table->timestamps();
         });
     }
