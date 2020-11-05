@@ -92,8 +92,7 @@ class PurchaseorderController extends Controller
         {   
     
           $data = $request->all();
-          //dd($data);
-          //dd($data);
+         // dd($data);
     
             if (Auth::guest()) {
                 return redirect('/');
@@ -106,8 +105,7 @@ class PurchaseorderController extends Controller
                 'approx_price'              => 'required',
                 'coordinate_employees'      => 'required',
                 'purpose'                   => 'required',
-                'required_by'               => 'required'
-                
+                'required_by'               => 'required'    
             ]);
     
             if ($validator->fails()) {
@@ -117,7 +115,6 @@ class PurchaseorderController extends Controller
             }
 
            $user      = User::where(['id' => Auth::id()])->with('employee')->first();
-           // $userId = User::where('employee_code', '01')->first()->id;
            $userId = User::permission('product-request-approval')->pluck('id');
            $supervisorUserId = $userId[0];
     
@@ -130,20 +127,18 @@ class PurchaseorderController extends Controller
             ];
 
             $saved_purchase_order = PurchaseOrders::create($data_purchase_order); 
+
             $count = count($request->category);
-            $purchase_data_array = [];
+            $purchase_order_stock_item_data = [];
             for ($i = 0; $i < $count; $i++){
-                $purchase_data_array[] = [
+                $purchase_order_stock_item_data[] = [
                     'purchase_order_id'     => $saved_purchase_order->id, 
                     'stock_item_id'         => $request->items[$i],
                     'quantity'              => $request->quantity[$i],
                     'approx_price'          => $request->approx_price[$i]
                 ];
-                    
-            }
-            
-            PurchaseOrderStockItems::insert($purchase_data_array);
-
+            }         
+            PurchaseOrderStockItems::insert($purchase_order_stock_item_data);
             exit;
             PurchaseOrderStockItems:insert($arr);die;
 
