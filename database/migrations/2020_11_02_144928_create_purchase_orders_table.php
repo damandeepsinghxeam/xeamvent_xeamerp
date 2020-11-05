@@ -16,7 +16,7 @@ class CreatePurchaseOrdersTable extends Migration
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('purpose');
-            $table->date('required_by');
+            $table->string('required_by', 50);
             $table->bigInteger('created_by');
             $table->bigInteger('supervisor_id');
             $table->enum('order_status', ['0','1','2'])->comment('0=inprogress, 1=approved, 2=rejected');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\PurchaseOrders;
 use App\PurchaseOrderStockItems;
+use App\PurchaseOrderCoordinators;
 use App\Vendor;
 use App\VendorApprovals;
 use Illuminate\Http\Request;
@@ -120,7 +121,7 @@ class PurchaseorderController extends Controller
     
             $data_purchase_order = [
                 'purpose'                   => $request->purpose,
-                'required_by'               => $request->required_by,
+                'required_by'               => date($request->required_by),
                 'created_by'                => $request->user_id,
                 'supervisor_id'             => $supervisorUserId,
                 'order_status'              => '0' //inprogress
@@ -128,9 +129,9 @@ class PurchaseorderController extends Controller
 
             $saved_purchase_order = PurchaseOrders::create($data_purchase_order); 
 
-            $count = count($request->category);
+            $count_category = count($request->category);
             $purchase_order_stock_item_data = [];
-            for ($i = 0; $i < $count; $i++){
+            for ($i = 0; $i < $count_category; $i++){
                 $purchase_order_stock_item_data[] = [
                     'purchase_order_id'     => $saved_purchase_order->id, 
                     'stock_item_id'         => $request->items[$i],
@@ -139,13 +140,16 @@ class PurchaseorderController extends Controller
                 ];
             }         
             PurchaseOrderStockItems::insert($purchase_order_stock_item_data);
-            exit;
-            PurchaseOrderStockItems:insert($arr);die;
 
-            $data_purchase_order_coordinator = [
-            'purchase_order_id'      => $saved_purchase_order->id,
-            'coordinator_user_id'    => $request->coordinate_employees
-            ];
+            $count_emp = count($request->coordinate_employees);
+            $data_purchase_order_coordinator = [];
+            for ($i = 0; $i < $count_emp; $i++){
+                $data_purchase_order_coordinator[] = [
+                'purchase_order_id'      => $saved_purchase_order->id,
+                'coordinator_user_id'    => $request->coordinate_employees[$i]
+                ];
+            }
+            PurchaseOrderCoordinators::insert($data_purchase_order_coordinator);
 
             $notification_data = [
                 'sender_id'        => $request->user_id,
@@ -155,7 +159,7 @@ class PurchaseorderController extends Controller
             ]; 
             $notification_data['message'] = "New Item Request is added and is Pending for Approval";  
       
-            $saved_item->notifications()->create($notification_data);
+            $saved_purchase_order->notifications()->create($notification_data);
     
             return redirect()->back()->with('success', "Product Request created successfully.");
         }

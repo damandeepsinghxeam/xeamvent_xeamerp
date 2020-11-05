@@ -18,7 +18,8 @@ class CreatePurchaseOrderCoordinatorsTable extends Migration
             $table->unsignedBigInteger('purchase_order_id');
             $table->foreign('purchase_order_id')->references('id')->on('purchase_order')->onDelete('cascade');
             $table->bigInteger('coordinator_user_id');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
 

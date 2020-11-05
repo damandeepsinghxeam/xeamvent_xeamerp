@@ -19,6 +19,8 @@ class CreatePurchaseOrderVendorsTable extends Migration
             $table->foreign('purchase_order_id')->references('id')->on('purchase_order')->onDelete('cascade');
             $table->unsignedBigInteger('vendor_id');
             $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
 
