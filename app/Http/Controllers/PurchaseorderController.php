@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Purchaseorder;
-use App\RequestedProductItems;
+use App\PurchaseOrders;
+use App\PurchaseOrderStockItems;
 use App\Vendor;
 use App\VendorApprovals;
 use Illuminate\Http\Request;
@@ -12,6 +12,7 @@ use App\Country;
 use App\State;
 use App\City;
 use App\Employee;
+use App\RequestedProductItems;
 use App\EmployeeProfile;
 use App\Http\Controllers\Controller;
 use Mail;
@@ -91,7 +92,8 @@ class PurchaseorderController extends Controller
         {   
     
           $data = $request->all();
-          dd($data);
+          //dd($data);
+          //dd($data);
     
             if (Auth::guest()) {
                 return redirect('/');
@@ -104,7 +106,7 @@ class PurchaseorderController extends Controller
                 'approx_price'              => 'required',
                 'coordinate_employees'      => 'required',
                 'purpose'                   => 'required',
-                'required_by'               => 'required',
+                'required_by'               => 'required'
                 
             ]);
     
@@ -115,11 +117,8 @@ class PurchaseorderController extends Controller
             }
 
            $user      = User::where(['id' => Auth::id()])->with('employee')->first();
-
            // $userId = User::where('employee_code', '01')->first()->id;
-  
            $userId = User::permission('product-request-approval')->pluck('id');
-
            $supervisorUserId = $userId[0];
     
             $data_purchase_order = [
@@ -127,26 +126,31 @@ class PurchaseorderController extends Controller
                 'required_by'               => $request->required_by,
                 'created_by'                => $request->user_id,
                 'supervisor_id'             => $supervisorUserId,
-                'purchase_order_status'     => '0' //inprogress
+                'order_status'              => '0' //inprogress
             ];
 
-            $data_purchase_order_stock_item = [
-                'purchase_order_id'         => $saved_purchase_order->id,
-                'category_id'               => $request->category,
-                'stock_item_id'             => $request->items,
-                'quantity'                  => $request->quantity,
-                'approx_price'              => $request->approx_price
-            ];
+            $saved_purchase_order = PurchaseOrders::create($data_purchase_order); 
+            $count = count($request->category);
+            $purchase_data_array = [];
+            for ($i = 0; $i < $count; $i++){
+                $purchase_data_array[] = [
+                    'purchase_order_id'     => $saved_purchase_order->id, 
+                    'stock_item_id'         => $request->items[$i],
+                    'quantity'              => $request->quantity[$i],
+                    'approx_price'          => $request->approx_price[$i]
+                ];
+                    
+            }
+            
+            PurchaseOrderStockItems::insert($purchase_data_array);
+
+            exit;
+            PurchaseOrderStockItems:insert($arr);die;
 
             $data_purchase_order_coordinator = [
             'purchase_order_id'      => $saved_purchase_order->id,
             'coordinator_user_id'    => $request->coordinate_employees
             ];
-
-            $data_purchase_order_vendor = [
-                'purchase_order_id'      => $saved_purchase_order->id,
-                'vendor_id'    => $request->vendor_id
-                ];
 
             $notification_data = [
                 'sender_id'        => $request->user_id,
@@ -155,9 +159,7 @@ class PurchaseorderController extends Controller
                 'read_status'      => '0'
             ]; 
             $notification_data['message'] = "New Item Request is added and is Pending for Approval";  
-
-            $saved_item = $user->RequestedProductItems()->create($data);               
-            
+      
             $saved_item->notifications()->create($notification_data);
     
             return redirect()->back()->with('success', "Product Request created successfully.");

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RequestedProductItems extends Model
+class PurchaseOrders extends Model
 {
     protected $guarded = [];
 
@@ -13,8 +13,16 @@ class RequestedProductItems extends Model
     	return $this->belongsTo('App\User');
     }
 
-    function RequestedProductItems(){
-        return $this->hasMany('App\VendorApprovals');
+    function PurchaseOrderStockItems(){
+        return $this->hasMany('App\PurchaseOrderStockItems');
+    }
+
+    function PurchaseOrderCoordinators(){
+        return $this->hasMany('App\PurchaseOrderCoordinators');
+    }
+
+    function PurchaseOrderVendors(){
+        return $this->hasMany('App\PurchaseOrderVendors');
     }
 
     function notifications()

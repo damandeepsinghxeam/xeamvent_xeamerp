@@ -251,6 +251,19 @@ class User extends Authenticatable
 
         return $this->hasMany('App\RequestedProductItems');
     }
+
+    function PurchaseOrders()
+    {
+
+        return $this->hasMany('App\PurchaseOrders');
+    }
+
+    function PurchaseOrderStockItems()
+    {
+
+        return $this->hasMany('App\PurchaseOrderStockItems');
+    }
+    
     
     // END JRF //
     

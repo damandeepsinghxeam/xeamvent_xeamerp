@@ -134,7 +134,7 @@
                 </div>
               </div>
               
-              <!--<div class="row">
+              <!-- <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                   <div class="vendor_list_box">
                      <div class="vendor_list_heading">
@@ -150,7 +150,7 @@
                      </div>
                   </div>
                 </div>
-              </div>-->
+              </div> -->
 
               <div class="row">
                 <div class="col-md-2 leave-label-box label-470">

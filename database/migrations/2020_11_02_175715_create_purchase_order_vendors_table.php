@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePurchaseOrderVendorTable extends Migration
+class CreatePurchaseOrderVendorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePurchaseOrderVendorTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchase_order_vendor', function (Blueprint $table) {
+        Schema::create('purchase_order_vendors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('purchase_order_id');
             $table->foreign('purchase_order_id')->references('id')->on('purchase_order')->onDelete('cascade');
@@ -29,6 +29,6 @@ class CreatePurchaseOrderVendorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchase_order_vendor');
+        Schema::dropIfExists('purchase_order_vendors');
     }
 }
