@@ -120,7 +120,7 @@ class PurchaseorderController extends Controller
            $supervisorUserId = $userId[0];
     
             $data_purchase_order = [
-                'purpose'                   => $request->purpose,
+                'purpose'                   => strip_tags($request->purpose),
                 'required_by'               => date($request->required_by),
                 'created_by'                => $request->user_id,
                 'supervisor_id'             => $supervisorUserId,

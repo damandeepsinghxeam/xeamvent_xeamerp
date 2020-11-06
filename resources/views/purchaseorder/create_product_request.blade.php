@@ -210,7 +210,8 @@
 <!-- Custom Script Starts here -->
 <script>
   $(document).ready(function() {
-
+   
+    $('input').attr('autocomplete','off');
     
     $.validator.prototype.checkForm = function() {
       //overriden in a specific page
