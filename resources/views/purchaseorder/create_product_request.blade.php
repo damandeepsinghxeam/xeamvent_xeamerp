@@ -44,8 +44,9 @@
                     <th>S No.</th>
                     <th style="width: 200px;">Product / Item Category</th>
                     <th style="width: 200px;">Product / Items</th>
-                    <th style="width: 200px;">Quantity</th>
-                    <th style="width: 200px;">Approx. Price</th>
+                    <th style="width: 150px;">Quantity</th>
+                    <th style="width: 200px;">Approx. Price (Per Item)</th>
+                    <th style="width: 150px;">Total Price</th>
                     <th>Add / Remove</th>
                   </tr>
                 </thead>
@@ -70,10 +71,13 @@
                       </select>
                     </td>
                     <td>
-                      <input type="text" name="quantity[]" class="form-control input-md basic-detail-input-style input_1 quantity" id="" placeholder="For Ex. 10">
+                      <input type="number" name="quantity[]" min="1" value="1" class="form-control input-md basic-detail-input-style input_1 quantity" onchange= "add_to_total(this)" placeholder="For Ex. 10">
                     </td>
                     <td>
-                      <input type="text" name="approx_price[]" class="form-control input-md basic-detail-input-style input_1" id="" placeholder="Enter Price">
+                      <input type="text" name="approx_price[]" class="form-control input-md basic-detail-input-style input_1 approx_price" onchange= "add_to_total(this)" placeholder="Enter Price">
+                    </td>
+                    <td>
+                      <input type="text" name="total_price[]" class="form-control input-md basic-detail-input-style input_1 total_price" readonly placeholder="Total Price">
                     </td>
                     <td>
                       <a href="javascript:void(0)" id="add_Item">
@@ -88,8 +92,9 @@
                     <th>S No.</th>
                     <th style="width: 200px;">Product / Item Category</th>
                     <th style="width: 200px;">Product / Items</th>
-                    <th style="width: 200px;">Quantity</th>
-                    <th style="width: 200px;">Approx. Price</th>
+                    <th style="width: 150px;">Quantity</th>
+                    <th style="width: 200px;">Approx. Price (Per Item)</th>
+                    <th style="width: 150px;">Total Price</th>
                     <th>Add / Remove</th>
                   </tr>
                 </tfoot>
@@ -210,6 +215,13 @@
 <!-- Custom Script Starts here -->
 <script>
   $(document).ready(function() {
+
+    $('input').keypress(function (e) {
+    var txt = String.fromCharCode(e.which);
+    if (!txt.match(/[0-9]/)) {
+        return false;
+    }
+});
    
     $('input').attr('autocomplete','off');
     
@@ -252,6 +264,9 @@
               required:true,
               digits : true
           },
+          "total_price[]" :{
+              required:true
+          },
           "coordinate_departments[]" :{
               required:true
           },
@@ -277,6 +292,9 @@
           },
           "approx_price[]" :{
               required: "Enter Approx. Price"
+          },
+          "total_price[]" :{
+              required: "Enter Total Price"
           },
           "coordinate_departments[]" :{
               required: "Select Department"
@@ -468,6 +486,26 @@ $(function () {
       $(this).valid(); 
   });
 });
+
+// to get total price
+function add_to_total(el)
+  {
+    var parent = $(el).closest('tr');
+    approx_price = parent.find('.approx_price').val();
+    quantity = parent.find('.quantity').val();
+    if(approx_price == null || approx_price =="" || quantity == null || quantity =="")
+      {
+        parent.find('.total_price').val("");
+      }
+      else
+      {
+        var price = parent.find('.approx_price').val() == "" ? 1 : parent.find('.approx_price').val();
+        var qty = parent.find('.quantity').val() == "" ? 1 : parent.find('.quantity').val();
+        var total = price * qty;
+        parent.find('.total_price').val(total);
+      }
+  }
+
 </script>
 <!-- Custom Script Ends here -->
 @endsection
