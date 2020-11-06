@@ -71,7 +71,7 @@
                       </select>
                     </td>
                     <td>
-                      <input type="number" name="quantity[]" min="1" value="1" class="form-control input-md basic-detail-input-style input_1 quantity" onchange= "add_to_total(this)" placeholder="For Ex. 10">
+                      <input type="number" name="quantity[]" min="1" class="form-control input-md basic-detail-input-style input_1 quantity" onchange= "add_to_total(this)" placeholder="For Ex. 10">
                     </td>
                     <td>
                       <input type="text" name="approx_price[]" class="form-control input-md basic-detail-input-style input_1 approx_price" onchange= "add_to_total(this)" placeholder="Enter Price">
@@ -294,7 +294,7 @@
               required: "Enter Approx. Price"
           },
           "total_price[]" :{
-              required: "Enter Total Price"
+              required: ""
           },
           "coordinate_departments[]" :{
               required: "Select Department"
