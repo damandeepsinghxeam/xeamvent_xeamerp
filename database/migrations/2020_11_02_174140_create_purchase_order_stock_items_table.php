@@ -21,6 +21,7 @@ class CreatePurchaseOrderStockItemsTable extends Migration
             $table->foreign('stock_item_id')->references('id')->on('stock_items')->onDelete('cascade');
             $table->bigInteger('quantity');
             $table->bigInteger('approx_price');
+            $table->bigInteger('total_price');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
