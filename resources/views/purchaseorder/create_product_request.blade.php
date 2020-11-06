@@ -398,36 +398,36 @@
     });
  
  // get category wise items
-    function getVendors(){
-      let categoriesIds = []
-      $('.category').each(function(){
-        categoriesIds.push($(this).val())
-      })
-      //console.log(categoriesIds)
-      var chk = '';
-      $.ajax({
-        type: 'POST',
-        url: "{{ url('purchaseorder/get-vendors-by-category') }} ",
-        data: JSON.stringify(categoriesIds),
-        contentType: "application/json",
-        success: function(result){
-          if(result.length != 0){
-            //console.log(result)
-            var _inc = 1;
-            result.forEach(function(vendor) {
-              chk += '<div class="vendor_list_item">'+
-                        '<label class="t-check-container" for="vendor_name['+_inc+']">'+
-                          '<input type="checkbox" name="vender_name[]" id="vendor_name['+_inc+']" class="selectSingleCheckbox vender_name" value="' + vendor.id + '">'+
-                          '<span class="task-checkmark m-r-sm"></span>' + vendor.name_of_firm +
-                        '</label>'+
-                      '</div>';
-              _inc++;
-            });
-            $('.vendor_list_content').html(chk);            
-          }
-        }
-      });
-    }
+    // function getVendors(){
+    //   let categoriesIds = []
+    //   $('.category').each(function(){
+    //     categoriesIds.push($(this).val())
+    //   })
+    //   //console.log(categoriesIds)
+    //   var chk = '';
+    //   $.ajax({
+    //     type: 'POST',
+    //     url: "{{ url('purchaseorder/get-vendors-by-category') }} ",
+    //     data: JSON.stringify(categoriesIds),
+    //     contentType: "application/json",
+    //     success: function(result){
+    //       if(result.length != 0){
+    //         //console.log(result)
+    //         var _inc = 1;
+    //         result.forEach(function(vendor) {
+    //           chk += '<div class="vendor_list_item">'+
+    //                     '<label class="t-check-container" for="vendor_name['+_inc+']">'+
+    //                       '<input type="checkbox" name="vender_name[]" id="vendor_name['+_inc+']" class="selectSingleCheckbox vender_name" value="' + vendor.id + '">'+
+    //                       '<span class="task-checkmark m-r-sm"></span>' + vendor.name_of_firm +
+    //                     '</label>'+
+    //                   '</div>';
+    //           _inc++;
+    //         });
+    //         $('.vendor_list_content').html(chk);            
+    //       }
+    //     }
+    //   });
+    // }
 
     $(document).on('change', '.category', function(){
       var category = $(this);
@@ -450,7 +450,7 @@
             result.forEach(function(item){
               displayString += '<option value="'+item.id+'">'+item.name+'</option>';
             });
-            getVendors();
+            //getVendors();
           }
 
           $(category).parents('tr').find('select[name="items[]"]').html(displayString);

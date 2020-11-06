@@ -96,9 +96,9 @@
           
                   <th>Product Name</th>
 
-                  <th>Number Of Items Requested</th>
-          
-                  <th>Product Description</th>
+                  <th>Quantity</th>
+
+                  <th>Purpose</th>  
                   
                   <th>Status</th>                                 
 
@@ -123,29 +123,21 @@
 
         <td>{{@$loop->iteration}}</td>
 
-        <td>@if($value['product_name'] == 'Others')
+        <td>{{@$value['stock_item_id']}}</td>
 
-        {{@$value['product_name']." - (". $value['others_product_name'].")"}}
+        <td>{{@$value['quantity']}}</td>
 
-        @else
+        <td>{{@$value['purpose']}}</td>          
 
-        {{@$value['product_name']}}
-
-        @endif </td>
-
-        <td>{{@$value['no_of_items_requested']}}</td>
-
-        <td>{{@$value['product_description']}}</td>          
-
-        <td>@if($value['product_requested_status'] == '0')
+        <td>@if($value['order_status'] == '0')
 
         <span class="label label-danger f_b">Pending</span>
 
-        @elseif($value['product_requested_status'] == '1')
+        @elseif($value['order_status'] == '1')
 
         <span class="label label-success f_b">Approved</span>
 
-        @elseif($value['product_requested_status'] == '2')
+        @elseif($value['order_status'] == '2')
 
         <span class="label label-primary f_b">Rejected</span>
 
@@ -168,9 +160,9 @@
           
                   <th>Product Name</th>
 
-                  <th>Number Of Items Requested</th>
+                  <th>Quantity</th>
 
-                  <th>Product Description</th>               
+                  <th>Purpose</th>               
           
                   <td>Status</td>
 

@@ -246,25 +246,25 @@ class PurchaseorderController extends Controller
             $user = Auth::user();
             $user_id = $user->id;
     
-        //    $projectsdraft_sent = Vendor::where(['status'=>'1'])
-        //                     ->orderBy('created_at','DESC')
-        //                     ->get(); 
-    
-            $product_request_app =  DB::table('requested_product_items')
-                            ->where('user_id', $user_id)
-                            ->get();
+            $product_request_app =  DB::table('purchase_orders as po')
+                        ->join('purchase_order_stock_items as si','po.id','=','si.purchase_order_id')
+                        ->select('po.*','si.stock_item_id','si.quantity')
+                        ->get();
+            
+            //dd($product_request_app);
+            // $product_request_app =  DB::table('requested_product_items')
+            //                 ->where('user_id', $user_id)
+            //                 ->get();
 
             // dd($product_request_app);
     
             if($product_request_app AND !$product_request_app->isEmpty()){   
                 foreach($product_request_app as $productRequestData){         
                     $product_request_data_array['id'] = $productRequestData->id;
-                    $product_request_data_array['product_name'] = $productRequestData->product_name;
-                    $product_request_data_array['others_product_name'] = $productRequestData->others_product_name;
-                    $product_request_data_array['no_of_items_requested'] = $productRequestData->no_of_items_requested;
-                    $product_request_data_array['product_description'] = $productRequestData->product_description;
-                    $product_request_data_array['product_requested_status'] = $productRequestData->product_requested_status;
-                    $product_request_data_array['supervisor_id'] = $productRequestData->supervisor_id;
+                    $product_request_data_array['purpose'] = $productRequestData->purpose;
+                    $product_request_data_array['stock_item_id'] = $productRequestData->stock_item_id;
+                    $product_request_data_array['quantity'] = $productRequestData->quantity;
+                    $product_request_data_array['order_status'] = $productRequestData->order_status;
                     $data[] = $product_request_data_array;
                     
                 }
