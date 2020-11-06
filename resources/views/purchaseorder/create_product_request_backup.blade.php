@@ -67,10 +67,10 @@
                                     <select class="form-control select2 input-md basic-detail-input-style input_1" name="product_name" style="width: 100%;" id="product_name" data-placeholder="Select Product Item ">
                                     <option value="">Please select Product Item</option>
                                     @if(!$data['productitems']->isEmpty())
-                                                    @foreach($data['productitems'] as $Productitem)  
+                                    @foreach($data['productitems'] as $Productitem)  
                                     <option value="{{$Productitem->name}}">{{$Productitem->name}}</option>
                                     @endforeach
-                                                    @endif  
+                                    @endif  
                                     <option value="Others">Others</option>
                                     </select>
 	                              </div>
@@ -184,7 +184,7 @@
           "no_of_items_requested" : {
             required: 'Please Specify Number Of Requested Items'
           },
-		  "product_description" : {
+		     "product_description" : {
             required: 'Please Specify Description'
           }
         }

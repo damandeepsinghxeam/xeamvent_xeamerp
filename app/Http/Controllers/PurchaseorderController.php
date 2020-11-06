@@ -104,6 +104,7 @@ class PurchaseorderController extends Controller
                 'items'                     => 'required',
                 'quantity'                  => 'required',
                 'approx_price'              => 'required',
+                'total_price'               => 'required',
                 'coordinate_employees'      => 'required',
                 'purpose'                   => 'required',
                 'required_by'               => 'required'    
@@ -136,7 +137,8 @@ class PurchaseorderController extends Controller
                     'purchase_order_id'     => $saved_purchase_order->id, 
                     'stock_item_id'         => $request->items[$i],
                     'quantity'              => $request->quantity[$i],
-                    'approx_price'          => $request->approx_price[$i]
+                    'approx_price'          => $request->approx_price[$i],
+                    'total_price'          => $request->total_price[$i]
                 ];
             }         
             PurchaseOrderStockItems::insert($purchase_order_stock_item_data);

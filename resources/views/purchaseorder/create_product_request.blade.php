@@ -16,6 +16,8 @@
 </style>
 
 <!-- Content Wrapper Starts here -->
+     
+
 <div class="content-wrapper">
   <!-- Content Header Starts here -->
   <section class="content-header">
@@ -28,9 +30,34 @@
   <!-- Content Header Ends here -->
 
   <!-- Main content Starts here -->
-  <section class="content">
+  <section class="content">      
     <div class="row">
       <div class="col-sm-12">
+      @if ($errors->basic->any())
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <ul>
+                @foreach ($errors->basic->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+          </div>
+          @endif
+
+          <div class="alert-dismissible">
+            @if(session()->has('success'))
+              <div class="alert {{(session()->get('error')) ? 'alert-danger' : 'alert-success'}}">
+                {{ session()->get('success') }}
+              </div>
+            @endif
+          </div>
+
+          @if(session()->has('jrfError'))
+            <div class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              {{ session()->get('jrfError') }}
+            </div>
+          @endif
         <div class="box main_box p-sm">
           <!-- Form Starts here -->
           <form id="purchase_order_form" action="{{ url('purchaseorder/save-product-request') }}" method="POST" enctype="multipart/form-data">            
@@ -330,6 +357,7 @@
         placeholder: 'For Ex. 2 Laptop with chargers and 1 year warranty',
         tabsize: 2,
         height: 120,
+        required: true,
         toolbar: [
           ['style', ['style']],
           ['font', ['bold', 'underline', 'clear']],
@@ -505,6 +533,13 @@ function add_to_total(el)
         parent.find('.total_price').val(total);
       }
   }
+
+//   $('#purchase_order_form').on('submit', function(e) {
+//   if($('#purpose').summernote('isEmpty')) {
+//     console.log('contents is empty, fill it!');
+//     e.preventDefault();
+//   }
+// })
 
 </script>
 <!-- Custom Script Ends here -->
