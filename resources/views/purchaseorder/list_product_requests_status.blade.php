@@ -117,13 +117,13 @@
         ?>  
         @if(isset($requested_product_items) AND ($requested_product_items!=""))
 
-                @foreach($requested_product_items as $key =>$value)  
+        @foreach($requested_product_items as $key =>$value)  
       
       <tr>
 
         <td>{{@$loop->iteration}}</td>
 
-        <td>{{@$value['stock_item_id']}}</td>
+        <td>{{@$value['name']}}</td>
 
         <td>{{@$value['quantity']}}</td>
 
@@ -143,7 +143,6 @@
 
         @endif
         
-
         </td>                                
 
     </tr>

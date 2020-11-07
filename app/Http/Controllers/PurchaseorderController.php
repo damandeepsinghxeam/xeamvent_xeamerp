@@ -247,26 +247,19 @@ class PurchaseorderController extends Controller
             $user_id = $user->id;
     
             $product_request_app =  DB::table('purchase_orders as po')
-                        ->join('purchase_order_stock_items as si','po.id','=','si.purchase_order_id')
-                        ->select('po.*','si.stock_item_id','si.quantity')
+                        ->join('purchase_order_stock_items as prsi','po.id','=','prsi.purchase_order_id')
+                        ->join('stock_items as si','prsi.stock_item_id','=','si.id')
+                        ->select('po.*','prsi.quantity','si.name')
                         ->get();
-            
-            //dd($product_request_app);
-            // $product_request_app =  DB::table('requested_product_items')
-            //                 ->where('user_id', $user_id)
-            //                 ->get();
-
-            // dd($product_request_app);
     
             if($product_request_app AND !$product_request_app->isEmpty()){   
                 foreach($product_request_app as $productRequestData){         
                     $product_request_data_array['id'] = $productRequestData->id;
                     $product_request_data_array['purpose'] = $productRequestData->purpose;
-                    $product_request_data_array['stock_item_id'] = $productRequestData->stock_item_id;
+                    $product_request_data_array['name'] = $productRequestData->name;
                     $product_request_data_array['quantity'] = $productRequestData->quantity;
                     $product_request_data_array['order_status'] = $productRequestData->order_status;
-                    $data[] = $product_request_data_array;
-                    
+                    $data[] = $product_request_data_array;       
                 }
             }else{
                 $data=[];
