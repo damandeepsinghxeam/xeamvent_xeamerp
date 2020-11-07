@@ -129,29 +129,21 @@
 
         <td>{{@$loop->iteration}}</td>
 
-        <td>@if($value['product_name'] == 'Others')
+        <td>{{@$value['name']}}</td>
 
-        {{@$value['product_name']." - (". $value['others_product_name'].")"}}
+        <td>{{@$value['quantity']}}</td>
 
-        @else
+        <td>{{@$value['purpose']}}</td>          
 
-        {{@$value['product_name']}}
-
-        @endif </td>
-
-        <td>{{@$value['no_of_items_requested']}}</td>
-
-        <td>{{@$value['product_description']}}</td>          
-
-        <td>@if($value['product_requested_status'] == '0')
+        <td>@if($value['order_status'] == '0')
 
         <span class="label label-danger f_b">Pending</span>
 
-        @elseif($value['product_requested_status'] == '1')
+        @elseif($value['order_status'] == '1')
 
         <span class="label label-success f_b">Approved</span>
 
-        @elseif($value['product_requested_status'] == '2')
+        @elseif($value['order_status'] == '2')
 
         <span class="label label-primary f_b">Rejected</span>
 
@@ -166,7 +158,7 @@
 
 
         @if(auth()->user()->can('product-request-approval') && $value)
-          @if($value['product_requested_status'] == '0')
+          @if($value['order_status'] == '0')
           <a class="btn btn-xs bg-blue approveBtn" href='{{ url("purchaseorder/approve/")."/".$value['id']}}' title="approve"><i class="fa fa-check" aria-hidden="true"></i></a>
           <a class="btn btn-xs bg-red rejectBtn" href='{{ url("purchaseorder/reject/")."/".$value['id']}}' title="reject"><i class="fa fa-close" aria-hidden="true"></i></a>
           @endif
