@@ -30,7 +30,6 @@
       <div class="col-md-12">
         <div class="box main_box p-sm">
      @php  
-
       @$name_of_firm = $vendor_data['vendor_approval']->name_of_firm;
       @$type_of_firm = $vendor_data['vendor_approval']->type_of_firm;
       @$type_of_firm_others = $vendor_data['vendor_approval']->type_of_firm_others;

@@ -859,12 +859,12 @@ if(!empty($usser)) {
                 </a>
                 <ul class="treeview-menu">
                    @can('new-product-request')
-                    <li class=""><a href="{{ url('purchaseorder/product_request') }}"><i class="fa fa-circle-o text-red"></i>Create Product Request</a></li>
-                    <li class=""><a href="{{ url('purchaseorder/product-requests-status') }}"><i class="fa fa-circle-o text-red"></i>Product Request Status</a></li>
+                    <li class=""><a href="{{ url('purchaseorder/product_request') }}"><i class="fa fa-circle-o text-red"></i>Create Purchase Request</a></li>
+                    <li class=""><a href="{{ url('purchaseorder/product-requests-status') }}"><i class="fa fa-circle-o text-red"></i>Purchase Request Status</a></li>
                     <li class=""><a href="{{ url('purchaseorder/request-quote') }}"><i class="fa fa-circle-o text-red"></i>Request Quotation</a></li>
                     @endcan
                     @can('product-request-approval')
-                        <li class=""><a href="{{ url('purchaseorder/approval-product-requests') }}"><i class="fa fa-circle-o text-red"></i>Approve Product Request</a></li>
+                        <li class=""><a href="{{ url('purchaseorder/approval-product-requests') }}"><i class="fa fa-circle-o text-red"></i>Approve Purchase Request</a></li>
                     @endcan
                 </ul>
             </li>

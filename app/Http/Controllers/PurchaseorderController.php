@@ -174,18 +174,21 @@ class PurchaseorderController extends Controller
         $canapprove = auth()->user()->can('product-request-approval'); 
 
         $product_request_app =  DB::table('purchase_orders as po')
-                        ->join('purchase_order_stock_items as prsi','po.id','=','prsi.purchase_order_id')
-                        ->join('stock_items as si','prsi.stock_item_id','=','si.id')
-                        ->select('po.*','prsi.quantity','si.name')
+                        //->join('purchase_order_stock_items as prsi','po.id','=','prsi.purchase_order_id')
+                        //->join('stock_items as si','prsi.stock_item_id','=','si.id')
+                        ->join('employees as emp', 'po.created_by', '=', 'emp.user_id')
+                        //->select('po.*','prsi.quantity','si.name','emp.fullname')
+                        ->select('po.*','emp.fullname')
                         ->where('po.order_status','0')
                         ->get();
 
         if($product_request_app AND !$product_request_app->isEmpty() AND $canapprove==1){   
             foreach($product_request_app as $productRequestData){         
                 $product_request_data_array['id'] = $productRequestData->id;
-                $product_request_data_array['name'] = $productRequestData->name;
-                $product_request_data_array['quantity'] = $productRequestData->quantity;
+                //$product_request_data_array['name'] = $productRequestData->name;
+                //$product_request_data_array['quantity'] = $productRequestData->quantity;
                 $product_request_data_array['purpose'] = $productRequestData->purpose;
+                $product_request_data_array['fullname'] = $productRequestData->fullname;
                 $product_request_data_array['order_status'] = $productRequestData->order_status;
                 $data[] = $product_request_data_array;
             }
@@ -203,36 +206,60 @@ class PurchaseorderController extends Controller
     function productRequestAction(Request $request, $action, $product_request_id = null)
        {
            if(!empty($product_request_id)){
-               $requested_Product_items = RequestedProductItems::find($product_request_id);
+               $requested_Product_items = PurchaseOrders::find($product_request_id);
            }
-            // dd($requested_Product_items);
+            //  dd($requested_Product_items);
    
            $user = Auth::user();
    
         if($action == 'approve'){
    
-               $requested_Product_items = RequestedProductItems::where(['id'=>$product_request_id])->first();
+               $requested_Product_items = PurchaseOrders::where(['id'=>$product_request_id])->first();
    
                $product_request_id = $requested_Product_items->id;
    
-               $saved_requested_Product_items = RequestedProductItems::where('id', $product_request_id)
-                                   ->update(['product_requested_status' => '1']);
+               $saved_requested_Product_items = PurchaseOrders::where('id', $product_request_id)
+                                   ->update(['order_status' => '1']);
                
                
                return redirect("purchaseorder/approval-product-requests")->with('success', "Item has been approved."); 
    
            }elseif($action == 'reject'){
    
-               $requested_Product_items = RequestedProductItems::where(['id'=>$product_request_id])->first();
+               $requested_Product_items = PurchaseOrders::where(['id'=>$product_request_id])->first();
    
                $product_request_id = $requested_Product_items->id;
    
-               $saved_requested_Product_items = RequestedProductItems::where('id', $product_request_id)
+               $saved_requested_Product_items = PurchaseOrders::where('id', $product_request_id)
                                    ->update(['product_requested_status' => '2']);
                
                return redirect("purchaseorder/approval-product-requests"); 
    
            }
+           elseif($action == 'show_purchase_order_detail'){
+
+            $purchase_order_approval =  DB::table('purchase_orders as po')
+            ->join('purchase_order_stock_items as prsi','po.id','=','prsi.purchase_order_id')
+            ->join('stock_items as si','prsi.stock_item_id','=','si.id')
+            ->join('employees as emp', 'po.created_by', '=', 'emp.user_id')
+            ->select('po.*','prsi.quantity','si.name','emp.fullname')
+            ->where('po.id', $product_request_id)
+            ->get();
+            
+            // return $data['purchase_order_approval'];
+            // $data['vendor_approval'] = Vendor::where(['id'=>$vendor_id])
+            //                                     ->first(); 
+            
+            // $cat_id = $data['vendor_approval']->category_id;
+            // $category_name = DB::table('vendor_categories')->where('id', $cat_id)->value('name');
+
+            // $items = [];
+            // if(!empty($data['vendor_approval']->items_for_service)) {   
+            //     $item_id = explode (",", $data['vendor_approval']->items_for_service);
+            //     $items = StockItem::whereIn('id', $item_id)->pluck('name')->toArray();
+            // }                     
+            return view('purchaseorder/show_purchase_order_detail')->with(['purchase_order_data' => $purchase_order_approval]);
+        }
        }//end of function  
 
         // List Of Product Request Items Status

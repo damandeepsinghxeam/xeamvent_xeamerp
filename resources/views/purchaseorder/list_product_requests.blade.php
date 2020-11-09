@@ -94,11 +94,9 @@
 
                   <th>S.No.</th>
           
-                  <th>Product Name</th>
+                  <th>Purpose</th>
 
-                  <th>Number Of Items Requested</th>
-          
-                  <th>Product Description</th>
+                  <th>Requested By</th>
                   
                   <th>Status</th>                  
 
@@ -129,11 +127,9 @@
 
         <td>{{@$loop->iteration}}</td>
 
-        <td>{{@$value['name']}}</td>
+        <td>{{@$value['purpose']}}</td>
 
-        <td>{{@$value['quantity']}}</td>
-
-        <td>{{@$value['purpose']}}</td>          
+        <td>{{@$value['fullname']}}</td>          
 
         <td>@if($value['order_status'] == '0')
 
@@ -159,8 +155,9 @@
 
         @if(auth()->user()->can('product-request-approval') && $value)
           @if($value['order_status'] == '0')
-          <a class="btn btn-xs bg-blue approveBtn" href='{{ url("purchaseorder/approve/")."/".$value['id']}}' title="approve"><i class="fa fa-check" aria-hidden="true"></i></a>
-          <a class="btn btn-xs bg-red rejectBtn" href='{{ url("purchaseorder/reject/")."/".$value['id']}}' title="reject"><i class="fa fa-close" aria-hidden="true"></i></a>
+          <a class="btn btn-xs bg-orange" href='{{ url("purchaseorder/show_purchase_order_detail/".$value['id'])}}' title="show"><i class="fa fa-eye" aria-hidden="true"></i></a>
+          <!-- <a class="btn btn-xs bg-blue approveBtn" href='{{ url("purchaseorder/approve/")."/".$value['id']}}' title="approve"><i class="fa fa-check" aria-hidden="true"></i></a>
+          <a class="btn btn-xs bg-red rejectBtn" href='{{ url("purchaseorder/reject/")."/".$value['id']}}' title="reject"><i class="fa fa-close" aria-hidden="true"></i></a> -->
           @endif
         @endif
         
@@ -180,11 +177,9 @@
 
                   <th>S.No.</th>
           
-                  <th>Product Name</th>
+                  <th>Purpose</th>  
 
-                  <th>Number Of Items Requested</th>
-
-                  <th>Product Description</th>               
+                  <th>Requested By</th>             
           
                   <td>Status</td>
 
