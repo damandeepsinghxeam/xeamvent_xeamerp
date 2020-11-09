@@ -152,9 +152,9 @@ hr{
 											<td>Required By</td>
 											<td>
 												@if(count($purchase_order_data) > 0)
-													@foreach($purchase_order_data as $purpose)
+													@foreach($purchase_order_data as $req_by)
 														@if($loop->iteration == 1)
-															<p>{{$purpose->required_by}}</p>
+															<p>{{$req_by->required_by}}</p>
 														@endif
 													@endforeach
 												@else
@@ -167,9 +167,9 @@ hr{
 											<td>Requested By</td>
 											<td>
 												@if(count($purchase_order_data) > 0)
-													@foreach($purchase_order_data as $purpose)
+													@foreach($purchase_order_data as $empname)
 														@if($loop->iteration == 1)
-															<p>{{$purpose->fullname}}</p>
+															<p>{{$empname->fullname}}</p>
 														@endif
 													@endforeach
 												@else
@@ -202,8 +202,10 @@ hr{
                         <!-- Row starts here -->
                         <div class="row">
 						   <div class="col-md-6 col-md-offset-5">
+						   @if(auth()->user()->can('product-request-approval') && $purchase_order_data)
 							 <a class="btn btn-xs bg-green approveBtn" href='{{ url("purchaseorder/approve/".$purpose->id)}}' title="approve"><i class="" aria-hidden="true"></i>Approve</a>
 							 <a class="btn btn-xs bg-red rejectBtn" href='{{ url("purchaseorder/reject/".$purpose->id)}}' title="reject"><i class="" aria-hidden="true">Reject</i></a>
+						   @endif
 						   </div>
 						</div>
 						<!-- Row Ends here -->
