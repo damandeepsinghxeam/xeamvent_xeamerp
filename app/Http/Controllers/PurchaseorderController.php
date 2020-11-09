@@ -245,6 +245,15 @@ class PurchaseorderController extends Controller
             ->select('po.*','prsi.quantity','prsi.approx_price','prsi.total_price','si.name','emp.fullname')
             ->where('po.id', $product_request_id)
             ->get();
+
+            // $coordinate_employees =  DB::table('employees as e')
+            // ->join('purchase_order_coordinators as co','po.id','=','prsi.purchase_order_id')
+            // ->join('stock_items as si','prsi.stock_item_id','=','si.id')
+            // ->select('po.*','prsi.quantity','prsi.approx_price','prsi.total_price','si.name','emp.fullname')
+            // ->where('po.id', $product_request_id)
+            // ->get();
+
+            // dd($purchase_order_approval);
             
             // return $data['purchase_order_approval'];
             // $data['vendor_approval'] = Vendor::where(['id'=>$vendor_id])

@@ -85,10 +85,10 @@ hr{
 													@endif
 												
 											</td>
-											<td>
+											<td align="right">
 												@if(count($purchase_order_data) > 0)
 														@foreach($purchase_order_data as $product_name)		
-															<p>{{$product_name->approx_price}} ₹</p>	
+															<p>{{moneyFormat($product_name->approx_price)}}  </p>	
 															<hr>	
 														@endforeach
 													@else
@@ -96,10 +96,10 @@ hr{
 													@endif
 													
 											</td>
-											<td>
+											<td align="right">
 												@if(count($purchase_order_data) > 0)
 														@foreach($purchase_order_data as $product_name)
-															<p>{{$product_name->total_price}} ₹</p>
+															<p>{{moneyFormat($product_name->total_price)}} </p>
 															<hr>
 														@endforeach
 													@else
