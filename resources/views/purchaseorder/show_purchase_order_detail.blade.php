@@ -188,8 +188,8 @@ hr{
                         <!-- Row starts here -->
                         <div class="row">
 						   <div class="col-md-6 col-md-offset-5">
-							 <a class="btn btn-xs bg-green approveBtn" href='{{ url("purchaseorder/approve/")}}' title="approve"><i class="" aria-hidden="true"></i>Approve</a>
-							 <a class="btn btn-xs bg-red rejectBtn" href='{{ url("purchaseorder/reject/")}}' title="reject"><i class="" aria-hidden="true">Reject</i></a>
+							 <a class="btn btn-xs bg-green approveBtn" href='{{ url("purchaseorder/approve/".$purpose->id)}}' title="approve"><i class="" aria-hidden="true"></i>Approve</a>
+							 <a class="btn btn-xs bg-red rejectBtn" href='{{ url("purchaseorder/reject/".$purpose->id)}}' title="reject"><i class="" aria-hidden="true">Reject</i></a>
 						   </div>
 						</div>
 						<!-- Row Ends here -->
