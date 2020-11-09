@@ -242,7 +242,7 @@ class PurchaseorderController extends Controller
             ->join('purchase_order_stock_items as prsi','po.id','=','prsi.purchase_order_id')
             ->join('stock_items as si','prsi.stock_item_id','=','si.id')
             ->join('employees as emp', 'po.created_by', '=', 'emp.user_id')
-            ->select('po.*','prsi.quantity','si.name','emp.fullname')
+            ->select('po.*','prsi.quantity','prsi.approx_price','prsi.total_price','si.name','emp.fullname')
             ->where('po.id', $product_request_id)
             ->get();
             
