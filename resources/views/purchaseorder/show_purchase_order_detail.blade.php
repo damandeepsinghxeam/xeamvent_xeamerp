@@ -8,6 +8,11 @@
 #projectHandover table tr td:first-child {
   font-family: 'Lato-bold';
 }
+
+hr{
+  border-top: 1px solid #D3D3D3;
+  width: 100%;
+}
   
 </style>
 
@@ -44,6 +49,81 @@
 						
 					<!-- Project Handover Tab Starts here -->
 					<div class="active tab-pane" id="projectHandover">
+                        <!-- Row starts here -->
+						<div class="row">
+							<div class="col-md-12">
+								<table class="table table-bordered table-striped">
+									<thead class="table-heading-style table_1">
+										<tr>
+											<th>Item Name</th>
+											<th>Quantity</th>
+											<th>Approx. Price (Per Item)</th>
+											<th>Total Price</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>								
+											<td>
+												@if(count($purchase_order_data) > 0)
+														@foreach($purchase_order_data as $product_name)
+															<p>{{$product_name->name}}</p>
+															<hr>
+														@endforeach
+													@else
+														--
+													@endif
+												
+											</td>
+											<td>
+												@if(count($purchase_order_data) > 0)
+														@foreach($purchase_order_data as $product_name)	
+															<p>{{$product_name->quantity}}</p>	
+															<hr>
+														@endforeach
+													@else
+														--
+													@endif
+												
+											</td>
+											<td>
+												@if(count($purchase_order_data) > 0)
+														@foreach($purchase_order_data as $product_name)		
+															<p>{{$product_name->approx_price}} ₹</p>	
+															<hr>	
+														@endforeach
+													@else
+														--
+													@endif
+													
+											</td>
+											<td>
+												@if(count($purchase_order_data) > 0)
+														@foreach($purchase_order_data as $product_name)
+															<p>{{$product_name->total_price}} ₹</p>
+															<hr>
+														@endforeach
+													@else
+														--
+													@endif
+											</td>		
+										</tr>
+										<tr>
+										
+										</tr>
+									</tbody>
+									<tfoot class="table-heading-style table_1">
+										<tr>
+											<th>Product Name</th>
+											<th>Quantity</th>
+											<th>Approx. Price (Per Item)</th>
+											<th>Total Price</th>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+						</div>
+						<!-- Row Ends here -->
+
 						<!-- Row starts here -->
 						<div class="row">
 							<div class="col-md-6 col-md-offset-3">
@@ -104,80 +184,6 @@
 							</div>
 						</div>
 						<!-- Row Ends here -->
-
-						<div class="row">
-							<div class="col-md-12">
-								<table class="table table-bordered table-striped">
-									<thead class="table-heading-style table_1">
-										<tr>
-											<th>Item Name</th>
-											<th>Quantity</th>
-											<th>Approx. Price (Per Item)</th>
-											<th>Total Price</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>
-												@if(count($purchase_order_data) > 0)
-														@foreach($purchase_order_data as $product_name)
-															@if($loop->iteration == 1)
-																<p>{{$product_name->name}}</p>
-															@endif
-														@endforeach
-													@else
-														--
-													@endif
-											</td>
-											<td>
-												@if(count($purchase_order_data) > 0)
-														@foreach($purchase_order_data as $product_name)
-															@if($loop->iteration == 1)
-																<p>{{$product_name->quantity}}</p>
-															@endif
-														@endforeach
-													@else
-														--
-													@endif
-											</td>
-											<td>
-												@if(count($purchase_order_data) > 0)
-														@foreach($purchase_order_data as $product_name)
-															@if($loop->iteration == 1)
-																<p>{{$product_name->approx_price}}</p>
-															@endif
-														@endforeach
-													@else
-														--
-													@endif
-											</td>
-											<td>
-												@if(count($purchase_order_data) > 0)
-														@foreach($purchase_order_data as $product_name)
-															@if($loop->iteration == 1)
-																<p>{{$product_name->total_price}}</p>
-															@endif
-														@endforeach
-													@else
-														--
-													@endif
-											</td>
-										
-										</tr>
-										<tr>
-										</tr>
-									</tbody>
-									<tfoot class="table-heading-style table_1">
-										<tr>
-											<th>Product Name</th>
-											<th>Quantity</th>
-											<th>Approx. Price (Per Item)</th>
-											<th>Total Price</th>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-						</div>
 
 
 					</div>
