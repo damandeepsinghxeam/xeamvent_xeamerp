@@ -231,7 +231,7 @@ class PurchaseorderController extends Controller
                $product_request_id = $requested_Product_items->id;
    
                $saved_requested_Product_items = PurchaseOrders::where('id', $product_request_id)
-                                   ->update(['product_requested_status' => '2']);
+                                   ->update(['order_status' => '2']);
                
                return redirect("purchaseorder/approval-product-requests"); 
    
@@ -250,20 +250,7 @@ class PurchaseorderController extends Controller
             ->join('purchase_order_coordinators as co','e.user_id','=','co.coordinator_user_id')
             ->select('e.fullname as coordinate_employee_name')
             ->where('co.purchase_order_id', $product_request_id)
-            ->get();
-            
-            // return $data['purchase_order_approval'];
-            // $data['vendor_approval'] = Vendor::where(['id'=>$vendor_id])
-            //                                     ->first(); 
-            
-            // $cat_id = $data['vendor_approval']->category_id;
-            // $category_name = DB::table('vendor_categories')->where('id', $cat_id)->value('name');
-
-            // $items = [];
-            // if(!empty($data['vendor_approval']->items_for_service)) {   
-            //     $item_id = explode (",", $data['vendor_approval']->items_for_service);
-            //     $items = StockItem::whereIn('id', $item_id)->pluck('name')->toArray();
-            // }                     
+            ->get();                   
             return view('purchaseorder/show_purchase_order_detail')->with(['purchase_order_data' => $purchase_order_approval, 'coordinate_employees' => $coordinate_employees]);
         }
        }//end of function  
