@@ -246,14 +246,11 @@ class PurchaseorderController extends Controller
             ->where('po.id', $product_request_id)
             ->get();
 
-            // $coordinate_employees =  DB::table('employees as e')
-            // ->join('purchase_order_coordinators as co','po.id','=','prsi.purchase_order_id')
-            // ->join('stock_items as si','prsi.stock_item_id','=','si.id')
-            // ->select('po.*','prsi.quantity','prsi.approx_price','prsi.total_price','si.name','emp.fullname')
-            // ->where('po.id', $product_request_id)
-            // ->get();
-
-            // dd($purchase_order_approval);
+            $coordinate_employees =  DB::table('employees as e')
+            ->join('purchase_order_coordinators as co','e.user_id','=','co.coordinator_user_id')
+            ->select('e.fullname as coordinate_employee_name')
+            ->where('co.purchase_order_id', $product_request_id)
+            ->get();
             
             // return $data['purchase_order_approval'];
             // $data['vendor_approval'] = Vendor::where(['id'=>$vendor_id])
@@ -267,7 +264,7 @@ class PurchaseorderController extends Controller
             //     $item_id = explode (",", $data['vendor_approval']->items_for_service);
             //     $items = StockItem::whereIn('id', $item_id)->pluck('name')->toArray();
             // }                     
-            return view('purchaseorder/show_purchase_order_detail')->with(['purchase_order_data' => $purchase_order_approval]);
+            return view('purchaseorder/show_purchase_order_detail')->with(['purchase_order_data' => $purchase_order_approval, 'coordinate_employees' => $coordinate_employees]);
         }
        }//end of function  
 

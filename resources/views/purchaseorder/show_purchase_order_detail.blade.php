@@ -176,7 +176,21 @@ hr{
 													--
 												@endif
 											</td>
-											</tr>	
+											</tr>
+
+											<tr>
+											<td>Coordinate Employees</td>
+											<td>
+												@if(count($coordinate_employees) > 0)
+													@foreach($coordinate_employees as $coordinate_emp)
+															<p>{{$coordinate_emp->coordinate_employee_name}}</p>
+													@endforeach
+												@else
+													--
+												@endif
+											</td>
+											</tr>
+
 										</tr>		
 									</tbody>
 								</table>
