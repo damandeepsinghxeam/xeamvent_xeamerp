@@ -94,13 +94,13 @@
 
                   <th>S.No.</th>
           
-                  <th>Product Name</th>
+                  <th>Purpose</th>
 
-                  <th>Quantity</th>
-
-                  <th>Purpose</th>  
+                  <th>Requested By</th>
                   
-                  <th>Status</th>                                 
+                  <th>Status</th>                  
+
+                  <th>Actions</th>              
 
                 </tr>
 
@@ -117,17 +117,15 @@
         ?>  
         @if(isset($requested_product_items) AND ($requested_product_items!=""))
 
-        @foreach($requested_product_items as $key =>$value)  
+                @foreach($requested_product_items as $key =>$value)  
       
-      <tr>
+                <tr>
 
         <td>{{@$loop->iteration}}</td>
 
-        <td>{{@$value['name']}}</td>
+        <td>{{@$value['purpose']}}</td>
 
-        <td>{{@$value['quantity']}}</td>
-
-        <td>{{@$value['purpose']}}</td>          
+        <td>{{@$value['fullname']}}</td>          
 
         <td>@if($value['order_status'] == '0')
 
@@ -143,9 +141,14 @@
 
         @endif
         
-        </td>                                
 
-    </tr>
+        </td>                 
+
+        <td>
+          <a class="btn btn-xs bg-orange" href='{{ url("purchaseorder/show_purchase_order_detail/".$value['id'])}}' title="show"><i class="fa fa-eye" aria-hidden="true"></i></a>   
+        </td>              
+
+                </tr>
 
                 @endforeach
         @endif
@@ -157,13 +160,13 @@
 
                   <th>S.No.</th>
           
-                  <th>Product Name</th>
+                  <th>Purpose</th>  
 
-                  <th>Quantity</th>
-
-                  <th>Purpose</th>               
+                  <th>Requested By</th>             
           
                   <td>Status</td>
+
+                  <th>Actions</th>
 
                 </tr>
 
@@ -179,8 +182,8 @@
          </div>
           <!-- /.box -->
       </div>
-      <!-- /.row -->
     </section>
+
     <!-- /.content -->
 
 
@@ -233,8 +236,37 @@
 <!--Script Files starts here-->
 <script src="{{asset('public/admin_assets/plugins/dataTables/jquery.dataTables.min.js')}}"></script>
 <!--Script Files ends here-->
+  
 
   <script type="text/javascript">
+
+      $(".approveBtn").on('click',function(){
+        if (!confirm("Are you sure you want to approve this product request?")) {
+            return false; 
+        }else{
+
+        }
+      });
+
+       $(".rejectBtn").on('click',function(){
+        if (!confirm("Are you sure you want to reject this product request?")) {
+            return false; 
+        }
+      });
+
+    /*  $(".additionalProjectInfo").on('click',function(){
+        var projectId = $(this).data('projectid');
+
+        $.ajax({
+          type: "POST",
+          url: "{{ url('mastertables/additional-project-info') }}",
+          data: {project_id: projectId},
+          success: function (result){
+            $(".projectInfoModalBody").html(result);
+            $('#projectInfoModal').modal('show');
+          }
+        });
+      });*/
 
       $(document).ready(function() {
           $('#listProjects').DataTable({

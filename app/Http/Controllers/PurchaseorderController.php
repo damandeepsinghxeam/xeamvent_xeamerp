@@ -185,8 +185,6 @@ class PurchaseorderController extends Controller
         if($product_request_app AND !$product_request_app->isEmpty() AND $canapprove==1){   
             foreach($product_request_app as $productRequestData){         
                 $product_request_data_array['id'] = $productRequestData->id;
-                //$product_request_data_array['name'] = $productRequestData->name;
-                //$product_request_data_array['quantity'] = $productRequestData->quantity;
                 $product_request_data_array['purpose'] = $productRequestData->purpose;
                 $product_request_data_array['fullname'] = $productRequestData->fullname;
                 $product_request_data_array['order_status'] = $productRequestData->order_status;
@@ -255,32 +253,29 @@ class PurchaseorderController extends Controller
         }
        }//end of function  
 
-        // List Of Product Request Items Status
+        // List Of Product Request Items Status for who requested
         function ProductRequestsStatus(){   
 
             $user = Auth::user();
             $user_id = $user->id;
-    
+
             $product_request_app =  DB::table('purchase_orders as po')
-                        ->join('purchase_order_stock_items as prsi','po.id','=','prsi.purchase_order_id')
-                        ->join('stock_items as si','prsi.stock_item_id','=','si.id')
-                        ->select('po.*','prsi.quantity','si.name')
+                        ->join('employees as emp', 'po.created_by', '=', 'emp.user_id')
+                        ->select('po.*','emp.fullname')
                         ->get();
-    
+
             if($product_request_app AND !$product_request_app->isEmpty()){   
                 foreach($product_request_app as $productRequestData){         
                     $product_request_data_array['id'] = $productRequestData->id;
                     $product_request_data_array['purpose'] = $productRequestData->purpose;
-                    $product_request_data_array['name'] = $productRequestData->name;
-                    $product_request_data_array['quantity'] = $productRequestData->quantity;
+                    $product_request_data_array['fullname'] = $productRequestData->fullname;
                     $product_request_data_array['order_status'] = $productRequestData->order_status;
-                    $data[] = $product_request_data_array;       
+                    $data[] = $product_request_data_array;
                 }
             }else{
                 $data=[];
             }   
-            // dd($data);
-            
+            // dd($data);       
             return view('purchaseorder.list_product_requests_status')->with(['requested_product_items'=>$data, 'approval'=>'1']);
     
         }
